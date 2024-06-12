@@ -1,7 +1,12 @@
+#include<stdio.h>
+#include<stdlib.h>
 
 
-int main()
+int main(int argc, char **argv)
 {
+	
+	//no hice nada :(
+	return(0);
     //esto es un cambio.
     //esto es el nuevo cambio!!!!!
 
