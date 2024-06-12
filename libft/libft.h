@@ -87,4 +87,5 @@ void	ft_swap(int *a, int *b);
 int		ft_min(int a, int b);
 int		ft_abs(int n);
 void	free_string(char **s);
+int	ft_isblank(char c);
 #endif
