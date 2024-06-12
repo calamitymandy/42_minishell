@@ -1,12 +1,10 @@
+#include<stdio.h>
+#include<stdlib.h>
 
 
-int main()
+int main(int argc, char **argv)
 {
-    //esto es un cambio.
-    //esto es el nuevo cambio!!!!!
-
-    //veamos
-
-    //pull request desde algalian
-    return(0);
+	
+	//no hice nada :(
+	return(0);
 }
