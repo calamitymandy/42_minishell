@@ -12,7 +12,7 @@
 - git merge main -> para traer los cambios de main a nuestra rama
 ```
 
-3- Para subir tus cambios a `main` con PULL REQUEST:
+3- Para subir cambios a `main` con PULL REQUEST:
 
 - Desde GitHub, hacer un `pull request` a `main` para incluir los cambios de nuestra rama en main.
 
