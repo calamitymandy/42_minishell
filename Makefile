@@ -1,6 +1,6 @@
 NAME        = minishell
 
-SRCS        = parse.c\
+SRCS        = main.c quotinq.c\
 
 OBJS        = $(SRCS:.c=.o)
 
@@ -10,7 +10,7 @@ INCLUDES    = -I$(LIBFT_DIR)
 LIBS        = -lreadline -L$(LIBFT_DIR) -lft
 
 CC          = gcc
-CFLAGS      = $(INCLUDES)
+CFLAGS      = $(INCLUDES) -I.
 LDFLAGS     = $(LIBS)
 
 all: $(NAME)
