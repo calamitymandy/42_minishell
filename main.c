@@ -6,32 +6,91 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/06/20 20:59:52 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:20:52 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 /*compile with gcc main.c -lreadline*/
 
-int g_status;
+int	g_status;
 
-void    exit_mini(t_minishell *mini, int exit_code)
+bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {
-    //TODO
-    exit(exit_code);
+	int res;
+	
+	res = true;
+	if (!fds_in_and_out)
+		return (res);
+	if (fds_in_and_out->stdin_ori != -1)
+	{
+		if (dup2(fds_in_and_out->stdin_ori, STDIN_FILENO) == -1)
+			res = false;
+		close(fds_in_and_out->stdin_ori);
+		fds_in_and_out->stdin_ori = -1;
+	}
+	if (fds_in_and_out->stdout_ori != -1)
+	{
+		if (dup2(fds_in_and_out->stdout_ori, STDOUT_FILENO) == -1)
+			res = false;
+		close(fds_in_and_out->stdout_ori);
+		fds_in_and_out->stdout_ori = -1;
+	}
+	return (res);
 }
 
-bool    init_main_struct(t_minishell *mini, char **env)
+void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
 {
-    //TODO set_env_var & set_pwd_and aldpwd
-    mini->env = env;
-    mini->line = NULL;
-    //mini->ctrlc_heredoc = false;
-    //mini->token = NULL;
-    //mini->cmd = NULL;
-    mini->pid = -1;
-    g_status = 0;
-    return (true);
+	while (cmd)
+	{
+		if (cmd != skip_cmd && cmd->pipe_fd)
+		{
+			close(cmd->pipe_fd[0]);
+			close(cmd->pipe_fd[1]);
+		}
+		cmd = cmd->next;
+	}
+}
+
+void	close_fds(t_command *cmd, bool close_or_not)
+{
+	if (cmd->fds)
+	{
+		if (cmd->fds->fd_infile || cmd->fds->fd_outfile)
+		{
+			if (cmd->fds->fd_infile != -1)
+				close (cmd->fds->fd_infile);
+			else
+				close (cmd->fds->fd_outfile);
+		}
+		if (close_or_not)
+			reset_fds_in_and_out(cmd->fds);
+	}
+    close_pipe_fd(cmd, NULL);
+}
+
+void	exit_mini(t_minishell *mini, int exit_code)
+{
+	if (mini)
+	{
+		if (mini->cmd && mini->cmd->fds)
+			close_fds(mini->cmd, true);
+		//free data
+	}
+	exit(exit_code);
+}
+
+bool	init_main_struct(t_minishell *mini, char **env)
+{
+	//TODO set_env_var & set_pwd_and aldpwd
+	mini->env = env;
+	mini->line = NULL;
+	//mini->ctrlc_heredoc = false;
+	//mini->token = NULL;
+	//mini->cmd = NULL;
+	mini->pid = -1;
+	g_status = 0;
+	return (true);
 }
 
 bool	create_pipes(t_minishell *mini)
@@ -76,13 +135,12 @@ int	exec_main(t_minishell *mini)
 		return (result);
 }
 
-void    main_loop(t_minishell *mini)
+void	main_loop(t_minishell *mini)
 {
-    while (1) {
-        mini->line = readline("$-> ");
-        if (!mini->line) {
-            break; // Exit on EOF (Ctrl-D)
-        }
+	while (1) {
+		mini->line = readline("$-> ");
+		if (!mini->line)
+			break; // Exit on EOF (Ctrl-D)
 
         // Remove trailing newline
         mini->line[strcspn(mini->line, "\n")] = '\0';
@@ -108,18 +166,18 @@ void    main_loop(t_minishell *mini)
     }
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-    t_minishell mini;
-
-    (void)argv;
-    if (argc != 1)
+	t_minishell mini;
+	
+	(void)argv;
+	if (argc != 1)
 	{
 		ft_putendl_fd("Error: execute with ./minishell, nothing more", 2);
 		exit_mini(NULL, EXIT_FAILURE);
 	}
     if (!init_main_struct(&mini, env))
-        exit_mini(NULL, EXIT_FAILURE);
-    main_loop(&mini);
-    return 0;
+		exit_mini(NULL, EXIT_FAILURE);
+	main_loop(&mini);
+	return 0;
 }
