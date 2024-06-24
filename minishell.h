@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/06/20 20:59:55 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:02:46 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,12 +32,24 @@ typedef struct s_token
 	
 }	t_token;
 
+typedef struct s_fds
+{
+	char		*infile;
+	char		*outfile;
+	int			fd_infile;
+	int			fd_outfile;
+	int			stdin_ori;
+	int			stdout_ori;
+	bool		msg_err;
+}	t_fds;
+
 typedef struct s_command
 {
 	bool				pipe_output;
 	struct s_command	*prev;
 	struct s_command	*next;
 	int					*pipe_fd;
+	t_fds				*fds;
 }	t_command;
 
 typedef struct	s_minishell
