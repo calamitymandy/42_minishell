@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -31,10 +32,8 @@ char	*ft_strchr(const char *s, int c)
 
 /*int main()
 {
-	char string[] = "tripouille";
-	int caracter = 't' + 256;
+	char string[] = "1234 $asdf 98234kjhss";
+	int caracter = '$';
 	printf("%s", ft_strchr(string, caracter));
-	printf("\n");
-	printf("%s", strchr(string, caracter));
 	return(0);
 }*/

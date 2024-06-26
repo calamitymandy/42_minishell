@@ -1,6 +1,6 @@
 NAME        = minishell
 
-SRCS        = main.c quotinq.c\
+SRCS        = expand.c\
 
 OBJS        = $(SRCS:.c=.o)
 
