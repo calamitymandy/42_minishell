@@ -46,7 +46,7 @@ char  *expand(char *s, char *alias, char *var)
 		return(s);
 }
 
-int main(int argc, char **argv)
+/*int main(int argc, char **argv)
 {
 	char *s;
 
@@ -59,3 +59,4 @@ int main(int argc, char **argv)
 	printf("%s\n",s);
 	return(0);
 }
+*/

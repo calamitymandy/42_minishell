@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/06/24 18:20:52 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:02:11 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,6 +14,16 @@
 /*compile with gcc main.c -lreadline*/
 
 int	g_status;
+
+bool	check_in_and_out(t_fds	*in_n_out)
+{
+	if (!in_n_out || (!in_n_out->infile && !in_n_out->outfile))
+		return (true);
+	if ((in_n_out->infile && in_n_out->fd_infile == -1)
+		|| (in_n_out->outfile && in_n_out->fd_outfile == -1))
+		return (false);
+	return (true);
+}
 
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {
@@ -133,12 +143,24 @@ int	exec_main(t_minishell *mini)
 	result = prep_the_cmd(mini);
 	if (result != 127)
 		return (result);
+	if (!mini->cmd->pipe_output && !mini->cmd->prev
+		&& check_in_and_out(mini->cmd->fds))
+	{
+		//TODO config in out
+		//TODO result = exec_builtin(mini, mini->cmd);
+		//TODO reset in out
+	}
+	if (result != 127)
+		return (result);
+	//TODO return (create_children(mini));
 }
 
 void	main_loop(t_minishell *mini)
 {
 	while (1) {
+		//TODO interact sig
 		mini->line = readline("$-> ");
+		//TODO no interact sig
 		if (!mini->line)
 			break; // Exit on EOF (Ctrl-D)
 
@@ -152,8 +174,9 @@ void	main_loop(t_minishell *mini)
         }
 
 		//process input line
-		//if(lexer)
+		//TODO if(lexer)
 			g_status = exec_main(mini);
+		//TODO free data (NOW: free(mini->line);)
 
         // Here you will add command execution
         printf("You entered: %s\n", mini->line);
