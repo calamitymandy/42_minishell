@@ -17,9 +17,9 @@ char  *expand(char *s, char *alias, char *var)
 	int		j;
 
 	f = ft_strchr(s, '$');
-	if(!f || s[ft_strlen(s) - 1] == '$' || f[1] == 32)
+	if(!f || !f[1])
 	{
-		printf("Null or blank ended, or not found\n");
+	//	printf("Null or blank ended, or not found\n");
 		return(s);
 	}
 	i = 0;
@@ -33,9 +33,11 @@ char  *expand(char *s, char *alias, char *var)
 	f = ft_strnstr(s, match, (size_t) ft_strlen(s));
 	l = ft_substr(s, 0, i);
 	r = ft_substr(s, j, ft_strlen(s));
-	if(f || (ft_strnstr(s, aux,ft_strlen(s)) &&(!s[j] || s[j] == 32)) && ft_strncmp(ft_strchr(s,'$'),aux,ft_strlen(ft_strchr(s,'$'))) <= 0)
+	if(s[ft_strlen(s) - 1] == '$')
+		r = ft_strjoin(r,"$");
+	if(f || ft_strnstr(s, aux,ft_strlen(s)) && ((!s[j] || s[j] == 32) && (ft_strncmp(ft_strchr(s,'$'),aux,ft_strlen(ft_strchr(s,'$'))) <= 0 || s[ft_strlen(s) - 1] == '$')))
 	{
-		printf("So the substring is definetely there\n");
+	//	printf("So the substring is definetely there\n");
 		free(aux);
 		aux = var;
 		match = ft_strjoin(l, aux);
@@ -45,9 +47,9 @@ char  *expand(char *s, char *alias, char *var)
 		free(r);
 		expand(x, alias, var);
 	}
-    else
+	else
 	{
-		printf("The substring isn't there\n");
+		//printf("The substring isn't there\n");
 		x = ft_strjoin(l, r);
 		free(aux);
 		free(match);
