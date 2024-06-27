@@ -30,7 +30,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 /*int main()
 {
     char string1[] = "AAAAA";
-    char string2[] = "AAAB";
+    char string2[] = "AAAB
     unsigned int alcance = 9;
     printf("%i", ft_strncmp(string1, string2, alcance));
 	printf("\n");
