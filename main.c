@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/06/26 19:02:11 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:46:56 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -97,7 +97,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	mini->line = NULL;
 	//mini->ctrlc_heredoc = false;
 	//mini->token = NULL;
-	//mini->cmd = NULL;
+	mini->cmd = NULL;
 	mini->pid = -1;
 	g_status = 0;
 	return (true);
@@ -128,7 +128,16 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
-	//TODO STRUCTS CMD/TOKEN & CHECK IO FCT
+	//TODO init mini->cmd->cmd & mini->token->has_quotes somewhere
+	if (!mini || !mini->cmd || !mini->cmd->cmd ||
+		(mini->cmd->cmd[0] == '\0' && mini->token->has_quotes == false))
+		return (EXIT_SUCCESS);
+	if (mini->cmd && !mini->cmd->cmd)
+	{
+		if (mini->cmd->fds && !check_in_and_out(mini->cmd->fds))
+			return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
+	}
 	if (!create_pipes(mini))
 		return (EXIT_FAILURE);
 	return (127);
