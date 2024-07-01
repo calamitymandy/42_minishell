@@ -2,7 +2,9 @@
 #include<stdlib.h>
 #include"./libft/libft.h"
 
-char  *expand(char *s, char *alias, char *var)
+
+
+char	*expand(char *s, char *alias, char *var)
 {
 
 	char	*l;
@@ -15,35 +17,40 @@ char  *expand(char *s, char *alias, char *var)
 	int		j;
 
 	f = ft_strchr(s, '$');
-	if(!f || s[ft_strlen(s) - 1] == '$' || f[1] == 32)
-	{
-		printf("Null or blank ended, or not found\n");
+	if(!f || !f[1])
 		return(s);
-	}
+	i = 0;
+	while(s[i] && s[i] != '$')
+		i++;
+	j = i;
+	while(s[j] && s[j] != 32)
+		j++;
 	aux = ft_strjoin("$",alias);
 	match = ft_strjoin(aux, " ");
 	f = ft_strnstr(s, match, (size_t) ft_strlen(s));
-	if(!f) 
+	l = ft_substr(s, 0, i);
+	r = ft_substr(s, j, ft_strlen(s));
+	if(s[ft_strlen(s) - 1] == '$')
+		r = ft_strjoin(r,"$");
+	if(f || ft_strnstr(s, aux,ft_strlen(s)) && ((!s[j] || s[j] == 32) && (ft_strncmp(ft_strchr(s,'$'),aux,ft_strlen(ft_strchr(s,'$'))) <= 0 || s[ft_strlen(s) - 1] == '$')))
 	{
-		printf("So the substring isn't there\n");
-		i = 0;
-		while(s[i] && s[i] != '$')
-			i++;
-		j = i;
-		while(s[j] && s[j] != 32)
-			j++;
-		l = ft_substr(s, 0, i);
-		r = ft_substr(s, j, ft_strlen(s));
-		x = ft_strjoin(l, r);
+		//printf("So the substring is definetely there\n");
 		free(aux);
-		free(match);
-		free(l);
-		free(r);
-		free(s);
-		return(x); 
+		aux = var;
+		match = ft_strjoin(l, aux);
+		x = ft_strjoin(match, r);
+
 	}
 	else
-		return(s);
+	{
+		//printf("The substring isn't there\n");
+		x = ft_strjoin(l, r);
+		free(aux);
+	}
+	free(match);
+	free(l);
+	free(r);
+	expand(x, alias, var);
 }
 
 /*int main(int argc, char **argv)
