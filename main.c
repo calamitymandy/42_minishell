@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/06/27 18:46:56 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:52:43 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,6 +23,30 @@ bool	check_in_and_out(t_fds	*in_n_out)
 		|| (in_n_out->outfile && in_n_out->fd_outfile == -1))
 		return (false);
 	return (true);
+}
+
+bool	config_in_and_out(t_fds	*in_n_out)
+{
+	int result;
+
+	result = true;
+	if (!in_n_out)
+		return (result);
+	
+	in_n_out->stdin_ori = dup(STDIN_FILENO);
+	in_n_out->stdout_ori = dup(STDOUT_FILENO);
+
+	if (in_n_out->stdin_ori == -1)
+		result = printf("TODO stdin_ori MSG ERROR");
+	if (in_n_out->stdout_ori == -1)
+		result = printf("TODO stdout_ori MSG ERROR");
+	if (in_n_out->fd_infile != -1 && 
+		(dup2(in_n_out->fd_infile, STDIN_FILENO) == -1))
+		result = printf("TODO dup2 fd_infile MSG ERROR");
+	if (in_n_out->fd_outfile != -1 && 
+		(dup2(in_n_out->fd_outfile, STDIN_FILENO) == -1))
+		result = printf("TODO dup2 fd_outfile MSG ERROR");
+	return (result);
 }
 
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
@@ -96,7 +120,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	mini->env = env;
 	mini->line = NULL;
 	//mini->ctrlc_heredoc = false;
-	//mini->token = NULL;
+	mini->token = NULL;
 	mini->cmd = NULL;
 	mini->pid = -1;
 	g_status = 0;
@@ -128,10 +152,12 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
+	printf("here it prints");
 	//TODO init mini->cmd->cmd & mini->token->has_quotes somewhere
 	if (!mini || !mini->cmd || !mini->cmd->cmd ||
 		(mini->cmd->cmd[0] == '\0' && mini->token->has_quotes == false))
 		return (EXIT_SUCCESS);
+	printf("here it does not print");
 	if (mini->cmd && !mini->cmd->cmd)
 	{
 		if (mini->cmd->fds && !check_in_and_out(mini->cmd->fds))
@@ -155,13 +181,14 @@ int	exec_main(t_minishell *mini)
 	if (!mini->cmd->pipe_output && !mini->cmd->prev
 		&& check_in_and_out(mini->cmd->fds))
 	{
-		//TODO config in out
+		config_in_and_out(mini->cmd->fds);
 		//TODO result = exec_builtin(mini, mini->cmd);
 		//TODO reset in out
 	}
 	if (result != 127)
 		return (result);
 	//TODO return (create_children(mini));
+	return (1);
 }
 
 void	main_loop(t_minishell *mini)
@@ -170,6 +197,7 @@ void	main_loop(t_minishell *mini)
 		//TODO interact sig
 		mini->line = readline("$-> ");
 		//TODO no interact sig
+/*
 		if (!mini->line)
 			break; // Exit on EOF (Ctrl-D)
 
@@ -181,20 +209,20 @@ void	main_loop(t_minishell *mini)
             free(mini->line);
             break;
         }
-
-		//process input line
-		//TODO if(lexer)
-			g_status = exec_main(mini);
-		//TODO free data (NOW: free(mini->line);)
-
-        // Here you will add command execution
-        printf("You entered: %s\n", mini->line);
-
-        // Add to history
+*/
         if (strlen(mini->line) > 0) {
             add_history(mini->line);
         }
         free(mini->line);
+		
+		//process input line
+		//TODO if(lexer)
+			g_status = exec_main(mini);
+			
+		//TODO free data (NOW: free(mini->line);)
+		
+        //printf("You wrote: %s\n", mini->line);
+		printf("You wrote: %d\n", g_status);
     }
 }
 
