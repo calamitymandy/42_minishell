@@ -113,4 +113,5 @@ char	*expand(char *s, char *alias, char *var)
 	printf("%s\n",s);
 	system("leaks -q minishell");
 	return(0);
-}*/
+}
+*/*/
