@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "minishell.h"
 
 static char	*fit(char *alias, char *var, char *p)
 {
@@ -56,7 +56,7 @@ static char	*skip(char *p)
 	return (t);
 }
 
-static void	match_pattern(char *p, char *alias, char *var, char *x)
+static void	match_pattern(char *p, char *alias, char *var, char **x)
 {
 	char	*temp;
 	char	*t;
@@ -66,12 +66,14 @@ static void	match_pattern(char *p, char *alias, char *var, char *x)
 	j = 0;
 	while (p[j] && p[j] == alias[j])
 		j++;
-	if (j == ft_strlen(alias) && (p[j + 1] == 32 || !p[j + 1]))
+	if (j == ft_strlen(alias) && (p[j] == 32 || !p[j]))
 		t = fit(alias, var, p);
 	else
 		t = skip(p);
-	temp = ft_strjoin(x, t);
-	x = temp;
+	temp = ft_strjoin(*x, t);
+	//free(*x);
+	*x = temp;
+	//free(t);
 }
 
 char	*expand(char *s, char *alias, char *var)
@@ -93,10 +95,12 @@ char	*expand(char *s, char *alias, char *var)
 		x = ft_strdup("");
 	while (p[i])
 	{
-		match_pattern(p[i], alias, var, x);
+		match_pattern(p[i], alias, var, &x);
 		i++;
 	}
 	free_string(p);
+	if(s[ft_strlen(s) - 1] == '$')
+		x = ft_strjoin(x, "$");
 	return (x);
 }
 
@@ -111,7 +115,5 @@ char	*expand(char *s, char *alias, char *var)
 	}
 	s = expand(argv[1], "asdf", "VARIABLE");
 	printf("%s\n",s);
-	system("leaks -q minishell");
 	return(0);
-}
-*/*/
+}*/
