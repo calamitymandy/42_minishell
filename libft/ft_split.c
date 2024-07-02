@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include<stdio.h>
 
 static unsigned int	ft_words(char const *s, char c)
 {
@@ -78,16 +79,17 @@ char	**ft_split(char const *s, char c)
 
 /*int main()
 {
-	char const string[] = "";
-	char separador = ' ';
+	char const string[] = "asdf                     $                 weroitueirr $asdf qweer $qertt $919123";
+	char separador = '$';
 	char **split;
 	unsigned int i;
+
 	split = ft_split(string, separador);
+
 	i = 0;
-	while(i < ft_words(string,separador))
+	while(split[i])
 	{
-		printf("String %i: %s", i, split[i]);
-		printf("\n");
+		printf("String %i: %s\n", i, split[i]);
 		i++;
 	}
 	//system("leaks -q a.out");//
