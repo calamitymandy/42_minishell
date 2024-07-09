@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/07/01 21:52:43 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:59:56 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -214,7 +214,6 @@ void	main_loop(t_minishell *mini)
             add_history(mini->line);
         }
         free(mini->line);
-		
 		//process input line
 		//TODO if(lexer)
 			g_status = exec_main(mini);
