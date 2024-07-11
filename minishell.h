@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/06/27 18:40:33 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:52:57 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -20,6 +20,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
+#include <limits.h>
+# include <errno.h>
 
 #define MAX_INPUT_SIZE 1024
 
@@ -45,6 +47,7 @@ typedef struct s_fds
 
 typedef struct s_command
 {
+	char				**args;
 	bool				pipe_output;
 	struct s_command	*prev;
 	struct s_command	*next;
@@ -57,6 +60,8 @@ typedef struct	s_minishell
 {
 	char		**env;
 	char		*line;
+	char		*pwd;
+	char		*old_pwd;
 	//bool		ctrlc_heredoc;
 	t_token		*token;
 	t_command	*cmd;
