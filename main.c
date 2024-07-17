@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/07/11 21:03:25 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:55:31 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -262,18 +262,24 @@ bool	config_in_and_out(t_fds	*in_n_out)
 	in_n_out->stdin_ori = dup(STDIN_FILENO);
 	in_n_out->stdout_ori = dup(STDOUT_FILENO);
 	if (in_n_out->stdin_ori == -1)
-		result = printf("TODO stdin_ori MSG ERROR");
+		result = error_msg("dup", "stdin_ori", strerror(errno), false);
 	if (in_n_out->stdout_ori == -1)
-		result = printf("TODO stdout_ori MSG ERROR");
+		result = error_msg("dup", "stdout_ori", strerror(errno), false);
 	if (in_n_out->fd_infile != -1
 		&& (dup2(in_n_out->fd_infile, STDIN_FILENO) == -1))
-		result = printf("TODO dup2 fd_infile MSG ERROR");
+		result = error_msg("dup2", in_n_out->infile, strerror(errno), false);
 	if (in_n_out->fd_outfile != -1
 		&& (dup2(in_n_out->fd_outfile, STDIN_FILENO) == -1))
-		result = printf("TODO dup2 fd_outfile MSG ERROR");
+		result = error_msg("dup2", in_n_out->outfile, strerror(errno), false);
 	return (result);
 }
 
+/**
+ * `reset_fds_in_and_out` resets file descriptors for standard input 
+ * and output to their original values.
+ * returns a boolean value indicating whether the file descriptors 
+ * have been successfully reset.
+ */
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {
 	int	res;
@@ -298,6 +304,13 @@ bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 	return (res);
 }
 
+/**
+ * `close_pipe_fd` closes pipe file descriptors for all commands except 
+ * for a specified command.
+ * This function iterates through a linked list of `t_command` structures 
+ * and closes the file descriptors stored in the `pipe_fd` array for each 
+ * command, except for the command pointed to by `skip_cmd`.
+ */
 void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
 {
 	while (cmd)
@@ -311,38 +324,29 @@ void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
 	}
 }
 
+/**
+ * close_fds` closes file descriptors and resets them if specified.
+ * If `close_or_not` is true, the function will call `reset_fds_in_and_out` 
+ * to reset the file descriptors in the `cmd` structure.
+ */
 void	close_fds(t_command *cmd, bool close_or_not)
 {
 	if (cmd->fds)
 	{
-		if (cmd->fds->fd_infile || cmd->fds->fd_outfile)
-		{
-			if (cmd->fds->fd_infile != -1)
+		if (cmd->fds->fd_infile != -1)
 				close (cmd->fds->fd_infile);
-			else
+		if (cmd->fds->fd_outfile != -1)
 				close (cmd->fds->fd_outfile);
-		}
 		if (close_or_not)
 			reset_fds_in_and_out(cmd->fds);
 	}
 	close_pipe_fd(cmd, NULL);
 }
 
-void	exit_mini(t_minishell *mini, int exit_code)
-{
-	if (mini)
-	{
-		if (mini->cmd && mini->cmd->fds)
-			close_fds(mini->cmd, true);
-		//free data
-	}
-	exit(exit_code);
-}
-
 bool	init_main_struct(t_minishell *mini, char **env)
 {
-	//TODO set_env_var & set_pwd_and aldpwd
-	mini->env = env;
+	//TODO set_env && set_pwd_and oldpwd
+	mini->env = env; //QUIT when TODO is done
 	mini->line = NULL;
 	//mini->ctrlc_heredoc = false;
 	mini->token = NULL;
@@ -395,6 +399,38 @@ int	prep_the_cmd(t_minishell *mini)
 	return (127);
 }
 
+int	exec_cmd(t_minishell *mini, t_command *cmd)
+{
+	int	res;
+
+	if (check_in_and_out(cmd->fds))
+		exit_mini(mini, EXIT_FAILURE);
+	//set_pipes_fds(mini->cmd, cmd); //TODO
+	config_in_and_out(cmd->fds);
+	close_fds(mini->cmd, false);
+	//TODO EXEC BUILTINS && SYS BINARY
+	exit_mini(mini, res);
+	return (res);
+}
+
+int	create_children(t_minishell *mini)
+{
+	t_command	*cmd;
+
+	cmd = mini->cmd;
+	while (mini->pid != 0 && cmd)
+	{
+		mini->pid = fork();
+		if (mini->pid == -1)
+			return (error_msg("fork", NULL, strerror(errno), EXIT_FAILURE));
+		else if (mini->pid == 0)
+			exec_cmd(mini, cmd); //IN PROGRESS
+		cmd = cmd->next;
+	}
+	//return (child_status(mini)); //TODO
+	return (1);
+}
+
 /* This function executes the processed command and returns a status code 
 that updates g_status. 
 127 = cmd unknown*/
@@ -410,12 +446,11 @@ int	exec_main(t_minishell *mini)
 	{
 		config_in_and_out(mini->cmd->fds);
 		result = exec_builtin(mini, mini->cmd);
-		//TODO reset in out
+		reset_fds_in_and_out(mini->cmd->fds);
 	}
 	if (result != 127)
 		return (result);
-	//TODO return (create_children(mini));
-	return (1);
+	return (create_children(mini));
 }
 
 void	main_loop(t_minishell *mini)
@@ -451,6 +486,18 @@ void	main_loop(t_minishell *mini)
 		//printf("You wrote: %d\n", g_status);
 	}
 }
+
+void	exit_mini(t_minishell *mini, int exit_code)
+{
+	if (mini)
+	{
+		if (mini->cmd && mini->cmd->fds)
+			close_fds(mini->cmd, true);
+		//free data
+	}
+	exit(exit_code);
+}
+
 
 int	main(int argc, char **argv, char **env)
 {
