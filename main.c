@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/07/17 20:55:31 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:53:30 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,17 +17,17 @@
  * The function `error_msg` generates and outputs an error message with 
  * specific formatting based on the input parameters.
  * 
- * @param info The `info` parameter in the `error_msg` function is a string 
- * that contains additional information related to the error message being 
- * displayed. It is used to provide context or details about the error that 
- * occurred.
- * @param msg The `msg` parameter in the `error_msg` function is a string 
- * that represents the error message to be displayed.
- * @param err_nb The `err_nb` parameter in the `error_msg` function is an 
- * integer that represents the error number or code associated with the 
- * error message being displayed. It is used to indicate the specific type 
- * of error that occurred during the execution of a command.
+ * 1. Initializes the output string with the PROMPT prefix.
+ * 2. Appends the command, if provided.
+ * 3. Appends additional information with special handling for specific 
+ * 	commands export or unset.
+ * 4. Appends the error message.
+ * 5. Prints the formatted message to standard error.
+ * 6. Returns the provided error number.
  */
+
+int	g_status;
+
 int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
 	char	*output;
@@ -240,8 +240,11 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 	return (cmd_res);
 }
 
-int	g_status;
-
+/**
+ * Checks if input and output file descriptors are valid in a given structure.
+ * If the file descriptors are valid, it returns true. 
+ * Otherwise, it returns false.
+ */
 bool	check_in_and_out(t_fds	*in_n_out)
 {
 	if (!in_n_out || (!in_n_out->infile && !in_n_out->outfile))
@@ -252,6 +255,21 @@ bool	check_in_and_out(t_fds	*in_n_out)
 	return (true);
 }
 
+/**
+ * SLIGHT MODIF
+ * configures the standard input and output file descriptors for a process.
+ * It makes duplicates of the current standard input and output, then 
+ * redirects them to specified files if provided. 
+ * 
+ * 1. Checks if the in_n_out structure is not NULL.
+ * 2. Duplicates the current standard input and output file descriptors and
+ * stores them in the stdin_ori and stdout_ori fields of the in_n_out structure.
+ * 3. Redirects the standard input to fd_infile if it is provided.
+ * 4. Redirects the standard output to fd_outfile if it is provided.
+ * 5. Handles any errors during these operations and logs them using the 
+ * error_msg function.
+ * 6. Returns true if all operations succeed and false if any operation fails.
+ */
 bool	config_in_and_out(t_fds	*in_n_out)
 {
 	int	result;
@@ -356,6 +374,13 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	return (true);
 }
 
+/**
+ * The function creates pipes for inter-process communication in a shell program
+ * whith: pipe(fd).
+ * It returns `true` if the pipes are successfully created for the commands in 
+ * the struct, or `false` if there is an error during pipe creation 
+ * or memory allocation.
+ */
 bool	create_pipes(t_minishell *mini)
 {
 	int			*fd;
@@ -368,7 +393,7 @@ bool	create_pipes(t_minishell *mini)
 			|| (temp_cmd->prev && temp_cmd->prev->pipe_output))
 		{
 			fd = malloc (sizeof * fd * 2);
-			if (!fd || pipe (fd) != 0)
+			if (!fd || pipe(fd) != 0)
 			{
 				//free data
 				return (false);
