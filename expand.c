@@ -68,6 +68,8 @@ static void	match_pattern(char *p, char *alias, char *var, char **x)
 		j++;
 	if (j == ft_strlen(alias) && (p[j] == 32 || !p[j]))
 		t = fit(alias, var, p);
+	else if (p[0] == 32)
+		t = ft_strjoin("$",p);
 	else
 		t = skip(p);
 	temp = ft_strjoin(*x, t);
@@ -104,7 +106,7 @@ char	*expand(char *s, char *alias, char *var)
 	return (x);
 }
 
-/*int main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	char *s;
 
@@ -116,4 +118,4 @@ char	*expand(char *s, char *alias, char *var)
 	s = expand(argv[1], "asdf", "VARIABLE");
 	printf("%s\n",s);
 	return(0);
-}*/
+}
