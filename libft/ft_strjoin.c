@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+	#include<stdio.h>
+
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -40,7 +42,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 /*int main()
 {
-	char string1[] = "Naciste, idiota, ";
+	char *string1 = "Naciste, idiota,";
 	char const string2[] = "en una tarde de viento";
 	printf("%s", ft_strjoin(string1, string2));
 	return(0);

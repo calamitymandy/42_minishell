@@ -10,7 +10,7 @@ INCLUDES    = -I$(LIBFT_DIR)
 LIBS        = -lreadline -L$(LIBFT_DIR) -lft
 
 CC          = gcc
-CFLAGS      = $(INCLUDES) -I.
+CFLAGS      = $(INCLUDES) -g -I.
 LDFLAGS     = $(LIBS)
 
 all: $(NAME)
