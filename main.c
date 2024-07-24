@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/07/23 20:53:30 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:27:03 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -293,10 +293,11 @@ bool	config_in_and_out(t_fds	*in_n_out)
 }
 
 /**
- * `reset_fds_in_and_out` resets file descriptors for standard input 
- * and output to their original values.
- * returns a boolean value indicating whether the file descriptors 
- * have been successfully reset.
+ * Restores the original stdin & stdout fds if they were saved:
+ * Uses dup2 to restore the original stdin & stdout.
+ * Closes the temporary file descriptor.
+ * Resets stdin_ori to -1.
+ * returns a boolean value indicating whether the fds have been successfully reset.
  */
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {
@@ -328,7 +329,7 @@ bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
  * This function iterates through a linked list of `t_command` structures 
  * and closes the file descriptors stored in the `pipe_fd` array for each 
  * command, except for the command pointed to by `skip_cmd`.
- */
+
 void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
 {
 	while (cmd)
@@ -341,11 +342,15 @@ void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
 		cmd = cmd->next;
 	}
 }
+*/
 
 /**
  * close_fds` closes file descriptors and resets them if specified.
  * If `close_or_not` is true, the function will call `reset_fds_in_and_out` 
  * to reset the file descriptors in the `cmd` structure.
+ * 
+ * MIXED WITH CLOSE_PIPE_FD (while) to closes pipe file descriptors for all 
+ * commands except NULL.
  */
 void	close_fds(t_command *cmd, bool close_or_not)
 {
@@ -358,7 +363,15 @@ void	close_fds(t_command *cmd, bool close_or_not)
 		if (close_or_not)
 			reset_fds_in_and_out(cmd->fds);
 	}
-	close_pipe_fd(cmd, NULL);
+	while (cmd)
+	{
+		if (cmd != NULL && cmd->pipe_fd)
+		{
+			close(cmd->pipe_fd[0]);
+			close(cmd->pipe_fd[1]);
+		}
+		cmd = cmd->next;
+	}
 }
 
 bool	init_main_struct(t_minishell *mini, char **env)
@@ -423,6 +436,30 @@ int	prep_the_cmd(t_minishell *mini)
 		return (EXIT_FAILURE);
 	return (127);
 }
+ /*
+ * MIXED WITH CLOSE_PIPE_FD (while) to closes pipe file descriptors for all 
+ * commands except current_cmd.
+ */
+
+bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
+{
+	if (!current_cmd)
+		return(false);
+	if (current_cmd->prev && current_cmd->prev->pipe_output)
+		dup2(current_cmd->prev->pipe_fd[0], STDIN_FILENO);
+	if (current_cmd->pipe_output)
+		dup2(current_cmd->pipe_fd[1], STDOUT_FILENO);
+	while (cmd_list)
+	{
+		if (cmd_list != current_cmd && cmd_list->pipe_fd)
+		{
+			close(cmd_list->pipe_fd[0]);
+			close(cmd_list->pipe_fd[1]);
+		}
+		cmd_list = cmd_list->next;
+	}
+	return (true);
+}
 
 int	exec_cmd(t_minishell *mini, t_command *cmd)
 {
@@ -430,7 +467,7 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 
 	if (check_in_and_out(cmd->fds))
 		exit_mini(mini, EXIT_FAILURE);
-	//set_pipes_fds(mini->cmd, cmd); //TODO
+	set_n_close_pipes_fds(mini->cmd, cmd); //Mix of two
 	config_in_and_out(cmd->fds);
 	close_fds(mini->cmd, false);
 	//TODO EXEC BUILTINS && SYS BINARY
