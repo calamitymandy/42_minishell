@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/07/24 19:27:03 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:19:45 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -461,6 +461,74 @@ bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
 	return (true);
 }
 
+bool	is_directory(char *cmd)
+{
+	struct stat	cmd_stat;
+
+	ft_memset(&cmd_stat, 0, sizeof(cmd_stat));
+	stat(cmd, &cmd_stat);
+	return (S_ISDIR(cmd_stat.st_mode));
+}
+
+/*char *ms_get_cmd_path(t_minishell *mini, char *cmd) 
+{
+	char **env_paths;
+	char *cmd_path;
+	char *full_path;
+	
+    if (!cmd)
+		return NULL;
+    int i = 0;
+    while (mini->env[i] != NULL && ft_strnstr(mini->env[i], "PATH", 4) == NULL)
+        i++;
+    if (mini->env[i] == NULL)
+		return NULL;
+
+    env_paths = ft_split(mini->env[i] + 5, ':');
+    if (!env_paths)
+		return NULL;
+
+    cmd_path = NULL;
+    for (i = 0; env_paths[i] != NULL; i++) {
+        if (cmd[0] == '/') {
+            full_path = ft_strdup(cmd);
+        }
+		else
+		{
+            char *temp_path = ft_strjoin(env_paths[i], "/");
+            full_path = ft_strjoin(temp_path, cmd);
+            free(temp_path);
+        }
+
+        if (!full_path)
+			free(full_path);
+
+        if (access(full_path, F_OK | X_OK) == 0) {
+            cmd_path = full_path;
+            break;
+        }
+        free(full_path);
+    }
+	i = 0;
+    while (env_paths[i] != NULL)
+        free(env_paths[i++]);
+    free(env_paths);
+
+    return cmd_path;
+}
+*/
+
+
+int	exec_sys_binary(t_minishell *mini, t_command *cmd)
+{
+	if (!cmd->cmd || cmd->cmd[0] == '\0')
+		return (127);
+	if (is_directory(cmd->cmd))
+		return (127);
+	//TODO
+	cmd->path = get_path_cmd(mini, cmd->cmd);
+}
+
 int	exec_cmd(t_minishell *mini, t_command *cmd)
 {
 	int	res;
@@ -470,6 +538,15 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 	set_n_close_pipes_fds(mini->cmd, cmd); //Mix of two
 	config_in_and_out(cmd->fds);
 	close_fds(mini->cmd, false);
+	if (ft_strchr(cmd->cmd, '/') == NULL)
+	{
+		res = exec_builtin(mini, cmd);
+		if (res != 127)
+			exit_mini(mini, res);
+		res = exec_sys_binary(mini, cmd);
+		if (res != 127)
+			exit_mini(mini, res);
+	}
 	//TODO EXEC BUILTINS && SYS BINARY
 	exit_mini(mini, res);
 	return (res);
