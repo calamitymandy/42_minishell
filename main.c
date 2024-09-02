@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/08/07 20:19:45 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:59:19 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -470,54 +470,34 @@ bool	is_directory(char *cmd)
 	return (S_ISDIR(cmd_stat.st_mode));
 }
 
-/*char *ms_get_cmd_path(t_minishell *mini, char *cmd) 
+/* mix de get_env_path & find_valid_cmd_path NOPENOPENOPE!!!Assignment in control structure*/
+char	*ms_get_cmd_path(t_minishell *ms, char *str)
 {
-	char **env_paths;
-	char *cmd_path;
-	char *full_path;
-	
-    if (!cmd)
-		return NULL;
-    int i = 0;
-    while (mini->env[i] != NULL && ft_strnstr(mini->env[i], "PATH", 4) == NULL)
-        i++;
-    if (mini->env[i] == NULL)
-		return NULL;
+	char	**env_paths;
+	char	*cmd;
+	char	*cmd_path;
+	int		i;
 
-    env_paths = ft_split(mini->env[i] + 5, ':');
-    if (!env_paths)
-		return NULL;
-
-    cmd_path = NULL;
-    for (i = 0; env_paths[i] != NULL; i++) {
-        if (cmd[0] == '/') {
-            full_path = ft_strdup(cmd);
-        }
-		else
-		{
-            char *temp_path = ft_strjoin(env_paths[i], "/");
-            full_path = ft_strjoin(temp_path, cmd);
-            free(temp_path);
-        }
-
-        if (!full_path)
-			free(full_path);
-
-        if (access(full_path, F_OK | X_OK) == 0) {
-            cmd_path = full_path;
-            break;
-        }
-        free(full_path);
-    }
+	if (!str || !(env_paths = ms_get_env_paths(ms)) || !(cmd = ft_strjoin("/", str)))
+	{
+		ms_ptr_free_arr(env_paths);
+		return (NULL);
+	}
 	i = 0;
-    while (env_paths[i] != NULL)
-        free(env_paths[i++]);
-    free(env_paths);
-
-    return cmd_path;
+	while (env_paths[i])
+	{
+		if ((cmd_path = ft_strjoin(env_paths[i++], cmd)) && access(cmd_path, F_OK | X_OK) == 0)
+		{
+			ms_ptr_free(cmd);
+			ms_ptr_free_arr(env_paths);
+			return (cmd_path);
+		}
+		ms_ptr_free(cmd_path);
+	}
+	ms_ptr_free(cmd);
+	ms_ptr_free_arr(env_paths);
+	return (NULL);
 }
-*/
-
 
 int	exec_sys_binary(t_minishell *mini, t_command *cmd)
 {
