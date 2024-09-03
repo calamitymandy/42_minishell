@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/02 20:59:19 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:35:51 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 /*compile with gcc main.c -lreadline*/
@@ -55,7 +55,7 @@ int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 	return (err_nb);
 }
 
-char	*get_env_var_value(char **env, char *key)
+char	*get_env_value(char **env, char *key)
 {
 	int		i;
 	char	*temp;
@@ -68,12 +68,12 @@ char	*get_env_var_value(char **env, char *key)
 	{
 		if (ft_strncmp(temp, env[i], ft_strlen(temp)) == 0)
 		{
-			//TODO FREE
+			free_star(temp);
 			return (ft_strchr(env[i], '=') + 1);
 		}
 		i++;
 	}
-	//TODO FREE
+	free_star(temp);
 	return (NULL);
 }
 
@@ -158,7 +158,7 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 
 void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 {
-	add_or_update_env_var(mini, "OLDPWD", get_env_var_value(mini->env, "PWD"));
+	add_or_update_env_var(mini, "OLDPWD", get_env_value(mini->env, "PWD"));
 	add_or_update_env_var(mini, "PWD", buf_of_work_dir_path);
 	if (mini->old_pwd)
 	{
@@ -212,7 +212,7 @@ int	exec_cd(t_minishell *mini, char **args)
 
 	if (!args[1] || ft_isblank(args[1][0]) || args[1][0] == '\0')
 	{
-		path = get_env_var_value(mini->env, "HOME");
+		path = get_env_value(mini->env, "HOME");
 		if (!path || *path == '\0' || ft_isblank(*path))
 			return (error_msg("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!cd(mini, path));
@@ -221,7 +221,7 @@ int	exec_cd(t_minishell *mini, char **args)
 		return (error_msg("cd", NULL, "Error: too many arguments", 1));
 	if (ft_strncmp(args[1], "-", 2) == 0)
 	{
-		path = get_env_var_value(mini->env, "OLDPWD");
+		path = get_env_value(mini->env, "OLDPWD");
 		if (!path)
 			return (error_msg("cd", NULL, "Error: OLDPWD not set", EXIT_FAILURE));
 		ft_putendl_fd(path, 2);
@@ -470,33 +470,88 @@ bool	is_directory(char *cmd)
 	return (S_ISDIR(cmd_stat.st_mode));
 }
 
-/* mix de get_env_path & find_valid_cmd_path NOPENOPENOPE!!!Assignment in control structure*/
-char	*ms_get_cmd_path(t_minishell *ms, char *str)
+int	find_env_index_of_key(char **env, char *key)
+{
+	int		i;
+	char *aux;
+
+	aux = ft_strjoin(key, "=");
+	if (!aux)
+		return (-1);
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(aux, env[i], ft_strlen(aux)) == 0)
+		{
+			free_star(aux);
+			return (i);
+		}
+		i++;
+	}
+	free_star(aux);
+	return (-1);
+}
+
+char	*find_valid_cmd_path(char *cmd, char **all_paths)
+{
+	char	*cmd_path;
+	int		i;
+
+	cmd_path = NULL;
+	i = 0;
+	while (all_paths[i])
+	{
+		cmd_path = ft_strjoin(all_paths[i], cmd);
+		if (!cmd_path)
+		{
+			error_msg("malloc", NULL, "an unexpected error occured", EXIT_FAILURE);
+			return (NULL);
+		}
+		if (access(cmd_path, F_OK | X_OK) == 0)
+			return (cmd_path);
+		free_star(cmd_path);
+		i++;
+	}
+	return (NULL);
+}
+
+/* mix de get_env_path & get_cmd_path 
+ *
+ * get_path_cmd function takes a command (such as ls, grep, etc.) and 
+ * searches for its location within the directories specified by the PATH 
+ * environment variable. If it finds a path where the command is executable,
+ * it returns the full path. If an error occurs at any point (for example,
+ * if PATH doesn't exist or if no valid path is found), the function frees
+ * the used memory and returns NULL.
+*/
+
+char	*get_path_cmd(t_minishell *mini, char *str)
 {
 	char	**env_paths;
 	char	*cmd;
 	char	*cmd_path;
-	int		i;
 
-	if (!str || !(env_paths = ms_get_env_paths(ms)) || !(cmd = ft_strjoin("/", str)))
+	if (!str)
+		return (NULL);
+	if (find_env_index_of_key(mini->env, "PATH") == -1)
+		return (NULL);
+	env_paths = ft_split(get_env_value(mini->env, "PATH"), ':');
+	if (!env_paths)
+		return (NULL);
+	cmd = ft_strjoin("/", str);
+	if (!cmd)
 	{
-		ms_ptr_free_arr(env_paths);
+		free_two_stars(env_paths);
 		return (NULL);
 	}
-	i = 0;
-	while (env_paths[i])
+	cmd_path = find_valid_cmd_path(cmd, env_paths);
+	if (!cmd_path)
 	{
-		if ((cmd_path = ft_strjoin(env_paths[i++], cmd)) && access(cmd_path, F_OK | X_OK) == 0)
-		{
-			ms_ptr_free(cmd);
-			ms_ptr_free_arr(env_paths);
-			return (cmd_path);
-		}
-		ms_ptr_free(cmd_path);
+		free_star(cmd);
+		free_two_stars(env_paths);
+		return (NULL);
 	}
-	ms_ptr_free(cmd);
-	ms_ptr_free_arr(env_paths);
-	return (NULL);
+	return (cmd_path);
 }
 
 int	exec_sys_binary(t_minishell *mini, t_command *cmd)
@@ -505,8 +560,12 @@ int	exec_sys_binary(t_minishell *mini, t_command *cmd)
 		return (127);
 	if (is_directory(cmd->cmd))
 		return (127);
-	//TODO
 	cmd->path = get_path_cmd(mini, cmd->cmd);
+	if (!cmd->path)
+		return (127);
+	if (execve(cmd->path, cmd->args, mini->env) == -1)
+		error_msg("execve", NULL, strerror(errno), errno);
+	return (EXIT_FAILURE);
 }
 
 int	exec_cmd(t_minishell *mini, t_command *cmd)
@@ -527,7 +586,7 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 		if (res != 127)
 			exit_mini(mini, res);
 	}
-	//TODO EXEC BUILTINS && SYS BINARY
+	//res = exec_local_binary(mini, cmd); //TODO NEXT
 	exit_mini(mini, res);
 	return (res);
 }

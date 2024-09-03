@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/08/07 19:33:44 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:43:54 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
@@ -74,5 +74,8 @@ typedef struct	s_minishell
 void exit_mini(t_minishell *mini, int exit_code);
 bool init_main_struct(t_minishell *mini, char **env);
 void main_loop(t_minishell *mini);
+
+void	free_star(void *ptr);
+void	free_two_stars(char **arr);
 
 #endif
