@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/03 20:35:51 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/10 20:51:45 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -567,6 +567,22 @@ int	exec_sys_binary(t_minishell *mini, t_command *cmd)
 		error_msg("execve", NULL, strerror(errno), errno);
 	return (EXIT_FAILURE);
 }
+/*Mix of exec_local_binary & check_cmd_validity*/
+int	exec_local_binary(t_minishell *mini, t_command *cmd)
+{
+	if (ft_strchr(cmd->cmd, '/') == NULL
+		&& find_env_index_of_key(mini->env, "PATH") != -1)
+		return (error_msg(cmd->cmd, NULL, "command not found", 127));
+	if (access(cmd->cmd, F_OK) != 0)
+		return (error_msg(cmd->cmd, NULL, strerror(errno), 127));
+	if (is_directory(cmd->cmd))
+		return (error_msg(cmd->cmd, NULL, "is a directory", 126));
+	if (access(cmd->cmd, F_OK | X_OK) != 0)
+		return (error_msg(cmd->cmd, NULL, strerror(errno), 126));
+	if (execve(cmd->cmd, cmd->args, mini->env) == -1)
+		return (error_msg("execve", NULL, strerror(errno), errno));
+	return (EXIT_FAILURE);
+}
 
 int	exec_cmd(t_minishell *mini, t_command *cmd)
 {
@@ -586,7 +602,7 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 		if (res != 127)
 			exit_mini(mini, res);
 	}
-	//res = exec_local_binary(mini, cmd); //TODO NEXT
+	res = exec_local_binary(mini, cmd); //DONE-> GO ON!!!
 	exit_mini(mini, res);
 	return (res);
 }
