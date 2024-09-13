@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/10 20:51:45 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:23:41 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,12 +420,11 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
-	printf("here it prints");
 	//TODO init mini->cmd->cmd & mini->token->has_quotes somewhere
 	if (!mini || !mini->cmd || !mini->cmd->cmd
 		|| (mini->cmd->cmd[0] == '\0' && mini->token->has_quotes == false))
 		return (EXIT_SUCCESS);
-	printf("here it does not print");
+	//printf("here it does not print");
 	if (mini->cmd && !mini->cmd->cmd)
 	{
 		if (mini->cmd->fds && !check_in_and_out(mini->cmd->fds))
@@ -602,9 +601,56 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 		if (res != 127)
 			exit_mini(mini, res);
 	}
-	res = exec_local_binary(mini, cmd); //DONE-> GO ON!!!
+	res = exec_local_binary(mini, cmd);
 	exit_mini(mini, res);
 	return (res);
+}
+/* waits for all child processes to finish and gathers the exit status
+* of the shell's main process (identified by mini->pid):
+* 1- Closes file descriptors.
+* 2- Waits for child processes using waitpid.
+* 3- Stores the status of the main child process.
+*	After all child processes have finished and the loop ends,
+*	the function evaluates how the main child process
+*	(stored in save_status) terminated:
+* WIFSIGNALED(save_status) checks if child was terminated by 
+* a signal (SIGKILL, SIGINT).
+* If the child was terminated by a signal, the exit status is calculated
+* as 128 + WTERMSIG(save_status), where WTERMSIG extracts the signal number.
+* WIFEXITED(save_status) checks if the child terminated normally via a 
+* call to exit() or by returning from main(). If so, the exit status is 
+* set to the exit code of the child, extracted using WEXITSTATUS(save_status).
+* else : If the child didn’t terminate in either of the above two conditions,
+* it returns save_status as-is, which might handle other rare termination cases.
+* 4- Checks if the child was terminated by a signal or exited normally 
+* and returns the appropriate status.
+* 	The function is crucial for correctly handling the termination of child
+* 	processes and communicating their exit status to the parent shell 
+* 	process, which affects how the shell responds after a command is executed.
+*/
+int	child_status(t_minishell *mini)
+{
+	pid_t	pid_from_waitpid;
+	int		status;
+	int		save_status;
+
+	close_fds(mini->cmd, false);
+	save_status = 0;
+	pid_from_waitpid = 0;
+	while (pid_from_waitpid != -1 || errno != ECHILD)
+	{
+		pid_from_waitpid = waitpid(-1, &status, 0);
+		if (pid_from_waitpid == mini->pid)
+			save_status = status;
+		continue ;
+	}
+	if (WIFSIGNALED(save_status))
+		status = 128 + WTERMSIG(save_status);
+	else if (WIFEXITED(save_status))
+		status = WEXITSTATUS(save_status);
+	else
+		status = save_status;
+	return (status);	
 }
 
 int	create_children(t_minishell *mini)
@@ -618,11 +664,10 @@ int	create_children(t_minishell *mini)
 		if (mini->pid == -1)
 			return (error_msg("fork", NULL, strerror(errno), EXIT_FAILURE));
 		else if (mini->pid == 0)
-			exec_cmd(mini, cmd); //IN PROGRESS
+			exec_cmd(mini, cmd);
 		cmd = cmd->next;
 	}
-	//return (child_status(mini)); //TODO
-	return (1);
+	return (child_status(mini));
 }
 
 /* This function executes the processed command and returns a status code 
@@ -687,7 +732,7 @@ void	exit_mini(t_minishell *mini, int exit_code)
 	{
 		if (mini->cmd && mini->cmd->fds)
 			close_fds(mini->cmd, true);
-		//free data
+		//free data TODO
 	}
 	exit(exit_code);
 }

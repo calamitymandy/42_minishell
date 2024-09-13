@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/03 18:43:54 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:13:14 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> // QUIT?
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -23,6 +23,8 @@
 #include <limits.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define MAX_INPUT_SIZE 1024
 
