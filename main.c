@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/13 19:23:41 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:52:35 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 	}
 	output = ft_strjoin(output, msg);
 	ft_putendl_fd(output, STDERR_FILENO);
-	//TODO FREE
+	free_star(output);
 	return (err_nb);
 }
 
@@ -206,6 +206,7 @@ bool	cd(t_minishell *mini, char *path)
 	return (true);
 }
 
+/*!!!!!!! check is_blank !!!!!!!!!!*/
 int	exec_cd(t_minishell *mini, char **args)
 {
 	char	*path;
@@ -379,7 +380,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	//TODO set_env && set_pwd_and oldpwd
 	mini->env = env; //QUIT when TODO is done
 	mini->line = NULL;
-	//mini->ctrlc_heredoc = false;
+	//mini->ctrlc_heredoc = false; TODO
 	mini->token = NULL;
 	mini->cmd = NULL;
 	mini->pid = -1;
@@ -408,7 +409,7 @@ bool	create_pipes(t_minishell *mini)
 			fd = malloc (sizeof * fd * 2);
 			if (!fd || pipe(fd) != 0)
 			{
-				//free data
+				//free data: ms_data_free(mini, false);
 				return (false);
 			}
 			temp_cmd->pipe_fd = fd;
