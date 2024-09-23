@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/13 18:13:14 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:46:15 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ extern int	g_status;
 
 typedef struct s_token
 {
-	bool		has_quotes;	
+	bool			has_quotes;
+	struct s_token	*prev;
+	struct s_token	*next;
+	char			*content;
+	char			*token_type;
 }	t_token;
 
 typedef struct s_fds
@@ -46,6 +50,7 @@ typedef struct s_fds
 	int			stdin_ori;
 	int			stdout_ori;
 	bool		msg_err;
+	char		*del_heredoc;
 }	t_fds;
 
 typedef struct s_command

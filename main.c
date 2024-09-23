@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/17 17:52:35 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:49:39 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,6 @@ bool	cd(t_minishell *mini, char *path)
 	return (true);
 }
 
-/*!!!!!!! check is_blank !!!!!!!!!!*/
 int	exec_cd(t_minishell *mini, char **args)
 {
 	char	*path;
@@ -409,7 +408,7 @@ bool	create_pipes(t_minishell *mini)
 			fd = malloc (sizeof * fd * 2);
 			if (!fd || pipe(fd) != 0)
 			{
-				//free data: ms_data_free(mini, false);
+				clean_data(mini, false);
 				return (false);
 			}
 			temp_cmd->pipe_fd = fd;
@@ -588,7 +587,7 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 {
 	int	res;
 
-	if (check_in_and_out(cmd->fds))
+	if (!check_in_and_out(cmd->fds))
 		exit_mini(mini, EXIT_FAILURE);
 	set_n_close_pipes_fds(mini->cmd, cmd); //Mix of two
 	config_in_and_out(cmd->fds);
@@ -720,10 +719,104 @@ void	main_loop(t_minishell *mini)
 		//TODO if(lexer)
 		g_status = exec_main(mini);
 
-		//TODO free data (NOW: free(mini->line);)
+		clean_data(mini, false);
 
 		printf("You wrote: %s\n", mini->line);
 		//printf("You wrote: %d\n", g_status);
+	}
+}
+
+/* mix of 2: delete all token node && delete one token node
+ * ADDED: delete_all, flag to delete one or all nodes in the list, 
+ * depending on the flag being on 1 or 0.
+*/
+void	clean_token_nodes(t_token **lst, void (*del)(void *), int delete_all)
+{
+	t_token	*temp;
+
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		if (del && (*lst))
+		{
+			if ((*lst)->content)
+				(*del)((*lst)->content);
+			if ((*lst)->token_type)
+				(*del)((*lst)->token_type);
+		}
+		if ((*lst)->prev)
+			(*lst)->prev->next = (*lst)->next;
+		if ((*lst)->next)
+			(*lst)->next->prev = (*lst)->prev;
+		free_star(*lst);
+		if (!delete_all)
+			break ;
+		*lst = temp;
+	}
+	if (delete_all)
+		*lst = NULL;
+}
+
+void	free_in_and_out_fds(t_fds *in_and_out)
+{
+	if (!in_and_out)
+		return ;
+	reset_fds_in_and_out(in_and_out);
+	if (in_and_out->del_heredoc)
+	{
+		unlink(in_and_out->del_heredoc);
+		free_star(in_and_out->del_heredoc);
+	}
+	if (in_and_out->infile)
+		free_star(in_and_out->infile);
+	if (in_and_out->outfile)
+		free_star(in_and_out->outfile);
+	if (in_and_out)
+		free_star(in_and_out);
+}
+
+/*mix of 2 clean all nodes and clean one node*/
+void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
+{
+	t_command	*temp;
+	
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		if ((*lst)->cmd)
+			(*del)((*lst)->cmd);
+		if ((*lst)->args)
+			(*del)((*lst)->args);
+		if ((*lst)->pipe_fd)
+			(*del)((*lst)->pipe_fd);
+		if ((*lst)->fds)
+			free_in_and_out_fds((*lst)->fds);
+		(*del)(*lst);
+		*lst = temp;
+	}
+	*lst = NULL;
+}
+
+void	clean_data(t_minishell *mini, bool clear_hist_or_not)
+{
+	if (mini && mini->line)
+	{
+		free_star(mini->line);
+		mini->line = NULL;
+	}
+	if (mini && mini->token)
+		clean_token_nodes(&mini->token, &free_star, 1);
+	if (mini && mini->cmd)
+		clean_cmd_nodes(&mini->cmd, &free_star);
+	if (clear_hist_or_not == true)
+	{
+		if (mini && mini->pwd)
+			free_star(mini->pwd);
+		if (mini && mini->old_pwd)
+			free_star(mini->old_pwd);
+		if (mini && mini->env)
+			free_two_stars(mini->env);
+		clear_history();
 	}
 }
 
@@ -733,7 +826,7 @@ void	exit_mini(t_minishell *mini, int exit_code)
 	{
 		if (mini->cmd && mini->cmd->fds)
 			close_fds(mini->cmd, true);
-		//free data TODO
+		clean_data(mini, true);
 	}
 	exit(exit_code);
 }
