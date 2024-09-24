@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/23 19:46:15 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:08:10 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_token
 	struct s_token	*next;
 	char			*content;
 	char			*token_type;
+	int				index;
+	int				type;
 }	t_token;
 
 typedef struct s_fds
@@ -77,6 +79,12 @@ typedef struct	s_minishell
 	pid_t		pid;
 	
 }	t_minishell;
+
+//enums
+enum e_token_types
+{
+	VAR,
+};
 
 void exit_mini(t_minishell *mini, int exit_code);
 bool init_main_struct(t_minishell *mini, char **env);

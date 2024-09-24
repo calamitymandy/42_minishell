@@ -6,11 +6,12 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/23 20:49:39 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:21:42 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void clean_data(t_minishell *mini, bool clear_hist_or_not);
 /*compile with gcc main.c -lreadline*/
 
 /**
@@ -230,6 +231,114 @@ int	exec_cd(t_minishell *mini, char **args)
 	return (!cd(mini, args[1]));
 }
 
+/*Mix of 2 with quotes checker*/
+bool	is_var_no_quotes(t_token *tkns, int index)
+{
+	t_token	*lst;
+	int i;
+
+	i = 0;
+	lst = tkns;
+	while (lst)
+	{
+		if (lst->index == index && lst->type == VAR)
+		{
+			while (lst->token_type[i])
+			{
+				if (lst->token_type[i] == '"' || lst->token_type[i] == '\'')
+					return (false);
+				i++;
+			}
+			return (true);
+		}
+		lst = lst->next;
+	}
+	return (false);
+}
+/* Mix of 2 with count_no_white_space
+*/
+char	*remove_extra_spaces(const char *str)
+{
+	char	*new_string;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	new_string = malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!new_string)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isblank(str[i]) || (i > 0 && !ft_isblank(str[i - 1])))
+			new_string[j++] = str[i];
+		i++;
+	}
+	while (j > 0 && ft_isblank(new_string[j - 1]))
+		j--;
+	new_string[j] = '\0';
+	return (new_string);
+}
+
+void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
+{
+	char	*clean_arg;
+
+	if (!args[i])
+	{
+		if (!minus_n_flag)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		return ;
+	}
+	while (args[i])
+	{
+		if (is_var_no_quotes(mini->token, i))
+		{
+			clean_arg = remove_extra_spaces(args[i]);
+			ft_putstr_fd(clean_arg, STDOUT_FILENO);
+			free(clean_arg);
+		}
+		else
+			ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i +1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		else if (!args[i + 1 && !minus_n_flag])
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		i++;
+	}
+}
+
+/* Handle the special -n flag, which suppress the newline at the end of the output.
+ * Ensures that a string like -n, -nn, -nnn, etc., is valid but not something 
+ * like -nX or -nx
+ * Mix of 2 with n_flag
+*/
+int	exec_echo(t_minishell *mini, char **args)
+{
+	int		i;
+	int		j;
+	bool	minus_n_flag;
+
+	minus_n_flag = false;
+	i = 1;
+	while (args[i])
+	{
+		j = 0;
+		if (args[i][j] != '-' || (args[i][j] == '-' && args[i][j + 1] != 'n'))
+			break ;
+		j++;
+		while (args[i][j] && args[i][j] == 'n')
+			j++;
+		if (args[i][j] != '\0')
+			break ;
+		minus_n_flag = true;
+		i++;
+	}
+	print_echo(args, minus_n_flag, i, mini);
+	return (EXIT_SUCCESS);
+}
+
 int	exec_builtin(t_minishell *mini, t_command *cmd)
 {
 	int	cmd_res;
@@ -237,6 +346,8 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 	cmd_res = 127;
 	if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
 		cmd_res = exec_cd(mini, cmd->args);
+	else if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
+		cmd_res = exec_echo(mini, cmd->args);
 	return (cmd_res);
 }
 
@@ -692,40 +803,6 @@ int	exec_main(t_minishell *mini)
 	return (create_children(mini));
 }
 
-void	main_loop(t_minishell *mini)
-{
-	while (1)
-	{
-		//TODO interact sig
-		mini->line = readline("$-> ");
-		//TODO no interact sig
-/*
-		if (!mini->line)
-			break; // Exit on EOF (Ctrl-D)
-
-        // Remove trailing newline
-        mini->line[strcspn(mini->line, "\n")] = '\0';
-
-        // Exit command
-        if (strcmp(mini->line, "exit") == 0) {
-            free(mini->line);
-            break;
-        }
-*/
-		if (strlen(mini->line) > 0)
-			add_history(mini->line);
-		free(mini->line);
-		//process input line
-		//TODO if(lexer)
-		g_status = exec_main(mini);
-
-		clean_data(mini, false);
-
-		printf("You wrote: %s\n", mini->line);
-		//printf("You wrote: %d\n", g_status);
-	}
-}
-
 /* mix of 2: delete all token node && delete one token node
  * ADDED: delete_all, flag to delete one or all nodes in the list, 
  * depending on the flag being on 1 or 0.
@@ -830,7 +907,19 @@ void	exit_mini(t_minishell *mini, int exit_code)
 	}
 	exit(exit_code);
 }
-
+void	main_loop(t_minishell *mini)
+{
+	while (1)
+	{
+		//TODO interact sig
+		mini->line = readline("$-> ");
+		//TODO no interact sig
+		g_status = exec_main(mini);
+		clean_data(mini, false);
+		//printf("You wrote: %s\n", mini->line);
+		//printf("You wrote: %d\n", g_status);
+	}
+}
 
 int	main(int argc, char **argv, char **env)
 {
