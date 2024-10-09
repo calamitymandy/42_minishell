@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/24 21:21:42 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:13:52 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ int	srch_env_i(char **env, char *pwd_or_old)
 	{
 		if (ft_strncmp(temp, env[i], ft_strlen(temp)) == 0)
 		{
-			//TODO FREE
+			free_star(temp);
 			return (i);
 		}
 		i++;
 	}
-	//TODO FREE
+	free_star(temp);
 	return (-1);
 }
 
@@ -122,10 +122,10 @@ char	**callocate_env_variables(t_minishell *mini, int size)
 	while (mini->env[i] && i < size)
 	{
 		new_env[i] = ft_strdup(mini->env[i]);
-		//TODO FREE
+		free_star(mini->env[i]);
 		i++;
 	}
-	//TODO FREE
+	free(mini->env);
 	return (new_env);
 }
 
@@ -142,7 +142,7 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 		return (false);
 	if (i != -1 && mini->env[i])
 	{
-		//TODO FREE
+		free_star(mini->env[i]);
 		mini->env[i] = ft_strjoin(pwd_or_old, temp);
 	}
 	else
@@ -153,7 +153,7 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 			return (false);
 		mini->env[i] = ft_strjoin(pwd_or_old, temp);
 	}
-	//TODO FREE
+	free_star(temp);
 	return (true);
 }
 
@@ -163,15 +163,15 @@ void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 	add_or_update_env_var(mini, "PWD", buf_of_work_dir_path);
 	if (mini->old_pwd)
 	{
-		//TODO FREE
+		free_star(mini->old_pwd);
 		mini->old_pwd =ft_strdup(mini->pwd);
 	}
 	if (mini->pwd)
 	{
-		//TODO FREE
+		free_star(mini->pwd);
 		mini->pwd =ft_strdup(buf_of_work_dir_path);
 	}
-	//TODO FREE
+	free_star(buf_of_work_dir_path);
 }
 
 /*getcwd: Get the pathname of the current working directory,
@@ -199,7 +199,7 @@ bool	cd(t_minishell *mini, char *path)
 		buf_of_work_dir_path = ft_strjoin(mini->pwd, "/");
 		temp = buf_of_work_dir_path;
 		buf_of_work_dir_path = ft_strjoin(temp, path);
-		//TODO FREE
+		free_star(temp);
 	}
 	else
 		buf_of_work_dir_path = ft_strdup(cwd);
@@ -435,27 +435,6 @@ bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 }
 
 /**
- * `close_pipe_fd` closes pipe file descriptors for all commands except 
- * for a specified command.
- * This function iterates through a linked list of `t_command` structures 
- * and closes the file descriptors stored in the `pipe_fd` array for each 
- * command, except for the command pointed to by `skip_cmd`.
-
-void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
-{
-	while (cmd)
-	{
-		if (cmd != skip_cmd && cmd->pipe_fd)
-		{
-			close(cmd->pipe_fd[0]);
-			close(cmd->pipe_fd[1]);
-		}
-		cmd = cmd->next;
-	}
-}
-*/
-
-/**
  * close_fds` closes file descriptors and resets them if specified.
  * If `close_or_not` is true, the function will call `reset_fds_in_and_out` 
  * to reset the file descriptors in the `cmd` structure.
@@ -571,6 +550,13 @@ bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
 	return (true);
 }
 
+/**
+ * The function `is_directory` checks if a given path is a directory or not.
+ * returns a boolean value indicating whether the given `cmd` path
+ * is a directory or not. It uses the `stat` function to retrieve information 
+ * about the file specified by `cmd` and then checks if it is a directory 
+ * using the `S_ISDIR` macro.
+ */
 bool	is_directory(char *cmd)
 {
 	struct stat	cmd_stat;
@@ -602,6 +588,11 @@ int	find_env_index_of_key(char **env, char *key)
 	return (-1);
 }
 
+/* The function find_valid_cmd_path is designed to locate the 
+ * full path to a valid command by searching through a list of 
+ * directories (all_paths). If the command is found in one of 
+ * these directories and it is executable, the function returns 
+ * the complete path. */
 char	*find_valid_cmd_path(char *cmd, char **all_paths)
 {
 	char	*cmd_path;
@@ -664,6 +655,17 @@ char	*get_path_cmd(t_minishell *mini, char *str)
 	return (cmd_path);
 }
 
+/**
+ * The function executes a system binary command in a minishell environment.
+ * 
+ * A system binary command is an executable program that is stored in binary 
+ * form on the system, typically located in standard directories like 
+ * /bin, /usr/bin, /sbin. These commands are essential for interacting with
+ * the operating system and performing various tasks.
+ * 
+ * Examples of basic Commands: ls, cat, cp(Copies files or directories), 
+ * mv(Moves or renames files or directories), rm.
+ */
 int	exec_sys_binary(t_minishell *mini, t_command *cmd)
 {
 	if (!cmd->cmd || cmd->cmd[0] == '\0')
@@ -677,7 +679,21 @@ int	exec_sys_binary(t_minishell *mini, t_command *cmd)
 		error_msg("execve", NULL, strerror(errno), errno);
 	return (EXIT_FAILURE);
 }
-/*Mix of exec_local_binary & check_cmd_validity*/
+/*Mix of exec_local_binary & check_cmd_validity
+ * Function designed to execute a command that is specified as a local binary. 
+ * A local binary command refers to a program or script that is located in a 
+ * specific directory on the file system and is executed by specifying either a 
+ * relative or absolute path to the file. 
+ * ex: ./hello.sh or /home/user/bin/my_program
+ * 
+ * This function is used to handle the execution of commands that are
+ * specified with a relative or absolute path (i.e., commands with / in them).
+ * It checks whether the command exists, is not a directory, and is executable.
+ * If all checks pass, it attempts to execute the command using execve. 
+ * If execution fails or any conditions aren't met, appropriate error messages 
+ * are returned with relevant exit codes (127 for command not found, 
+ * 126 for permission errors, and errno for other errors).
+*/
 int	exec_local_binary(t_minishell *mini, t_command *cmd)
 {
 	if (ft_strchr(cmd->cmd, '/') == NULL
