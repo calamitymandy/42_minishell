@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/09 20:13:52 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:09:00 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,21 @@ char	**callocate_env_variables(t_minishell *mini, int size)
 	return (new_env);
 }
 
+/* Updates an existing environment variable (like PWD or OLDPWD) or adds a 
+ * new one if it doesn't exist:
+ * 1- Search for the index of environment variable
+ * 2- joins the "=" with the value string to form the value part of the 
+ * 	environment variable (e.g., =new_path). This will later be used to 
+ * 	construct the full environment variable string.
+ * 3- IF the environment variable was found (i != -1), it frees mini->env[i]
+ * 	Then creates a new string joining the variable name (pwd_or_old) 
+ * 	with the temp string (=value) and stores the result in mini->env[i].
+ * 4- ELSE (i == -1), it calculates the number of environment variables 
+ * 	using nb_env_variables(mini->env). Reallocates memory to accommodate 
+ * 	the new environment variable.
+ * 	& Adds the new environment variable to the end of the mini->env array
+ * 	by joining the variable name (pwd_or_old) with temp and storing the result.
+*/
 bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 {
 	int 	i;
@@ -156,7 +171,17 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 	free_star(temp);
 	return (true);
 }
-
+/* The function update_pwd_n_old is responsible for updating the current 
+ * working directory (PWD) and the previous working directory (OLDPWD) 
+ * environment variables when a directory change occurs in the shell. 
+ * 
+ * 1- Retrieves the current value of the PWD (current working directory)
+ *  using get_env_value() and sets this value as the new OLDPWD 
+ * 2- Sets the current working directory (PWD) to the new path stored 
+ * 	in buf_of_work_dir_path.
+ * 3- Free and update mini->old_pwd
+ * 4- Free and update mini->pwd
+*/
 void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 {
 	add_or_update_env_var(mini, "OLDPWD", get_env_value(mini->env, "PWD"));
@@ -174,10 +199,11 @@ void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 	free_star(buf_of_work_dir_path);
 }
 
-/*getcwd: Get the pathname of the current working directory,
-and put it in SIZE bytes of BUF. Returns NULL if the
-directory couldn't be determined or SIZE was too small.
-If successful, returns BUF.
+/* getcwd: Get the pathname of the current working directory, and put it 
+ * in SIZE bytes of BUF. Returns NULL if the directory couldn't be determined 
+ * or SIZE was too small.
+ * 
+ * If successful, returns BUF.
 */
 bool	cd(t_minishell *mini, char *path)
 {
@@ -207,6 +233,21 @@ bool	cd(t_minishell *mini, char *path)
 	return (true);
 }
 
+/**
+ * The exec_cd function handles the logic for the cd command in a shell.
+ * 
+ * If no arg or no valid arg (no valid path) was passed to cd, the function 
+ * tries to retrieve the value of the HOME environment variable, which 
+ * is the default directory to go to when running cd without arguments.
+ * 
+ * Then handles the special case of cd -, which changes to the previous 
+ * directory (OLDPWD).
+ * 
+ * It handles errors for missing arguments, HOME, or OLDPWD not being set,
+ * and too many arguments being passed.
+ * 
+ * Finally, it changes the directory using cd(mini, path) when appropriate.
+ */
 int	exec_cd(t_minishell *mini, char **args)
 {
 	char	*path;
@@ -798,8 +839,16 @@ int	create_children(t_minishell *mini)
 }
 
 /* This function executes the processed command and returns a status code 
-that updates g_status. 
-127 = cmd unknown*/
+ * that updates g_status. 
+ * 
+ * The 2nd if block checks if the command should be executed directly, 
+ * without piping or chaining to other commands:
+ * 1 - Ensures that cmd is not sending output through a pipe.
+ * 2 - Ensures that cmd is not part of a pipeline or a sequence of commands.
+ * 3 - checks if fds input & output are valid, meaning no pb with redirections.
+ * 
+ * 127 = cmd unknown
+ */
 int	exec_main(t_minishell *mini)
 {
 	int	result;
