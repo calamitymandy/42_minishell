@@ -1,16 +1,17 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/08/07 20:19:45 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:09:00 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
+void clean_data(t_minishell *mini, bool clear_hist_or_not);
 /*compile with gcc main.c -lreadline*/
 
 /**
@@ -51,11 +52,11 @@ int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 	}
 	output = ft_strjoin(output, msg);
 	ft_putendl_fd(output, STDERR_FILENO);
-	//TODO FREE
+	free_star(output);
 	return (err_nb);
 }
 
-char	*get_env_var_value(char **env, char *key)
+char	*get_env_value(char **env, char *key)
 {
 	int		i;
 	char	*temp;
@@ -68,12 +69,12 @@ char	*get_env_var_value(char **env, char *key)
 	{
 		if (ft_strncmp(temp, env[i], ft_strlen(temp)) == 0)
 		{
-			//TODO FREE
+			free_star(temp);
 			return (ft_strchr(env[i], '=') + 1);
 		}
 		i++;
 	}
-	//TODO FREE
+	free_star(temp);
 	return (NULL);
 }
 
@@ -90,12 +91,12 @@ int	srch_env_i(char **env, char *pwd_or_old)
 	{
 		if (ft_strncmp(temp, env[i], ft_strlen(temp)) == 0)
 		{
-			//TODO FREE
+			free_star(temp);
 			return (i);
 		}
 		i++;
 	}
-	//TODO FREE
+	free_star(temp);
 	return (-1);
 }
 
@@ -121,13 +122,28 @@ char	**callocate_env_variables(t_minishell *mini, int size)
 	while (mini->env[i] && i < size)
 	{
 		new_env[i] = ft_strdup(mini->env[i]);
-		//TODO FREE
+		free_star(mini->env[i]);
 		i++;
 	}
-	//TODO FREE
+	free(mini->env);
 	return (new_env);
 }
 
+/* Updates an existing environment variable (like PWD or OLDPWD) or adds a 
+ * new one if it doesn't exist:
+ * 1- Search for the index of environment variable
+ * 2- joins the "=" with the value string to form the value part of the 
+ * 	environment variable (e.g., =new_path). This will later be used to 
+ * 	construct the full environment variable string.
+ * 3- IF the environment variable was found (i != -1), it frees mini->env[i]
+ * 	Then creates a new string joining the variable name (pwd_or_old) 
+ * 	with the temp string (=value) and stores the result in mini->env[i].
+ * 4- ELSE (i == -1), it calculates the number of environment variables 
+ * 	using nb_env_variables(mini->env). Reallocates memory to accommodate 
+ * 	the new environment variable.
+ * 	& Adds the new environment variable to the end of the mini->env array
+ * 	by joining the variable name (pwd_or_old) with temp and storing the result.
+*/
 bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 {
 	int 	i;
@@ -141,7 +157,7 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 		return (false);
 	if (i != -1 && mini->env[i])
 	{
-		//TODO FREE
+		free_star(mini->env[i]);
 		mini->env[i] = ft_strjoin(pwd_or_old, temp);
 	}
 	else
@@ -152,31 +168,42 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 			return (false);
 		mini->env[i] = ft_strjoin(pwd_or_old, temp);
 	}
-	//TODO FREE
+	free_star(temp);
 	return (true);
 }
-
+/* The function update_pwd_n_old is responsible for updating the current 
+ * working directory (PWD) and the previous working directory (OLDPWD) 
+ * environment variables when a directory change occurs in the shell. 
+ * 
+ * 1- Retrieves the current value of the PWD (current working directory)
+ *  using get_env_value() and sets this value as the new OLDPWD 
+ * 2- Sets the current working directory (PWD) to the new path stored 
+ * 	in buf_of_work_dir_path.
+ * 3- Free and update mini->old_pwd
+ * 4- Free and update mini->pwd
+*/
 void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 {
-	add_or_update_env_var(mini, "OLDPWD", get_env_var_value(mini->env, "PWD"));
+	add_or_update_env_var(mini, "OLDPWD", get_env_value(mini->env, "PWD"));
 	add_or_update_env_var(mini, "PWD", buf_of_work_dir_path);
 	if (mini->old_pwd)
 	{
-		//TODO FREE
+		free_star(mini->old_pwd);
 		mini->old_pwd =ft_strdup(mini->pwd);
 	}
 	if (mini->pwd)
 	{
-		//TODO FREE
+		free_star(mini->pwd);
 		mini->pwd =ft_strdup(buf_of_work_dir_path);
 	}
-	//TODO FREE
+	free_star(buf_of_work_dir_path);
 }
 
-/*getcwd: Get the pathname of the current working directory,
-and put it in SIZE bytes of BUF. Returns NULL if the
-directory couldn't be determined or SIZE was too small.
-If successful, returns BUF.
+/* getcwd: Get the pathname of the current working directory, and put it 
+ * in SIZE bytes of BUF. Returns NULL if the directory couldn't be determined 
+ * or SIZE was too small.
+ * 
+ * If successful, returns BUF.
 */
 bool	cd(t_minishell *mini, char *path)
 {
@@ -198,7 +225,7 @@ bool	cd(t_minishell *mini, char *path)
 		buf_of_work_dir_path = ft_strjoin(mini->pwd, "/");
 		temp = buf_of_work_dir_path;
 		buf_of_work_dir_path = ft_strjoin(temp, path);
-		//TODO FREE
+		free_star(temp);
 	}
 	else
 		buf_of_work_dir_path = ft_strdup(cwd);
@@ -206,13 +233,28 @@ bool	cd(t_minishell *mini, char *path)
 	return (true);
 }
 
+/**
+ * The exec_cd function handles the logic for the cd command in a shell.
+ * 
+ * If no arg or no valid arg (no valid path) was passed to cd, the function 
+ * tries to retrieve the value of the HOME environment variable, which 
+ * is the default directory to go to when running cd without arguments.
+ * 
+ * Then handles the special case of cd -, which changes to the previous 
+ * directory (OLDPWD).
+ * 
+ * It handles errors for missing arguments, HOME, or OLDPWD not being set,
+ * and too many arguments being passed.
+ * 
+ * Finally, it changes the directory using cd(mini, path) when appropriate.
+ */
 int	exec_cd(t_minishell *mini, char **args)
 {
 	char	*path;
 
 	if (!args[1] || ft_isblank(args[1][0]) || args[1][0] == '\0')
 	{
-		path = get_env_var_value(mini->env, "HOME");
+		path = get_env_value(mini->env, "HOME");
 		if (!path || *path == '\0' || ft_isblank(*path))
 			return (error_msg("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!cd(mini, path));
@@ -221,13 +263,121 @@ int	exec_cd(t_minishell *mini, char **args)
 		return (error_msg("cd", NULL, "Error: too many arguments", 1));
 	if (ft_strncmp(args[1], "-", 2) == 0)
 	{
-		path = get_env_var_value(mini->env, "OLDPWD");
+		path = get_env_value(mini->env, "OLDPWD");
 		if (!path)
 			return (error_msg("cd", NULL, "Error: OLDPWD not set", EXIT_FAILURE));
 		ft_putendl_fd(path, 2);
 		return (!cd(mini, path));
 	}
 	return (!cd(mini, args[1]));
+}
+
+/*Mix of 2 with quotes checker*/
+bool	is_var_no_quotes(t_token *tkns, int index)
+{
+	t_token	*lst;
+	int i;
+
+	i = 0;
+	lst = tkns;
+	while (lst)
+	{
+		if (lst->index == index && lst->type == VAR)
+		{
+			while (lst->token_type[i])
+			{
+				if (lst->token_type[i] == '"' || lst->token_type[i] == '\'')
+					return (false);
+				i++;
+			}
+			return (true);
+		}
+		lst = lst->next;
+	}
+	return (false);
+}
+/* Mix of 2 with count_no_white_space
+*/
+char	*remove_extra_spaces(const char *str)
+{
+	char	*new_string;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	new_string = malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!new_string)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isblank(str[i]) || (i > 0 && !ft_isblank(str[i - 1])))
+			new_string[j++] = str[i];
+		i++;
+	}
+	while (j > 0 && ft_isblank(new_string[j - 1]))
+		j--;
+	new_string[j] = '\0';
+	return (new_string);
+}
+
+void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
+{
+	char	*clean_arg;
+
+	if (!args[i])
+	{
+		if (!minus_n_flag)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		return ;
+	}
+	while (args[i])
+	{
+		if (is_var_no_quotes(mini->token, i))
+		{
+			clean_arg = remove_extra_spaces(args[i]);
+			ft_putstr_fd(clean_arg, STDOUT_FILENO);
+			free(clean_arg);
+		}
+		else
+			ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i +1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		else if (!args[i + 1 && !minus_n_flag])
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		i++;
+	}
+}
+
+/* Handle the special -n flag, which suppress the newline at the end of the output.
+ * Ensures that a string like -n, -nn, -nnn, etc., is valid but not something 
+ * like -nX or -nx
+ * Mix of 2 with n_flag
+*/
+int	exec_echo(t_minishell *mini, char **args)
+{
+	int		i;
+	int		j;
+	bool	minus_n_flag;
+
+	minus_n_flag = false;
+	i = 1;
+	while (args[i])
+	{
+		j = 0;
+		if (args[i][j] != '-' || (args[i][j] == '-' && args[i][j + 1] != 'n'))
+			break ;
+		j++;
+		while (args[i][j] && args[i][j] == 'n')
+			j++;
+		if (args[i][j] != '\0')
+			break ;
+		minus_n_flag = true;
+		i++;
+	}
+	print_echo(args, minus_n_flag, i, mini);
+	return (EXIT_SUCCESS);
 }
 
 int	exec_builtin(t_minishell *mini, t_command *cmd)
@@ -237,6 +387,8 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 	cmd_res = 127;
 	if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
 		cmd_res = exec_cd(mini, cmd->args);
+	else if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
+		cmd_res = exec_echo(mini, cmd->args);
 	return (cmd_res);
 }
 
@@ -324,27 +476,6 @@ bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 }
 
 /**
- * `close_pipe_fd` closes pipe file descriptors for all commands except 
- * for a specified command.
- * This function iterates through a linked list of `t_command` structures 
- * and closes the file descriptors stored in the `pipe_fd` array for each 
- * command, except for the command pointed to by `skip_cmd`.
-
-void	close_pipe_fd(t_command *cmd, t_command *skip_cmd)
-{
-	while (cmd)
-	{
-		if (cmd != skip_cmd && cmd->pipe_fd)
-		{
-			close(cmd->pipe_fd[0]);
-			close(cmd->pipe_fd[1]);
-		}
-		cmd = cmd->next;
-	}
-}
-*/
-
-/**
  * close_fds` closes file descriptors and resets them if specified.
  * If `close_or_not` is true, the function will call `reset_fds_in_and_out` 
  * to reset the file descriptors in the `cmd` structure.
@@ -379,7 +510,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	//TODO set_env && set_pwd_and oldpwd
 	mini->env = env; //QUIT when TODO is done
 	mini->line = NULL;
-	//mini->ctrlc_heredoc = false;
+	//mini->ctrlc_heredoc = false; TODO
 	mini->token = NULL;
 	mini->cmd = NULL;
 	mini->pid = -1;
@@ -408,7 +539,7 @@ bool	create_pipes(t_minishell *mini)
 			fd = malloc (sizeof * fd * 2);
 			if (!fd || pipe(fd) != 0)
 			{
-				//free data
+				clean_data(mini, false);
 				return (false);
 			}
 			temp_cmd->pipe_fd = fd;
@@ -420,12 +551,11 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
-	printf("here it prints");
 	//TODO init mini->cmd->cmd & mini->token->has_quotes somewhere
 	if (!mini || !mini->cmd || !mini->cmd->cmd
 		|| (mini->cmd->cmd[0] == '\0' && mini->token->has_quotes == false))
 		return (EXIT_SUCCESS);
-	printf("here it does not print");
+	//printf("here it does not print");
 	if (mini->cmd && !mini->cmd->cmd)
 	{
 		if (mini->cmd->fds && !check_in_and_out(mini->cmd->fds))
@@ -461,6 +591,13 @@ bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
 	return (true);
 }
 
+/**
+ * The function `is_directory` checks if a given path is a directory or not.
+ * returns a boolean value indicating whether the given `cmd` path
+ * is a directory or not. It uses the `stat` function to retrieve information 
+ * about the file specified by `cmd` and then checks if it is a directory 
+ * using the `S_ISDIR` macro.
+ */
 bool	is_directory(char *cmd)
 {
 	struct stat	cmd_stat;
@@ -470,70 +607,155 @@ bool	is_directory(char *cmd)
 	return (S_ISDIR(cmd_stat.st_mode));
 }
 
-/*char *ms_get_cmd_path(t_minishell *mini, char *cmd) 
+int	find_env_index_of_key(char **env, char *key)
 {
-	char **env_paths;
-	char *cmd_path;
-	char *full_path;
-	
-    if (!cmd)
-		return NULL;
-    int i = 0;
-    while (mini->env[i] != NULL && ft_strnstr(mini->env[i], "PATH", 4) == NULL)
-        i++;
-    if (mini->env[i] == NULL)
-		return NULL;
+	int		i;
+	char *aux;
 
-    env_paths = ft_split(mini->env[i] + 5, ':');
-    if (!env_paths)
-		return NULL;
-
-    cmd_path = NULL;
-    for (i = 0; env_paths[i] != NULL; i++) {
-        if (cmd[0] == '/') {
-            full_path = ft_strdup(cmd);
-        }
-		else
-		{
-            char *temp_path = ft_strjoin(env_paths[i], "/");
-            full_path = ft_strjoin(temp_path, cmd);
-            free(temp_path);
-        }
-
-        if (!full_path)
-			free(full_path);
-
-        if (access(full_path, F_OK | X_OK) == 0) {
-            cmd_path = full_path;
-            break;
-        }
-        free(full_path);
-    }
+	aux = ft_strjoin(key, "=");
+	if (!aux)
+		return (-1);
 	i = 0;
-    while (env_paths[i] != NULL)
-        free(env_paths[i++]);
-    free(env_paths);
-
-    return cmd_path;
+	while (env[i])
+	{
+		if (ft_strncmp(aux, env[i], ft_strlen(aux)) == 0)
+		{
+			free_star(aux);
+			return (i);
+		}
+		i++;
+	}
+	free_star(aux);
+	return (-1);
 }
+
+/* The function find_valid_cmd_path is designed to locate the 
+ * full path to a valid command by searching through a list of 
+ * directories (all_paths). If the command is found in one of 
+ * these directories and it is executable, the function returns 
+ * the complete path. */
+char	*find_valid_cmd_path(char *cmd, char **all_paths)
+{
+	char	*cmd_path;
+	int		i;
+
+	cmd_path = NULL;
+	i = 0;
+	while (all_paths[i])
+	{
+		cmd_path = ft_strjoin(all_paths[i], cmd);
+		if (!cmd_path)
+		{
+			error_msg("malloc", NULL, "an unexpected error occured", EXIT_FAILURE);
+			return (NULL);
+		}
+		if (access(cmd_path, F_OK | X_OK) == 0)
+			return (cmd_path);
+		free_star(cmd_path);
+		i++;
+	}
+	return (NULL);
+}
+
+/* mix de get_env_path & get_cmd_path 
+ *
+ * get_path_cmd function takes a command (such as ls, grep, etc.) and 
+ * searches for its location within the directories specified by the PATH 
+ * environment variable. If it finds a path where the command is executable,
+ * it returns the full path. If an error occurs at any point (for example,
+ * if PATH doesn't exist or if no valid path is found), the function frees
+ * the used memory and returns NULL.
 */
 
+char	*get_path_cmd(t_minishell *mini, char *str)
+{
+	char	**env_paths;
+	char	*cmd;
+	char	*cmd_path;
 
+	if (!str)
+		return (NULL);
+	if (find_env_index_of_key(mini->env, "PATH") == -1)
+		return (NULL);
+	env_paths = ft_split(get_env_value(mini->env, "PATH"), ':');
+	if (!env_paths)
+		return (NULL);
+	cmd = ft_strjoin("/", str);
+	if (!cmd)
+	{
+		free_two_stars(env_paths);
+		return (NULL);
+	}
+	cmd_path = find_valid_cmd_path(cmd, env_paths);
+	if (!cmd_path)
+	{
+		free_star(cmd);
+		free_two_stars(env_paths);
+		return (NULL);
+	}
+	return (cmd_path);
+}
+
+/**
+ * The function executes a system binary command in a minishell environment.
+ * 
+ * A system binary command is an executable program that is stored in binary 
+ * form on the system, typically located in standard directories like 
+ * /bin, /usr/bin, /sbin. These commands are essential for interacting with
+ * the operating system and performing various tasks.
+ * 
+ * Examples of basic Commands: ls, cat, cp(Copies files or directories), 
+ * mv(Moves or renames files or directories), rm.
+ */
 int	exec_sys_binary(t_minishell *mini, t_command *cmd)
 {
 	if (!cmd->cmd || cmd->cmd[0] == '\0')
 		return (127);
 	if (is_directory(cmd->cmd))
 		return (127);
-	//TODO
 	cmd->path = get_path_cmd(mini, cmd->cmd);
+	if (!cmd->path)
+		return (127);
+	if (execve(cmd->path, cmd->args, mini->env) == -1)
+		error_msg("execve", NULL, strerror(errno), errno);
+	return (EXIT_FAILURE);
+}
+/*Mix of exec_local_binary & check_cmd_validity
+ * Function designed to execute a command that is specified as a local binary. 
+ * A local binary command refers to a program or script that is located in a 
+ * specific directory on the file system and is executed by specifying either a 
+ * relative or absolute path to the file. 
+ * ex: ./hello.sh or /home/user/bin/my_program
+ * 
+ * This function is used to handle the execution of commands that are
+ * specified with a relative or absolute path (i.e., commands with / in them).
+ * It checks whether the command exists, is not a directory, and is executable.
+ * If all checks pass, it attempts to execute the command using execve. 
+ * If execution fails or any conditions aren't met, appropriate error messages 
+ * are returned with relevant exit codes (127 for command not found, 
+ * 126 for permission errors, and errno for other errors).
+*/
+int	exec_local_binary(t_minishell *mini, t_command *cmd)
+{
+	if (ft_strchr(cmd->cmd, '/') == NULL
+		&& find_env_index_of_key(mini->env, "PATH") != -1)
+		return (error_msg(cmd->cmd, NULL, "command not found", 127));
+	if (access(cmd->cmd, F_OK) != 0)
+		return (error_msg(cmd->cmd, NULL, strerror(errno), 127));
+	if (is_directory(cmd->cmd))
+		return (error_msg(cmd->cmd, NULL, "is a directory", 126));
+	if (access(cmd->cmd, F_OK | X_OK) != 0)
+		return (error_msg(cmd->cmd, NULL, strerror(errno), 126));
+	if (execve(cmd->cmd, cmd->args, mini->env) == -1)
+		return (error_msg("execve", NULL, strerror(errno), errno));
+	return (EXIT_FAILURE);
 }
 
 int	exec_cmd(t_minishell *mini, t_command *cmd)
 {
 	int	res;
 
-	if (check_in_and_out(cmd->fds))
+	if (!check_in_and_out(cmd->fds))
 		exit_mini(mini, EXIT_FAILURE);
 	set_n_close_pipes_fds(mini->cmd, cmd); //Mix of two
 	config_in_and_out(cmd->fds);
@@ -547,9 +769,56 @@ int	exec_cmd(t_minishell *mini, t_command *cmd)
 		if (res != 127)
 			exit_mini(mini, res);
 	}
-	//TODO EXEC BUILTINS && SYS BINARY
+	res = exec_local_binary(mini, cmd);
 	exit_mini(mini, res);
 	return (res);
+}
+/* waits for all child processes to finish and gathers the exit status
+* of the shell's main process (identified by mini->pid):
+* 1- Closes file descriptors.
+* 2- Waits for child processes using waitpid.
+* 3- Stores the status of the main child process.
+*	After all child processes have finished and the loop ends,
+*	the function evaluates how the main child process
+*	(stored in save_status) terminated:
+* WIFSIGNALED(save_status) checks if child was terminated by 
+* a signal (SIGKILL, SIGINT).
+* If the child was terminated by a signal, the exit status is calculated
+* as 128 + WTERMSIG(save_status), where WTERMSIG extracts the signal number.
+* WIFEXITED(save_status) checks if the child terminated normally via a 
+* call to exit() or by returning from main(). If so, the exit status is 
+* set to the exit code of the child, extracted using WEXITSTATUS(save_status).
+* else : If the child didn’t terminate in either of the above two conditions,
+* it returns save_status as-is, which might handle other rare termination cases.
+* 4- Checks if the child was terminated by a signal or exited normally 
+* and returns the appropriate status.
+* 	The function is crucial for correctly handling the termination of child
+* 	processes and communicating their exit status to the parent shell 
+* 	process, which affects how the shell responds after a command is executed.
+*/
+int	child_status(t_minishell *mini)
+{
+	pid_t	pid_from_waitpid;
+	int		status;
+	int		save_status;
+
+	close_fds(mini->cmd, false);
+	save_status = 0;
+	pid_from_waitpid = 0;
+	while (pid_from_waitpid != -1 || errno != ECHILD)
+	{
+		pid_from_waitpid = waitpid(-1, &status, 0);
+		if (pid_from_waitpid == mini->pid)
+			save_status = status;
+		continue ;
+	}
+	if (WIFSIGNALED(save_status))
+		status = 128 + WTERMSIG(save_status);
+	else if (WIFEXITED(save_status))
+		status = WEXITSTATUS(save_status);
+	else
+		status = save_status;
+	return (status);	
 }
 
 int	create_children(t_minishell *mini)
@@ -563,16 +832,23 @@ int	create_children(t_minishell *mini)
 		if (mini->pid == -1)
 			return (error_msg("fork", NULL, strerror(errno), EXIT_FAILURE));
 		else if (mini->pid == 0)
-			exec_cmd(mini, cmd); //IN PROGRESS
+			exec_cmd(mini, cmd);
 		cmd = cmd->next;
 	}
-	//return (child_status(mini)); //TODO
-	return (1);
+	return (child_status(mini));
 }
 
 /* This function executes the processed command and returns a status code 
-that updates g_status. 
-127 = cmd unknown*/
+ * that updates g_status. 
+ * 
+ * The 2nd if block checks if the command should be executed directly, 
+ * without piping or chaining to other commands:
+ * 1 - Ensures that cmd is not sending output through a pipe.
+ * 2 - Ensures that cmd is not part of a pipeline or a sequence of commands.
+ * 3 - checks if fds input & output are valid, meaning no pb with redirections.
+ * 
+ * 127 = cmd unknown
+ */
 int	exec_main(t_minishell *mini)
 {
 	int	result;
@@ -592,37 +868,97 @@ int	exec_main(t_minishell *mini)
 	return (create_children(mini));
 }
 
-void	main_loop(t_minishell *mini)
-{
-	while (1)
-	{
-		//TODO interact sig
-		mini->line = readline("$-> ");
-		//TODO no interact sig
-/*
-		if (!mini->line)
-			break; // Exit on EOF (Ctrl-D)
-
-        // Remove trailing newline
-        mini->line[strcspn(mini->line, "\n")] = '\0';
-
-        // Exit command
-        if (strcmp(mini->line, "exit") == 0) {
-            free(mini->line);
-            break;
-        }
+/* mix of 2: delete all token node && delete one token node
+ * ADDED: delete_all, flag to delete one or all nodes in the list, 
+ * depending on the flag being on 1 or 0.
 */
-		if (strlen(mini->line) > 0)
-			add_history(mini->line);
-		free(mini->line);
-		//process input line
-		//TODO if(lexer)
-		g_status = exec_main(mini);
+void	clean_token_nodes(t_token **lst, void (*del)(void *), int delete_all)
+{
+	t_token	*temp;
 
-		//TODO free data (NOW: free(mini->line);)
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		if (del && (*lst))
+		{
+			if ((*lst)->content)
+				(*del)((*lst)->content);
+			if ((*lst)->token_type)
+				(*del)((*lst)->token_type);
+		}
+		if ((*lst)->prev)
+			(*lst)->prev->next = (*lst)->next;
+		if ((*lst)->next)
+			(*lst)->next->prev = (*lst)->prev;
+		free_star(*lst);
+		if (!delete_all)
+			break ;
+		*lst = temp;
+	}
+	if (delete_all)
+		*lst = NULL;
+}
 
-		printf("You wrote: %s\n", mini->line);
-		//printf("You wrote: %d\n", g_status);
+void	free_in_and_out_fds(t_fds *in_and_out)
+{
+	if (!in_and_out)
+		return ;
+	reset_fds_in_and_out(in_and_out);
+	if (in_and_out->del_heredoc)
+	{
+		unlink(in_and_out->del_heredoc);
+		free_star(in_and_out->del_heredoc);
+	}
+	if (in_and_out->infile)
+		free_star(in_and_out->infile);
+	if (in_and_out->outfile)
+		free_star(in_and_out->outfile);
+	if (in_and_out)
+		free_star(in_and_out);
+}
+
+/*mix of 2 clean all nodes and clean one node*/
+void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
+{
+	t_command	*temp;
+	
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		if ((*lst)->cmd)
+			(*del)((*lst)->cmd);
+		if ((*lst)->args)
+			(*del)((*lst)->args);
+		if ((*lst)->pipe_fd)
+			(*del)((*lst)->pipe_fd);
+		if ((*lst)->fds)
+			free_in_and_out_fds((*lst)->fds);
+		(*del)(*lst);
+		*lst = temp;
+	}
+	*lst = NULL;
+}
+
+void	clean_data(t_minishell *mini, bool clear_hist_or_not)
+{
+	if (mini && mini->line)
+	{
+		free_star(mini->line);
+		mini->line = NULL;
+	}
+	if (mini && mini->token)
+		clean_token_nodes(&mini->token, &free_star, 1);
+	if (mini && mini->cmd)
+		clean_cmd_nodes(&mini->cmd, &free_star);
+	if (clear_hist_or_not == true)
+	{
+		if (mini && mini->pwd)
+			free_star(mini->pwd);
+		if (mini && mini->old_pwd)
+			free_star(mini->old_pwd);
+		if (mini && mini->env)
+			free_two_stars(mini->env);
+		clear_history();
 	}
 }
 
@@ -632,11 +968,23 @@ void	exit_mini(t_minishell *mini, int exit_code)
 	{
 		if (mini->cmd && mini->cmd->fds)
 			close_fds(mini->cmd, true);
-		//free data
+		clean_data(mini, true);
 	}
 	exit(exit_code);
 }
-
+void	main_loop(t_minishell *mini)
+{
+	while (1)
+	{
+		//TODO interact sig
+		mini->line = readline("$-> ");
+		//TODO no interact sig
+		g_status = exec_main(mini);
+		clean_data(mini, false);
+		//printf("You wrote: %s\n", mini->line);
+		//printf("You wrote: %d\n", g_status);
+	}
+}
 
 int	main(int argc, char **argv, char **env)
 {
