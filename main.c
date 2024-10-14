@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/10 20:09:00 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:39:13 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,14 @@ int	exec_cd(t_minishell *mini, char **args)
 	return (!cd(mini, args[1]));
 }
 
-/*Mix of 2 with quotes checker*/
+/* Mix of 2 with quotes checker
+ * The function checks each token in the list to see if it matches the provided 
+ * index and is of type VAR.
+ * If the token contains quotes (" or '), it returns false.
+ * If the token does not contain quotes, it returns true.
+ * If no matching token is found, the function also returns false.
+ */
+
 bool	is_var_no_quotes(t_token *tkns, int index)
 {
 	t_token	*lst;
@@ -321,6 +328,20 @@ char	*remove_extra_spaces(const char *str)
 	new_string[j] = '\0';
 	return (new_string);
 }
+/* Prints each argument passed to the echo command:
+ * 1- If there are no arguments to print (args[i] is NULL), it checks if 
+ *	the -n flag is not set. If the -n flag is not set, it prints a newline (\n).
+ *	Then, the function returns, as there are no arguments to process.
+ * 2- Loop to process each argument in the args array
+ * 	IF the current argument is an environment variable that should be printed 
+ * 	without quotes -> remove_extra_spaces & the cleaned argument is printed 
+ * 	using ft_putstr_fd. Then free clean_arg.
+ * 	ELSE (not a variable without quotes) prints directly using ft_putstr_fd.
+ * 	IF there is another argument (args[i + 1]), it prints a space.
+ * 	EXCEPT IF the current argument is the last one (args[i + 1] is NULL) and 
+ * 	the -n flag is not set, it prints a newline.
+ * 	The loop continues by moving to the next argument (args[i]).
+*/
 
 void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 {
