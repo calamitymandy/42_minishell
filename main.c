@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/14 19:39:13 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:58:58 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,6 +400,33 @@ int	exec_echo(t_minishell *mini, char **args)
 	print_echo(args, minus_n_flag, i, mini);
 	return (EXIT_SUCCESS);
 }
+/* Implements the env built-in command, which prints the current 
+ * environment variables.
+ * args: An array of strings representing the arguments passed to the 
+ * env command.
+ * 1- Check for too many arguments. The env command does not accept 
+ * any arguments. If args[1] exists (more than one argument was passed)
+ * the function returns an error message and 2, a standard error code 
+ * for invalid usage in shell commands.
+ * 2- Check if the environment exists, if not it returns EXIT_FAILURE.
+ * 3- A loop iterates through the mini->env array (which contains the
+ *  environment variables).For each environment variable, prints the 
+ * variable with a newline to the standard output (STDOUT_FILENO).
+ */
+
+int	exec_env_builtin(t_minishell *mini, char **args)
+{
+	int	i;
+	
+	if (args && args[1])
+		return (error_msg("env", NULL, "Error: too many arguments", 2));
+	i = 0;
+	if (!mini->env)
+		return (EXIT_FAILURE);
+	while (mini->env[i])
+		ft_putendl_fd(mini->env[i++], STDOUT_FILENO);
+	return (EXIT_SUCCESS);
+}
 
 int	exec_builtin(t_minishell *mini, t_command *cmd)
 {
@@ -410,6 +437,8 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 		cmd_res = exec_cd(mini, cmd->args);
 	else if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
 		cmd_res = exec_echo(mini, cmd->args);
+	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
+		cmd_res = exec_env_builtin(mini, cmd->args);
 	return (cmd_res);
 }
 
