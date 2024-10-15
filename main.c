@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/15 17:58:58 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:01:02 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,7 +414,7 @@ int	exec_echo(t_minishell *mini, char **args)
  * variable with a newline to the standard output (STDOUT_FILENO).
  */
 
-int	exec_env_builtin(t_minishell *mini, char **args)
+int	exec_env_builtin(t_minishell *mini, char **args) //TODO EXCALIDRAW && PASS TO EXAMPLE
 {
 	int	i;
 	
