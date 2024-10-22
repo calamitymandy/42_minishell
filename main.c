@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/10 20:09:00 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:01:02 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,14 @@ int	exec_cd(t_minishell *mini, char **args)
 	return (!cd(mini, args[1]));
 }
 
-/*Mix of 2 with quotes checker*/
+/* Mix of 2 with quotes checker
+ * The function checks each token in the list to see if it matches the provided 
+ * index and is of type VAR.
+ * If the token contains quotes (" or '), it returns false.
+ * If the token does not contain quotes, it returns true.
+ * If no matching token is found, the function also returns false.
+ */
+
 bool	is_var_no_quotes(t_token *tkns, int index)
 {
 	t_token	*lst;
@@ -321,6 +328,20 @@ char	*remove_extra_spaces(const char *str)
 	new_string[j] = '\0';
 	return (new_string);
 }
+/* Prints each argument passed to the echo command:
+ * 1- If there are no arguments to print (args[i] is NULL), it checks if 
+ *	the -n flag is not set. If the -n flag is not set, it prints a newline (\n).
+ *	Then, the function returns, as there are no arguments to process.
+ * 2- Loop to process each argument in the args array
+ * 	IF the current argument is an environment variable that should be printed 
+ * 	without quotes -> remove_extra_spaces & the cleaned argument is printed 
+ * 	using ft_putstr_fd. Then free clean_arg.
+ * 	ELSE (not a variable without quotes) prints directly using ft_putstr_fd.
+ * 	IF there is another argument (args[i + 1]), it prints a space.
+ * 	EXCEPT IF the current argument is the last one (args[i + 1] is NULL) and 
+ * 	the -n flag is not set, it prints a newline.
+ * 	The loop continues by moving to the next argument (args[i]).
+*/
 
 void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 {
@@ -379,6 +400,33 @@ int	exec_echo(t_minishell *mini, char **args)
 	print_echo(args, minus_n_flag, i, mini);
 	return (EXIT_SUCCESS);
 }
+/* Implements the env built-in command, which prints the current 
+ * environment variables.
+ * args: An array of strings representing the arguments passed to the 
+ * env command.
+ * 1- Check for too many arguments. The env command does not accept 
+ * any arguments. If args[1] exists (more than one argument was passed)
+ * the function returns an error message and 2, a standard error code 
+ * for invalid usage in shell commands.
+ * 2- Check if the environment exists, if not it returns EXIT_FAILURE.
+ * 3- A loop iterates through the mini->env array (which contains the
+ *  environment variables).For each environment variable, prints the 
+ * variable with a newline to the standard output (STDOUT_FILENO).
+ */
+
+int	exec_env_builtin(t_minishell *mini, char **args) //TODO EXCALIDRAW && PASS TO EXAMPLE
+{
+	int	i;
+	
+	if (args && args[1])
+		return (error_msg("env", NULL, "Error: too many arguments", 2));
+	i = 0;
+	if (!mini->env)
+		return (EXIT_FAILURE);
+	while (mini->env[i])
+		ft_putendl_fd(mini->env[i++], STDOUT_FILENO);
+	return (EXIT_SUCCESS);
+}
 
 int	exec_builtin(t_minishell *mini, t_command *cmd)
 {
@@ -389,6 +437,8 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 		cmd_res = exec_cd(mini, cmd->args);
 	else if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
 		cmd_res = exec_echo(mini, cmd->args);
+	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
+		cmd_res = exec_env_builtin(mini, cmd->args);
 	return (cmd_res);
 }
 
