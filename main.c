@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/15 18:01:02 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:50:58 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,6 +375,7 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
  * Ensures that a string like -n, -nn, -nnn, etc., is valid but not something 
  * like -nX or -nx
  * Mix of 2 with n_flag
+ * !!!!!!!!!!!!!!!!!!!!!! CHECK NOT WORKING \n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 int	exec_echo(t_minishell *mini, char **args)
 {
@@ -414,7 +415,7 @@ int	exec_echo(t_minishell *mini, char **args)
  * variable with a newline to the standard output (STDOUT_FILENO).
  */
 
-int	exec_env_builtin(t_minishell *mini, char **args) //TODO EXCALIDRAW && PASS TO EXAMPLE
+int	exec_env_builtin(t_minishell *mini, char **args)
 {
 	int	i;
 	
@@ -439,6 +440,11 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 		cmd_res = exec_echo(mini, cmd->args);
 	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
 		cmd_res = exec_env_builtin(mini, cmd->args);
+	// TODO AMANDINE:
+	// exec_export_builtin
+	// exec_pwd_builtin
+	// exec_unset_builtin
+	// ms_exec_exit_builtin
 	return (cmd_res);
 }
 
@@ -1026,9 +1032,9 @@ void	main_loop(t_minishell *mini)
 {
 	while (1)
 	{
-		//TODO interact sig
+		//TODO ALVARO interact sig
 		mini->line = readline("$-> ");
-		//TODO no interact sig
+		//TODO ALVARO no interact sig
 		g_status = exec_main(mini);
 		clean_data(mini, false);
 		//printf("You wrote: %s\n", mini->line);
