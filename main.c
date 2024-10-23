@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/22 18:50:58 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:53:13 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,7 +365,7 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 			ft_putstr_fd(args[i], STDOUT_FILENO);
 		if (args[i +1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
-		else if (!args[i + 1 && !minus_n_flag])
+		else if (!args[i + 1] && !minus_n_flag)
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
