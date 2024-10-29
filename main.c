@@ -6,15 +6,13 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/29 17:57:32 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/10 20:09:00 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 void clean_data(t_minishell *mini, bool clear_hist_or_not);
 /*compile with gcc main.c -lreadline*/
-
-int	g_status;
 
 /**
  * The function `error_msg` generates and outputs an error message with 
@@ -28,6 +26,8 @@ int	g_status;
  * 5. Prints the formatted message to standard error.
  * 6. Returns the provided error number.
  */
+
+int	g_status;
 
 int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
@@ -189,12 +189,12 @@ void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 	if (mini->old_pwd)
 	{
 		free_star(mini->old_pwd);
-		mini->old_pwd = ft_strdup(mini->pwd);
+		mini->old_pwd =ft_strdup(mini->pwd);
 	}
 	if (mini->pwd)
 	{
 		free_star(mini->pwd);
-		mini->pwd = ft_strdup(buf_of_work_dir_path);
+		mini->pwd =ft_strdup(buf_of_work_dir_path);
 	}
 	free_star(buf_of_work_dir_path);
 }
@@ -272,14 +272,7 @@ int	exec_cd(t_minishell *mini, char **args)
 	return (!cd(mini, args[1]));
 }
 
-/* Mix of 2 with quotes checker
- * The function checks each token in the list to see if it matches the provided 
- * index and is of type VAR.
- * If the token contains quotes (" or '), it returns false.
- * If the token does not contain quotes, it returns true.
- * If no matching token is found, the function also returns false.
- */
-
+/*Mix of 2 with quotes checker*/
 bool	is_var_no_quotes(t_token *tkns, int index)
 {
 	t_token	*lst;
@@ -328,20 +321,6 @@ char	*remove_extra_spaces(const char *str)
 	new_string[j] = '\0';
 	return (new_string);
 }
-/* Prints each argument passed to the echo command:
- * 1- If there are no arguments to print (args[i] is NULL), it checks if 
- *	the -n flag is not set. If the -n flag is not set, it prints a newline (\n).
- *	Then, the function returns, as there are no arguments to process.
- * 2- Loop to process each argument in the args array
- * 	IF the current argument is an environment variable that should be printed 
- * 	without quotes -> remove_extra_spaces & the cleaned argument is printed 
- * 	using ft_putstr_fd. Then free clean_arg.
- * 	ELSE (not a variable without quotes) prints directly using ft_putstr_fd.
- * 	IF there is another argument (args[i + 1]), it prints a space.
- * 	EXCEPT IF the current argument is the last one (args[i + 1] is NULL) and 
- * 	the -n flag is not set, it prints a newline.
- * 	The loop continues by moving to the next argument (args[i]).
-*/
 
 void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 {
@@ -365,7 +344,7 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 			ft_putstr_fd(args[i], STDOUT_FILENO);
 		if (args[i +1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
-		else if (!args[i + 1] && !minus_n_flag)
+		else if (!args[i + 1 && !minus_n_flag])
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
@@ -375,7 +354,6 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
  * Ensures that a string like -n, -nn, -nnn, etc., is valid but not something 
  * like -nX or -nx
  * Mix of 2 with n_flag
- * !!!!!!!!!!!!!!!!!!!!!! CHECK NOT WORKING \n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 int	exec_echo(t_minishell *mini, char **args)
 {
@@ -401,64 +379,6 @@ int	exec_echo(t_minishell *mini, char **args)
 	print_echo(args, minus_n_flag, i, mini);
 	return (EXIT_SUCCESS);
 }
-/* Implements the env built-in command, which prints the current 
- * environment variables.
- * args: An array of strings representing the arguments passed to the 
- * env command.
- * 1- Check for too many arguments. The env command does not accept 
- * any arguments. If args[1] exists (more than one argument was passed)
- * the function returns an error message and 2, a standard error code 
- * for invalid usage in shell commands.
- * 2- Check if the environment exists, if not it returns EXIT_FAILURE.
- * 3- A loop iterates through the mini->env array (which contains the
- *  environment variables).For each environment variable, prints the 
- * variable with a newline to the standard output (STDOUT_FILENO).
- */
-
-int	exec_env_builtin(t_minishell *mini, char **args)
-{
-	int	i;
-	
-	if (args && args[1])
-		return (error_msg("env", NULL, "Error: too many arguments", 2));
-	i = 0;
-	if (!mini->env)
-		return (EXIT_FAILURE);
-	while (mini->env[i])
-		ft_putendl_fd(mini->env[i++], STDOUT_FILENO);
-	return (EXIT_SUCCESS);
-}
-/*  * 4096 is path max *
- * 1- IF cd was used, mini->pwd is set, so it prints it.
- * 2- if not: get cwd whith getcwd()
- * 3- IF cwd prints it.
- * 4- if not -> error_msg
- *
- * getcwd: Get the pathname of the current working directory, and put it 
- * in SIZE bytes of BUF. Returns NULL if the directory couldn't be determined 
- * or SIZE was too small.
- * If successful, returns BUF.
-*/
-int	exec_pwd_builtin(t_minishell *mini, char **args)
-{
-	char	buffer[4096];
-	char	*cwd;
-
-	(void)args;
-	if (mini->pwd)
-	{
-		ft_putendl_fd(mini->pwd, STDOUT_FILENO);
-		return (EXIT_SUCCESS);
-	}
-	cwd = getcwd(buffer, 4096);
-	if (cwd)
-	{
-		ft_putendl_fd(cwd, STDOUT_FILENO);
-		return (EXIT_SUCCESS);
-	}
-	error_msg("pwd", NULL, strerror(errno), errno);
-	return (EXIT_FAILURE);
-}
 
 int	exec_builtin(t_minishell *mini, t_command *cmd)
 {
@@ -469,14 +389,6 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 		cmd_res = exec_cd(mini, cmd->args);
 	else if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
 		cmd_res = exec_echo(mini, cmd->args);
-	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
-		cmd_res = exec_env_builtin(mini, cmd->args);
-	else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
-		cmd_res = exec_pwd_builtin(mini, cmd->args);
-	// TODO AMANDINE:
-	// exec_export_builtin
-	// exec_unset_builtin
-	// ms_exec_exit_builtin
 	return (cmd_res);
 }
 
@@ -1064,9 +976,9 @@ void	main_loop(t_minishell *mini)
 {
 	while (1)
 	{
-		//TODO ALVARO interact sig
+		ms_listening_interact_sig();
 		mini->line = readline("$-> ");
-		//TODO ALVARO no interact sig
+		ms_listening_no_interact_sig();
 		g_status = exec_main(mini);
 		clean_data(mini, false);
 		//printf("You wrote: %s\n", mini->line);
