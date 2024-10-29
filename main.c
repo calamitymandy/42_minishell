@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/23 19:53:13 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:57:32 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 void clean_data(t_minishell *mini, bool clear_hist_or_not);
 /*compile with gcc main.c -lreadline*/
+
+int	g_status;
 
 /**
  * The function `error_msg` generates and outputs an error message with 
@@ -26,8 +28,6 @@ void clean_data(t_minishell *mini, bool clear_hist_or_not);
  * 5. Prints the formatted message to standard error.
  * 6. Returns the provided error number.
  */
-
-int	g_status;
 
 int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
@@ -189,12 +189,12 @@ void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 	if (mini->old_pwd)
 	{
 		free_star(mini->old_pwd);
-		mini->old_pwd =ft_strdup(mini->pwd);
+		mini->old_pwd = ft_strdup(mini->pwd);
 	}
 	if (mini->pwd)
 	{
 		free_star(mini->pwd);
-		mini->pwd =ft_strdup(buf_of_work_dir_path);
+		mini->pwd = ft_strdup(buf_of_work_dir_path);
 	}
 	free_star(buf_of_work_dir_path);
 }
@@ -428,6 +428,37 @@ int	exec_env_builtin(t_minishell *mini, char **args)
 		ft_putendl_fd(mini->env[i++], STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
+/*  * 4096 is path max *
+ * 1- IF cd was used, mini->pwd is set, so it prints it.
+ * 2- if not: get cwd whith getcwd()
+ * 3- IF cwd prints it.
+ * 4- if not -> error_msg
+ *
+ * getcwd: Get the pathname of the current working directory, and put it 
+ * in SIZE bytes of BUF. Returns NULL if the directory couldn't be determined 
+ * or SIZE was too small.
+ * If successful, returns BUF.
+*/
+int	exec_pwd_builtin(t_minishell *mini, char **args)
+{
+	char	buffer[4096];
+	char	*cwd;
+
+	(void)args;
+	if (mini->pwd)
+	{
+		ft_putendl_fd(mini->pwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	cwd = getcwd(buffer, 4096);
+	if (cwd)
+	{
+		ft_putendl_fd(cwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	error_msg("pwd", NULL, strerror(errno), errno);
+	return (EXIT_FAILURE);
+}
 
 int	exec_builtin(t_minishell *mini, t_command *cmd)
 {
@@ -440,9 +471,10 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 		cmd_res = exec_echo(mini, cmd->args);
 	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
 		cmd_res = exec_env_builtin(mini, cmd->args);
+	else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
+		cmd_res = exec_pwd_builtin(mini, cmd->args);
 	// TODO AMANDINE:
 	// exec_export_builtin
-	// exec_pwd_builtin
 	// exec_unset_builtin
 	// ms_exec_exit_builtin
 	return (cmd_res);
