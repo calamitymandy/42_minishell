@@ -118,18 +118,3 @@ char	*expand(char *s, char *alias, char *var)
 	return (x);
 }
 
-/*int main(int argc, char **argv)
-{
-	char *s;
-
-	if(argc != 2)
-	{
-		printf("arg error\n");
-		return(0);
-	}
-	s = expand(argv[1], "asdf", "VARIABLE");
-	printf("%s\n",s);
-	if(s != argv[1])
-		free(s);
-	return(0);
-}*/

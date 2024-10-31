@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h> // QUIT?
 #include <unistd.h>
+# include <fcntl.h> 
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
@@ -27,10 +28,16 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-#define MAX_INPUT_SIZE 1024
 
 #include "./libft/libft.h"
 
+#define MAX_INPUT_SIZE 1024
+# define ERR_SYNTX_QUO	"syntax error: unclosed quote:"
+# define ERR_SYNTX_TKN	"syntax error near unexpected token"
+# define CMD_UNKNOWN		127
+# define CMD_NOT_EXECUTABLE	126
+# define ERR_NUM_ARR		255
+# define ERR_PIPE_STX		258
 extern int	g_status;
 
 typedef struct s_token
@@ -84,7 +91,23 @@ typedef struct	s_minishell
 //enums
 enum e_token_types
 {
+	SPACES = 1,
+	HEREDOC,
 	VAR,
+	INPUT,
+	WORD,
+	PIPE,
+	TRUNC,
+	APPEND,
+	FAILURE,
+	END
+};
+
+enum e_quotes
+{
+	OPN_SQ,
+	OPN_DQ,
+	OK_Q
 };
 
 void exit_mini(t_minishell *mini, int exit_code);
