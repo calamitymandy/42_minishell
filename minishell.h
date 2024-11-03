@@ -125,5 +125,6 @@ void		ms_sigquit_handler_no_interact(int signal);
 void		ms_ctrl_backslash_ignore_no_interact(void);
 void		ms_ctrl_c_newline_no_interact(int signal);
 void		ms_listening_no_interact_sig(void);
+bool	ms_lexer_main(t_minishell *ms);
 
 #endif
