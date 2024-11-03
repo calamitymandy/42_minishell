@@ -384,6 +384,22 @@ void	ms_quote_stat_expndr(t_token **node, char scan)
 		(*node)->var_q_stat = OK_Q;
 }
 
+char	*ms_replace_for_xpanded(t_token **aux, char *content,
+			char *value, int scan)
+{
+	int		trim_len;
+	char	*trim_cntnt;
+
+	trim_len = (ft_strlen(content) - ms_var_name_len(content + scan)
+			+ ft_strlen(value));
+	trim_cntnt = ms_get_var_str(content, value, trim_len, scan);
+	if (aux && *aux)
+	{
+		free_star((*aux)->content);
+		(*aux)->content = trim_cntnt;
+	}
+	return (trim_cntnt);
+}
 
 char	*replace_str_heredoc(char *str, char *var_value, int index)
 {
@@ -402,22 +418,6 @@ char	*replace_str_heredoc(char *str, char *var_value, int index)
 	return (str);
 }
 
-char	*ms_replace_for_xpanded(t_token **aux, char *content,
-			char *value, int scan)
-{
-	int		trim_len;
-	char	*trim_cntnt;
-
-	trim_len = (ft_strlen(content) - ms_var_name_len(content + scan)
-			+ ft_strlen(value));
-	trim_cntnt = ms_get_var_str(content, value, trim_len, scan);
-	if (aux && *aux)
-	{
-		free_star((*aux)->content);
-		(*aux)->content = trim_cntnt;
-	}
-	return (trim_cntnt);
-}
 
 bool	ms_xpand_if_null(t_token **aux, char *content, int scan)
 {
@@ -496,6 +496,65 @@ bool	ms_is_env_var(t_minishell *ms, char *var_nme)
 			return (true);
 	return (false);
 }
+
+bool	ms_isalphanum_or__(char c)
+{
+	if (!ft_isalnum(c) && c != '_')
+		return (false);
+	else
+		return (true);
+}
+
+int	ms_var_name_len(char *content)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	while (content[i] != '$')
+		i++;
+	i++;
+	if ((content[i] >= '0' && content[i] <= '9') || content[i] == '?')
+		return (1);
+	len = 0;
+	while (content[i])
+	{
+		if (!ms_isalphanum_or__(content[i]))
+			break ;
+		len++;
+		i++;
+	}
+	return (len);
+}
+
+char	*ms_xtract_var_name(t_minishell *ms, char *content)
+{
+	char	*var_name;
+	char	*tmp;
+	int		start;
+	int		len;
+	int		i;
+
+	i = -1;
+	start = 0;
+	while (content[++i])
+	{
+		if (content[i] == '$')
+		{
+			start = i + 1;
+			break ;
+		}
+	}
+	len = ms_var_name_len(content);
+	var_name = ft_substr(content, start, len);
+	if (!var_name)
+		exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
+	tmp = ft_strjoin(var_name, "=");
+	free_star(var_name);
+	var_name = tmp;
+	return (var_name);
+}
+
 
 char	*ms_xtract_var_value(t_token *token, char *content, t_minishell *ms)
 {
