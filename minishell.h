@@ -34,6 +34,7 @@
 #define MAX_INPUT_SIZE 1024
 # define ERR_SYNTX_QUO	"syntax error: unclosed quote:"
 # define ERR_SYNTX_TKN	"syntax error near unexpected token"
+# define ERR_ALLOC		"Memory allocation error"
 # define CMD_UNKNOWN		127
 # define CMD_NOT_EXECUTABLE	126
 # define ERR_NUM_ARR		255
@@ -43,10 +44,12 @@ extern int	g_status;
 typedef struct s_token
 {
 	bool			has_quotes;
+	int				var_q_stat;
 	struct s_token	*prev;
 	struct s_token	*next;
 	char			*content;
 	char			*token_type;
+	bool			is_env_var;
 	int				index;
 	int				type;
 }	t_token;

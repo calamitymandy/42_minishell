@@ -6,6 +6,20 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
+
+
+void	ms_exit_ms(t_minishell *ms, int exit_code)
+{
+	if (ms)
+	{
+		if (ms->cmd && ms->cmd->fds)
+			ms_close_fds(ms->cmd, true);
+		ms_data_free(ms, true);
+	}
+	exit(exit_code);
+}
+
+
 bool	ms_is_line_empty(char *line)
 {
 	int	i;
@@ -320,28 +334,6 @@ bool	ms_stx_err(t_token **token_list)
 	return (false);
 }
 
-void	ms_mark_variables(t_minishell *ms)
-{
-	t_token	*aux;
-	int		scan;
-
-	aux = ms->token;
-	while (aux)
-	{
-		scan = -1;
-		while ((aux)->content[++scan])
-		{
-			if ((aux)->content[scan] == '$')
-			{
-				if ((aux)->prev && (aux)->prev->type == HEREDOC)
-					break ;
-				(aux)->type = VAR;
-			}
-		}
-		aux = aux->next;
-	}
-}
-
 
 bool	ms_is_between_d_quot(char *content, int scan)
 {
@@ -382,6 +374,76 @@ void	ms_quote_stat_expndr(t_token **node, char scan)
 		(*node)->var_q_stat = OK_Q;
 	else if (scan == '\"' && (*node)->var_q_stat == OPN_DQ)
 		(*node)->var_q_stat = OK_Q;
+}
+
+bool	ms_isalphanum_or__(char c)
+{
+	if (!ft_isalnum(c) && c != '_')
+		return (false);
+	else
+		return (true);
+}
+
+
+int	ms_var_name_len(char *content)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	while (content[i] != '$')
+		i++;
+	i++;
+	if ((content[i] >= '0' && content[i] <= '9') || content[i] == '?')
+		return (1);
+	len = 0;
+	while (content[i])
+	{
+		if (!ms_isalphanum_or__(content[i]))
+			break ;
+		len++;
+		i++;
+	}
+	return (len);
+}
+
+void	ms_val_cpy(char *new, char *value, int *j)
+{
+	int	i;
+
+	i = 0;
+	while (value[i])
+	{
+		new[*j] = value[i];
+		i++;
+		(*j)++;
+	}
+}
+
+char	*ms_get_var_str(char *content, char *value, int trim_len, int scan)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	j = 0;
+	new = malloc(sizeof(char) * trim_len);
+	if (!new)
+		return (NULL);
+	while (content[i])
+	{
+		if (content[i] == '$' && i == scan)
+		{
+			ms_val_cpy(new, value, &j);
+			i = i + ms_var_name_len(content + scan) + 1;
+			if (content[i] == '\0')
+				break ;
+		}
+		new[j++] = content[i++];
+	}
+	new[j] = '\0';
+	return (new);
 }
 
 char	*ms_replace_for_xpanded(t_token **aux, char *content,
@@ -484,7 +546,7 @@ char	*ms_dup_env_var_value(t_minishell *ms, char *var_nme)
 	return (value);
 }
 
-bool	ms_is_env_var(t_minishell *ms, char *var_nme)
+bool	ms_xpand_if_null(t_minishell *ms, char *var_nme)
 {
 	int		i;
 	int		len;
@@ -497,35 +559,8 @@ bool	ms_is_env_var(t_minishell *ms, char *var_nme)
 	return (false);
 }
 
-bool	ms_isalphanum_or__(char c)
-{
-	if (!ft_isalnum(c) && c != '_')
-		return (false);
-	else
-		return (true);
-}
 
-int	ms_var_name_len(char *content)
-{
-	int		i;
-	int		len;
 
-	i = 0;
-	while (content[i] != '$')
-		i++;
-	i++;
-	if ((content[i] >= '0' && content[i] <= '9') || content[i] == '?')
-		return (1);
-	len = 0;
-	while (content[i])
-	{
-		if (!ms_isalphanum_or__(content[i]))
-			break ;
-		len++;
-		i++;
-	}
-	return (len);
-}
 
 char	*ms_xtract_var_name(t_minishell *ms, char *content)
 {
@@ -555,6 +590,18 @@ char	*ms_xtract_var_name(t_minishell *ms, char *content)
 	return (var_name);
 }
 
+bool	ms_is_env_var(t_minishell *ms, char *var_nme)
+{
+	int		i;
+	int		len;
+
+	i = -1;
+	len = ft_strlen(var_nme);
+	while (ms->env[++i])
+		if (ft_strncmp(ms->env[i], var_nme, len) == 0)
+			return (true);
+	return (false);
+}
 
 char	*ms_xtract_var_value(t_token *token, char *content, t_minishell *ms)
 {
@@ -592,7 +639,7 @@ void	ms_scan_variables(t_minishell *ms)
 				ms_quote_stat_expndr(&aux, aux->content[scan]);
 				if ((aux->content[scan] == '$' \
 				&& !ms_dollar_error(aux->content, scan)) \
-				&& (aux->var_q_stat == OK_Q || aux->var_q_stat == OPN_DQ)) // why does this accept OPN_DQ?
+				&& (aux->var_q_stat == OK_Q || aux->var_q_stat == OPN_DQ))
 					ms_process_variables(ms_xtract_var_value \
 					(aux, aux->content + scan, ms), &aux, scan, ms);
 				else
@@ -672,7 +719,7 @@ int	ms_len_wthout_quot(char *content, int len)
 		len++;
 		i++;
 	}
-	return (len);
+	return (len);	
 }
 
 void	ms_quote_eraser(t_token **aux)
@@ -745,11 +792,10 @@ void	ms_expander_main(t_minishell *ms)
 }
 
 
-
 bool	ms_lexer_main(t_minishell *ms)
 {
 	if (!ms->line)
-		exit_mini(ms, NULL); //Use exit built_in instead??
+		exit_mini(ms, 0); // TODO: Use exit built_in instead?? // Error code?
 	else if (ms_is_line_empty(ms->line))
 		return (true);
 	add_history(ms->line);
