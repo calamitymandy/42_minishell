@@ -25,6 +25,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 #define MAX_INPUT_SIZE 1024
 
@@ -92,6 +93,15 @@ void main_loop(t_minishell *mini);
 
 void	free_star(void *ptr);
 void	free_two_stars(char **arr);
+void		ms_ctrl_backslash_ignore(void);
+void		ms_ctrl_c_newline_hdoc(int signal);
+void		ms_listening_hdoc_input_sig(void);
+void		ms_ctrl_c_newline(int signal);
+void		ms_listening_interact_sig(void);
+void		ms_sigquit_handler_no_interact(int signal);
+void		ms_ctrl_backslash_ignore_no_interact(void);
+void		ms_ctrl_c_newline_no_interact(int signal);
+void		ms_listening_no_interact_sig(void);
 
 int ft_atoi_long(const char *str, bool *error);
 
