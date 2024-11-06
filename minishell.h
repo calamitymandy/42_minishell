@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/24 21:08:10 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:07:11 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ void main_loop(t_minishell *mini);
 
 void	free_star(void *ptr);
 void	free_two_stars(char **arr);
+
+int ft_atoi_long(const char *str, bool *error);
 
 #endif

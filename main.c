@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/10/29 17:57:32 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:07:50 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -459,6 +459,50 @@ int	exec_pwd_builtin(t_minishell *mini, char **args)
 	error_msg("pwd", NULL, strerror(errno), errno);
 	return (EXIT_FAILURE);
 }
+int	get_exit_code(char *arg, bool *error)
+{
+	unsigned long long	i;
+	
+	if (!arg)
+		return (g_status);
+	i = 0;
+	while (ft_isblank(arg[i]))
+		i++;
+	if (arg[i] == '\0')
+		*error = true;
+	if (arg[i] == '-' || arg[i] == '+')
+		i++;
+	if (!ft_isdigit(arg[i]))
+		*error = true;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]) && !ft_isblank(arg[i]))
+			*error = true;
+		i++;
+	}
+	i = ft_atoi_long(arg, error); //TODO AMANDE
+	return (i % 256);
+}
+
+int	exec_exit_builtin(t_minishell *mini, char **args)
+{
+	int		exit_code;
+	bool	error;
+
+	error = false;
+	if (!args || !args[1])
+		exit_code = g_status;
+	else
+	{
+		exit_code = get_exit_code(args[1], &error); //IN PROGRESS AMANDE
+		if (error)
+			exit_code = error_msg("exit", args[1], "numeric argument required", 255);
+		else if (args[2])
+			return (error_msg("exit", NULL, "too many arguments", 1));
+	}
+	exit_mini(mini, exit_code);
+	return (2);
+}
 
 int	exec_builtin(t_minishell *mini, t_command *cmd)
 {
@@ -473,10 +517,11 @@ int	exec_builtin(t_minishell *mini, t_command *cmd)
 		cmd_res = exec_env_builtin(mini, cmd->args);
 	else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
 		cmd_res = exec_pwd_builtin(mini, cmd->args);
+	else if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
+		cmd_res = exec_exit_builtin(mini, cmd->args);
 	// TODO AMANDINE:
 	// exec_export_builtin
 	// exec_unset_builtin
-	// ms_exec_exit_builtin
 	return (cmd_res);
 }
 
