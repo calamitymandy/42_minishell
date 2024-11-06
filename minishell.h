@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/24 21:08:10 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:07:11 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ void		ms_sigquit_handler_no_interact(int signal);
 void		ms_ctrl_backslash_ignore_no_interact(void);
 void		ms_ctrl_c_newline_no_interact(int signal);
 void		ms_listening_no_interact_sig(void);
+
+int ft_atoi_long(const char *str, bool *error);
 
 #endif
