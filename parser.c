@@ -302,6 +302,29 @@ bool	ms_cmd_arg_creat_n_fill(t_token **arg_list, \
 	return (true);
 }
 
+char	**ms_create_table(
+	int args_amnt, char **args_table, t_command *cmd, t_token **arg_list)
+{
+	int		i;
+	t_token	*aux;
+
+	i = 0;
+	aux = *arg_list;
+	while (i < args_amnt)
+	{
+		args_table[i] = cmd->args[i];
+		i++;
+	}
+	while (aux->type == WORD || aux->type == VAR)
+	{
+		args_table[i] = ft_strdup(aux->content);
+		i++;
+		aux = aux->next;
+	}
+	args_table[i] = NULL;
+	return (args_table);
+}
+
 bool	ms_cmd_arg_only_fill(t_token **arg_list, t_command *cmd, bool is_echo)
 {
 	int		var_word_amnt;
@@ -424,7 +447,7 @@ void	ms_infile_open(t_fds *fds, char *infile_name, char *cc)
 
 
 
-void	ms_infile_parser(t_mshl *ms, t_token **aux)
+void	ms_infile_parser(t_minishell *ms, t_token **aux)
 {
 	t_token		*aux_aux;
 	t_command	*last_cmd;
@@ -520,7 +543,7 @@ bool	ms_loop_breaker(t_mshl *ms, char **line, t_fds *fds, bool *success)
 	return (GO);
 }
 
-bool	ms_heredoc_loop(t_mshl *ms, t_fds *fds, int tmp_fd)
+bool	ms_heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 {
 	char	*line;
 	bool	success;
@@ -531,7 +554,7 @@ bool	ms_heredoc_loop(t_mshl *ms, t_fds *fds, int tmp_fd)
 	{
 		ms_listening_hdoc_input_sig();
 		ft_putstr_fd("> ", 1);
-		line = get_next_line(STDIN_FILENO); // hay que meter el GNL
+		line = get_next_line(STDIN_FILENO); 
 		ms_listening_no_interact_sig();
 		if (line)
 			ms_quit_newline_char(line);
@@ -544,7 +567,7 @@ bool	ms_heredoc_loop(t_mshl *ms, t_fds *fds, int tmp_fd)
 	return (success);
 }
 
-bool	ms_create_tmp(t_mshl *ms, t_fds *fds)
+bool	ms_create_tmp(t_minishell *ms, t_fds *fds)
 {
 	int		tmp_fd;
 	bool	success;
@@ -607,7 +630,7 @@ void	ms_create_trunc(t_fds *fds, char *file_name, char *cc)
 	}
 }
 
-void	ms_trunc_parser(t_mshl *ms, t_token **aux)
+void	ms_trunc_parser(t_minishell *ms, t_token **aux)
 {
 	t_token		*tkn_process;
 	t_command	*last_cmd;
@@ -616,12 +639,12 @@ void	ms_trunc_parser(t_mshl *ms, t_token **aux)
 	last_cmd = ms_scroll_lstcmd(ms->cmd);
 	if (last_cmd->fds && last_cmd->fds->error_msg)
 	{
-		ms_skip_next_token(aux);
+		ms_skip_next_token(aux); // why just skip? why not ms_exit_msg altoghether?
 		return ;
 	}
 	if (!ms_set_fd_struct(last_cmd))
 		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
-	if (!ms->ctrlcheredoc)
+	if (!ms->ctrlcheredoc) // why this condition?
 		ms_create_trunc(last_cmd->fds, tkn_process->next->content, \
 	tkn_process->next->cc);
 	ms_skip_next_token(aux);
@@ -657,7 +680,7 @@ void	ms_append_parser(t_mshl *ms, t_token **aux)
 	ms_skip_next_token(aux);
 }
 
-void	ms_pipe_parser(t_mshl *ms, t_token **token_lst)
+void	ms_pipe_parser(t_minishell *ms, t_token **token_lst)
 {
 	t_command	*last_cmd;
 
