@@ -13,9 +13,14 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif 
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
 typedef struct s_list
 {
@@ -27,6 +32,7 @@ typedef struct s_ratio
 	int	num;
 	int	den;
 }	t_ratio;
+
 long	ft_atoi(const char *str, char **s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -88,4 +94,10 @@ int		ft_min(int a, int b);
 int		ft_abs(int n);
 void	free_string(char **s);
 int	ft_isblank(char c);
+char	*get_next_line(int fd);
+char	*ft_read(int fd, char *str);
+char	*ft_line(char *str);
+char	*ft_next_line(char *str);
+
+
 #endif

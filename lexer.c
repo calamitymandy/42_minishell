@@ -446,8 +446,7 @@ char	*ms_get_var_str(char *content, char *value, int trim_len, int scan)
 	return (new);
 }
 
-char	*ms_replace_for_xpanded(t_token **aux, char *content,
-			char *value, int scan)
+char	*ms_replace_for_xpanded(t_token **aux, char *content, char *value, int scan)
 {
 	int		trim_len;
 	char	*trim_cntnt;
@@ -546,18 +545,6 @@ char	*ms_dup_env_var_value(t_minishell *ms, char *var_nme)
 	return (value);
 }
 
-bool	ms_xpand_if_null(t_minishell *ms, char *var_nme)
-{
-	int		i;
-	int		len;
-
-	i = -1;
-	len = ft_strlen(var_nme);
-	while (ms->env[++i])
-		if (ft_strncmp(ms->env[i], var_nme, len) == 0)
-			return (true);
-	return (false);
-}
 
 
 
@@ -791,11 +778,47 @@ void	ms_expander_main(t_minishell *ms)
 	ms_process_quotes(ms);
 }
 
+void	ms_token_indx(t_mshl *ms)
+{
+	t_token			*aux;
+	unsigned int	i;
+
+	aux = ms->token;
+	i = 0;
+	while (aux->next)
+	{
+		aux->index += i; // why "+="? where are the previous indexes coming from?
+		i++;
+		aux = aux->next;
+	}
+}
+
+void	ms_addlst_cmd_container(t_mshl *ms, t_command **cmd_list)
+{
+	t_command	*new_node;
+	t_command	*aux;
+
+	new_node = ms_new_cmd_lst();
+	if (!new_node)
+		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+	aux = *cmd_list;
+	if (!aux)
+	{
+		*cmd_list = new_node;
+		return ;
+	}
+	if (new_node)
+	{
+		ms_scroll_lstcmd(aux);
+		aux->next = new_node;
+		new_node->prev = aux;
+	}
+}
 
 bool	ms_lexer_main(t_minishell *ms)
 {
 	if (!ms->line)
-		exit_mini(ms, 0); // TODO: Use exit built_in instead?? // Error code?
+		exit_mini(ms, 0); // TODO: Use built-in exit instead?? // Error code?
 	else if (ms_is_line_empty(ms->line))
 		return (true);
 	add_history(ms->line);
