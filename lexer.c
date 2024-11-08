@@ -778,7 +778,7 @@ void	ms_expander_main(t_minishell *ms)
 	ms_process_quotes(ms);
 }
 
-void	ms_token_indx(t_mshl *ms)
+void	ms_token_indx(t_minishell *ms)
 {
 	t_token			*aux;
 	unsigned int	i;
@@ -793,7 +793,7 @@ void	ms_token_indx(t_mshl *ms)
 	}
 }
 
-void	ms_addlst_cmd_container(t_mshl *ms, t_command **cmd_list)
+void	ms_addlst_cmd_container(t_minishell *ms, t_command **cmd_list)
 {
 	t_command	*new_node;
 	t_command	*aux;

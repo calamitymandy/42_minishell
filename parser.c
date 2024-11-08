@@ -1,6 +1,6 @@
 #include"minishell.h"
 
-bool	ms_g_status_handler(char **line, t_mshl *ms)
+bool	ms_g_status_handler(char **line, t_minishell *ms)
 {
 	(void)ms;
 	if (*line == NULL && g_status == 1)
@@ -479,7 +479,7 @@ char	*ms_quit_heredoc_quot(char *delim, bool *heredoc_quotes)
 	return (ft_strdup(delim));
 }
 
-char	*ms_heredoc_var_xpndr(t_mshl *ms, char *var)
+char	*ms_heredoc_var_xpndr(t_minishell *ms, char *var)
 {
 	int	i;
 
@@ -496,7 +496,7 @@ char	*ms_heredoc_var_xpndr(t_mshl *ms, char *var)
 	return (var);
 }
 
-char	*ms_heredoc_xpndr_main(t_mshl *ms, char *line)
+char	*ms_heredoc_xpndr_main(t_minishell *ms, char *line)
 {
 	char	**words;
 	int		i;
@@ -518,7 +518,7 @@ char	*ms_heredoc_xpndr_main(t_mshl *ms, char *line)
 	return (ms_addspace_btwn_words(words));
 }
 
-bool	ms_loop_breaker(t_mshl *ms, char **line, t_fds *fds, bool *success)
+bool	ms_loop_breaker(t_minishell *ms, char **line, t_fds *fds, bool *success)
 {
 	if ((*line == NULL && g_status == 1) || *line == NULL)
 	{
@@ -630,7 +630,7 @@ void	ms_create_trunc(t_fds *fds, char *file_name, char *cc)
 	}
 }
 
-void	ms_trunc_parser(t_minishell *ms, t_token **aux)
+void	(t_minishell *ms, t_token **aux)
 {
 	t_token		*tkn_process;
 	t_command	*last_cmd;
@@ -639,12 +639,12 @@ void	ms_trunc_parser(t_minishell *ms, t_token **aux)
 	last_cmd = ms_scroll_lstcmd(ms->cmd);
 	if (last_cmd->fds && last_cmd->fds->error_msg)
 	{
-		ms_skip_next_token(aux); // why just skip? why not ms_exit_msg altoghether?
+		ms_skip_next_token(aux); 
 		return ;
 	}
 	if (!ms_set_fd_struct(last_cmd))
 		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
-	if (!ms->ctrlcheredoc) // why this condition?
+	if (!ms->ctrlcheredoc) 
 		ms_create_trunc(last_cmd->fds, tkn_process->next->content, \
 	tkn_process->next->cc);
 	ms_skip_next_token(aux);
@@ -665,7 +665,7 @@ void	ms_append_file(t_fds *fds, char *file_name, char *cc)
 		ms_msg_err(fds->outfile, NULL, strerror(errno), false);
 }
 
-void	ms_append_parser(t_mshl *ms, t_token **aux)
+void	ms_append_parser(t_minishell *ms, t_token **aux)
 {
 	t_token		*tkn_process;
 	t_command	*last_cmd;

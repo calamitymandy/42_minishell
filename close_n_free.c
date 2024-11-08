@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+
 void	free_star(void *ptr)
 {
 	if (ptr != NULL)
