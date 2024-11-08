@@ -71,10 +71,10 @@ bool	ms_fds_error2(t_fds *fds)
 {
 	if (fds->outfile)
 	{
-		if (fds->fd_out == -1 || (fds->infile && fds->fd_in == -1))
+		if (fds->fd_outfile == -1 || (fds->infile && fds->fd_infile == -1))
 			return (true);
 		ms_ptr_free(fds->outfile);
-		close(fds->fd_out);
+		close(fds->fd_outfile);
 	}
 	return (false);
 }
@@ -91,7 +91,7 @@ bool	ms_fds_error(t_fds *fds)
 {
 	if (fds->infile)
 	{
-		if (fds->fd_in == -1 || (fds->outfile && fds->fd_out == -1))
+		if (fds->fd_infile == -1 || (fds->outfile && fds->fd_outfile == -1))
 			return (true);
 		if (fds->heredoc_del)
 		{
@@ -100,7 +100,7 @@ bool	ms_fds_error(t_fds *fds)
 			unlink(fds->infile);
 		}
 		ms_ptr_free(fds->infile);
-		close(fds->fd_in);
+		close(fds->fd_infile);
 	}
 	return (false);
 }
@@ -115,10 +115,10 @@ bool	ms_set_fd_struct(t_command *cmd)
 		cmd->fds->outfile = NULL;
 		cmd->fds->heredoc_del = NULL;
 		cmd->fds->heredoc_quotes = false;
-		cmd->fds->fd_in = -1;
-		cmd->fds->fd_out = -1;
-		cmd->fds->stdin_backup = -1;
-		cmd->fds->stdout_backup = -1;
+		cmd->fds->fd_infile = -1;
+		cmd->fds->fd_outfile = -1;
+		cmd->fds->stdin_ori = -1;
+		cmd->fds->stdout_ori = -1;
 		cmd->fds->error_msg = false;
 	}
 	return (true);
@@ -437,8 +437,8 @@ void	ms_infile_open(t_fds *fds, char *infile_name, char *cc)
 		fds->error_msg = true;
 		return ;
 	}
-	fds->fd_in = open(fds->infile, O_RDONLY);
-	if (fds->fd_in == -1 && fds->error_msg == false)
+	fds->fd_infile = open(fds->infile, O_RDONLY);
+	if (fds->fd_infile == -1 && fds->error_msg == false)
 	{
 		ms_msg_err(fds->infile, NULL, strerror(errno), false);
 		fds->error_msg = true;
@@ -603,10 +603,10 @@ void	ms_heredoc_main(t_minishell *ms, t_token **aux)
 	fds->heredoc_del = ms_quit_heredoc_quot(pre_delim->next->content, \
 	& (fds->heredoc_quotes));
 	if (ms_create_tmp(ms, fds))
-		fds->fd_in = open(fds->infile, O_RDONLY);
+		fds->fd_infile = open(fds->infile, O_RDONLY);
 	else
 	{
-		fds->fd_in = -1;
+		fds->fd_infile = -1;
 	}
 	ms_skip_next_token(aux);
 }
@@ -622,8 +622,8 @@ void	ms_create_trunc(t_fds *fds, char *file_name, char *cc)
 		fds->error_msg = true;
 		return ;
 	}
-	fds->fd_out = open(fds->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (fds->fd_out == -1 && fds->error_msg == false)
+	fds->fd_outfile = open(fds->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fds->fd_outfile == -1 && fds->error_msg == false)
 	{
 		ms_msg_err(fds->outfile, NULL, strerror(errno), false);
 		fds->error_msg = true;
@@ -660,8 +660,8 @@ void	ms_append_file(t_fds *fds, char *file_name, char *cc)
 		ms_msg_err(cc, NULL, "ambiguous redirect", false);
 		return ;
 	}
-	fds->fd_out = open(fds->outfile, O_WRONLY | O_CREAT | O_APPEND, 0664);
-	if (fds->fd_out == -1)
+	fds->fd_outfile = open(fds->outfile, O_WRONLY | O_CREAT | O_APPEND, 0664);
+	if (fds->fd_outfile == -1)
 		ms_msg_err(fds->outfile, NULL, strerror(errno), false);
 }
 

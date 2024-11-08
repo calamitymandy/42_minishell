@@ -63,6 +63,7 @@ typedef struct s_fds
 	int			stdin_ori;
 	int			stdout_ori;
 	bool		msg_err;
+	bool		heredoc_quotes;
 	char		*del_heredoc;
 }	t_fds;
 

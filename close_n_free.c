@@ -50,19 +50,19 @@ bool	ms_reset_io(t_fds *io)
 	res = true;
 	if (!io)
 		return (res);
-	if (io->stdin_backup != -1)
+	if (io->stdin_ori != -1)
 	{
-		if (dup2(io->stdin_backup, STDIN_FILENO) == -1)
+		if (dup2(io->stdin_ori, STDIN_FILENO) == -1)
 			res = false;
-		close(io->stdin_backup);
-		io->stdin_backup = -1;
+		close(io->stdin_ori);
+		io->stdin_ori = -1;
 	}
-	if (io->stdout_backup != -1)
+	if (io->stdout_ori != -1)
 	{
-		if (dup2(io->stdout_backup, STDOUT_FILENO) == -1)
+		if (dup2(io->stdout_ori, STDOUT_FILENO) == -1)
 			res = false;
-		close(io->stdout_backup);
-		io->stdout_backup = -1;
+		close(io->stdout_ori);
+		io->stdout_ori = -1;
 	}
 	return (res);
 }
@@ -86,10 +86,10 @@ void	ms_close_fds(t_command *cmds, bool close_backups)
 {
 	if (cmds->fds)
 	{
-		if (cmds->fds->fd_in != -1)
-			close(cmds->fds->fd_in);
-		if (cmds->fds->fd_out != -1)
-			close(cmds->fds->fd_out);
+		if (cmds->fds->fd_infile != -1)
+			close(cmds->fds->fd_infile);
+		if (cmds->fds->fd_outfile != -1)
+			close(cmds->fds->fd_outfile);
 		if (close_backups)
 			ms_reset_io(cmds->fds);
 	}
