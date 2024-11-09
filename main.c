@@ -6,9 +6,12 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/09 18:48:06 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:08:58 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 #include "minishell.h"
 void clean_data(t_minishell *mini, bool clear_hist_or_not);
