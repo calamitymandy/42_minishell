@@ -42,7 +42,6 @@ void	free_two_stars(char **arr)
 		arr = NULL;
 	}
 }
-
 bool	ms_reset_io(t_fds *io)
 {
 	int	res;
@@ -66,6 +65,76 @@ bool	ms_reset_io(t_fds *io)
 	}
 	return (res);
 }
+
+void	ms_io_free(t_fds *io)
+{
+	if (!io)
+		return ;
+	ms_reset_io(io);
+	if (io->del_heredoc)
+	{
+		unlink(io->infile);
+		ms_ptr_free(io->del_heredoc);
+	}
+	if (io->infile)
+		ms_ptr_free(io->infile);
+	if (io->outfile)
+		ms_ptr_free(io->outfile);
+	if (io)
+		ms_ptr_free(io);
+}
+
+void	ms_del_one_node_cmd(t_command *lst, void (*del)(void *))
+{
+	if (lst->command)
+		(*del)(lst->command);
+	if (lst->args)
+		ms_ptr_free_arr(lst->args);
+	if (lst->pipe_fd)
+		(*del)(lst->pipe_fd);
+	if (lst->fds)
+		ms_io_free(lst->fds);
+	(*del)(lst);
+}
+
+void	ms_del_all_nodes_cmd(t_command **lst, void (*del)(void *))
+{
+	t_command	*temp;
+
+	temp = NULL;
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		ms_del_one_node_cmd(*lst, del);
+		*lst = temp;
+	}
+}
+
+
+void	ms_data_free(t_minishell *ms, bool clearhistory)
+{
+	if (ms && ms->line)
+	{
+		ms_ptr_free(ms->line);
+		ms->line = NULL;
+	}
+	if (ms && ms->token)
+		ms_del_all_nodes_tkn(&ms->token, &ms_ptr_free);
+	if (ms && ms->cmd)
+		ms_del_all_nodes_cmd(&ms->cmd, &ms_ptr_free);
+	if (clearhistory == true)
+	{
+		if (ms && ms->pwd)
+			ms_ptr_free(ms->pwd);
+		if (ms && ms->old_pwd)
+			ms_ptr_free(ms->old_pwd);
+		if (ms && ms->env)
+			ms_ptr_free_arr(ms->env);
+		clear_history();
+	}
+}
+
+
 
 void	ms_close_un_pipes_fd(t_command *cmds, t_command *omit_cmd)
 {

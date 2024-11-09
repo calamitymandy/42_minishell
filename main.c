@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 void clean_data(t_minishell *mini, bool clear_hist_or_not);
 /*compile with gcc main.c -lreadline*/
 

@@ -93,10 +93,10 @@ bool	ms_fds_error(t_fds *fds)
 	{
 		if (fds->fd_infile == -1 || (fds->outfile && fds->fd_outfile == -1))
 			return (true);
-		if (fds->heredoc_del)
+		if (fds->del_heredoc)
 		{
-			ms_ptr_free(fds->heredoc_del);
-			fds->heredoc_del = NULL;
+			ms_ptr_free(fds->del_heredoc);
+			fds->del_heredoc = NULL;
 			unlink(fds->infile);
 		}
 		ms_ptr_free(fds->infile);
@@ -113,7 +113,7 @@ bool	ms_set_fd_struct(t_command *cmd)
 			return (false);
 		cmd->fds->infile = NULL;
 		cmd->fds->outfile = NULL;
-		cmd->fds->heredoc_del = NULL;
+		cmd->fds->del_heredoc = NULL;
 		cmd->fds->heredoc_quotes = false;
 		cmd->fds->fd_infile = -1;
 		cmd->fds->fd_outfile = -1;
@@ -525,7 +525,7 @@ bool	ms_loop_breaker(t_minishell *ms, char **line, t_fds *fds, bool *success)
 		*success = ms_g_status_handler(line, ms);
 		return (BREAK);
 	}
-	if (ft_strcmp(*line, fds->heredoc_del) == 0)
+	if (ft_strcmp(*line, fds->del_heredoc) == 0)
 	{
 		*success = true;
 		return (BREAK);
@@ -600,7 +600,7 @@ void	ms_heredoc_main(t_minishell *ms, t_token **aux)
 	fds->infile = ms_put_name_tmp();
 	if (!fds->infile)
 		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
-	fds->heredoc_del = ms_quit_heredoc_quot(pre_delim->next->content, \
+	fds->del_heredoc = ms_quit_heredoc_quot(pre_delim->next->content, \
 	& (fds->heredoc_quotes));
 	if (ms_create_tmp(ms, fds))
 		fds->fd_infile = open(fds->infile, O_RDONLY);

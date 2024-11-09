@@ -75,7 +75,7 @@ typedef struct s_command
 	struct s_command	*next;
 	int					*pipe_fd;
 	t_fds				*fds;
-	char				*cmd;
+	char				*command;
 	char				*path;
 }	t_command;
 
@@ -130,5 +130,12 @@ void		ms_ctrl_backslash_ignore_no_interact(void);
 void		ms_ctrl_c_newline_no_interact(int signal);
 void		ms_listening_no_interact_sig(void);
 bool	ms_lexer_main(t_minishell *ms);
+void	ms_close_fds(t_command *cmds, bool close_backups);
+void		ms_data_free(t_minishell *ms, bool clear_history);
+void	ms_ptr_free(void *ptr);
+void	ms_del_all_nodes_tkn(t_token **lst, void (*del)(void *));
+void	ms_del_one_node_tkn(t_token *lst, void (*del)(void *));
+void	ms_rm_echo_empty_words(t_token **arg_list);
+
 
 #endif
