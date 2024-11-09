@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/06 19:07:50 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:50:51 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -959,6 +959,7 @@ int	create_children(t_minishell *mini)
  * 1 - Ensures that cmd is not sending output through a pipe.
  * 2 - Ensures that cmd is not part of a pipeline or a sequence of commands.
  * 3 - checks if fds input & output are valid, meaning no pb with redirections.
+ * 
  * 
  * 127 = cmd unknown
  */
