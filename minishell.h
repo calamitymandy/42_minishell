@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/24 21:08:10 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:07:11 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,7 @@ void	ms_del_all_nodes_tkn(t_token **lst, void (*del)(void *));
 void	ms_del_one_node_tkn(t_token *lst, void (*del)(void *));
 void	ms_rm_echo_empty_words(t_token **arg_list);
 
+
+int ft_atoi_long(const char *str, bool *error);
 
 #endif
