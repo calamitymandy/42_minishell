@@ -7,19 +7,6 @@ void	ft_putendl_fd(char *s, int fd)
 }
 
 
-
-void	ms_exit_ms(t_minishell *ms, int exit_code)
-{
-	if (ms)
-	{
-		if (ms->cmd && ms->cmd->fds)
-			ms_close_fds(ms->cmd, true);
-		ms_data_free(ms, true);
-	}
-	exit(exit_code);
-}
-
-
 bool	ms_is_line_empty(char *line)
 {
 	int	i;
@@ -172,16 +159,6 @@ bool	ms_word_to_tkn(t_token **tkns, char *line, int scan, int start_word)
 	word[i] = '\0';
 	ms_add_tkn_lst(tkns, ms_tkn_create (word, ft_strdup(word), WORD, OK_Q));
 	return (true);
-}
-
-
-void	free_star(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
 }
 
 
@@ -793,27 +770,6 @@ void	ms_token_indx(t_minishell *ms)
 	}
 }
 
-void	ms_addlst_cmd_container(t_minishell *ms, t_command **cmd_list)
-{
-	t_command	*new_node;
-	t_command	*aux;
-
-	new_node = ms_new_cmd_lst();
-	if (!new_node)
-		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
-	aux = *cmd_list;
-	if (!aux)
-	{
-		*cmd_list = new_node;
-		return ;
-	}
-	if (new_node)
-	{
-		ms_scroll_lstcmd(aux);
-		aux->next = new_node;
-		new_node->prev = aux;
-	}
-}
 
 bool	ms_lexer_main(t_minishell *ms)
 {

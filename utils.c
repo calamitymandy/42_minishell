@@ -14,5 +14,6 @@
 
 int ft_atoi_long(const char *str, bool *error)
 {
+    return(1); // provisional, para que compile
     //TODO AMANDE
 }

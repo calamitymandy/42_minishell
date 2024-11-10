@@ -74,14 +74,14 @@ void	ms_io_free(t_fds *io)
 	if (io->del_heredoc)
 	{
 		unlink(io->infile);
-		ms_ptr_free(io->del_heredoc);
+		free_star(io->del_heredoc);
 	}
 	if (io->infile)
-		ms_ptr_free(io->infile);
+		free_star(io->infile);
 	if (io->outfile)
-		ms_ptr_free(io->outfile);
+		free_star(io->outfile);
 	if (io)
-		ms_ptr_free(io);
+		free_star(io);
 }
 
 void	ms_del_one_node_cmd(t_command *lst, void (*del)(void *))
@@ -89,7 +89,7 @@ void	ms_del_one_node_cmd(t_command *lst, void (*del)(void *))
 	if (lst->command)
 		(*del)(lst->command);
 	if (lst->args)
-		ms_ptr_free_arr(lst->args);
+		free_two_stars(lst->args);
 	if (lst->pipe_fd)
 		(*del)(lst->pipe_fd);
 	if (lst->fds)
@@ -115,21 +115,21 @@ void	ms_data_free(t_minishell *ms, bool clearhistory)
 {
 	if (ms && ms->line)
 	{
-		ms_ptr_free(ms->line);
+		free_star(ms->line);
 		ms->line = NULL;
 	}
 	if (ms && ms->token)
-		ms_del_all_nodes_tkn(&ms->token, &ms_ptr_free);
-	if (ms && ms->cmd)
-		ms_del_all_nodes_cmd(&ms->cmd, &ms_ptr_free);
+		ms_del_all_nodes_tkn(&ms->token, &free_star);
+	if (ms && ms->command)
+		ms_del_all_nodes_cmd(&ms->command, &free_star);
 	if (clearhistory == true)
 	{
 		if (ms && ms->pwd)
-			ms_ptr_free(ms->pwd);
+			free_star(ms->pwd);
 		if (ms && ms->old_pwd)
-			ms_ptr_free(ms->old_pwd);
+			free_star(ms->old_pwd);
 		if (ms && ms->env)
-			ms_ptr_free_arr(ms->env);
+			free_two_stars(ms->env);
 		clear_history();
 	}
 }
