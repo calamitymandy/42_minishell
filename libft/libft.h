@@ -98,6 +98,7 @@ char	*get_next_line(int fd);
 char	*ft_read(int fd, char *str);
 char	*ft_line(char *str);
 char	*ft_next_line(char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 
 
 #endif

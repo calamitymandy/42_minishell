@@ -1,19 +1,6 @@
 #include"minishell.h"
 
 
-char	*ms_strjoin(char *str1, char *str2)
-{
-	char	*aux;
-
-	if (!str2)
-		return (str1);
-	if (!str1)
-		return (ft_strdup(str2));
-	aux = str1;
-	str1 = ft_strjoin(aux, str2);
-	ms_ptr_free(aux);
-	return (str1);
-}
 
 bool	ms_is_export_or_unset(char *command)
 {
@@ -21,6 +8,23 @@ bool	ms_is_export_or_unset(char *command)
 		|| ft_strncmp(command, "unset", 6) == 0)
 		return (true);
 	return (false);
+}
+
+void	ms_exit_msg(t_minishell *ms, char *msg, int exit_code)
+{
+	ft_putendl_fd(msg, 2);
+	ms_exit_ms(ms, exit_code);
+}
+
+void	ms_exit_ms(t_minishell *ms, int exit_code)
+{
+	if (ms)
+	{
+		if (ms->command && ms->command->fds)
+			ms_close_fds(ms->command, true);
+		ms_data_free(ms, true);
+	}
+	exit(exit_code);
 }
 
 int	ms_msg_err(char *cc, char *info, char *msg, int error_code)
@@ -46,6 +50,6 @@ int	ms_msg_err(char *cc, char *info, char *msg, int error_code)
 	}
 	out = ms_strjoin(out, msg);
 	ft_putendl_fd(out, STDERR_FILENO);
-	ms_ptr_free(out);
+	free_star(out);
 	return (error_code);
 }

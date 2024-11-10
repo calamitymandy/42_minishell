@@ -39,6 +39,9 @@
 # define CMD_NOT_EXECUTABLE	126
 # define ERR_NUM_ARR		255
 # define ERR_PIPE_STX		258
+# define BREAK	1
+# define GO		0
+
 extern int	g_status;
 
 typedef struct s_token
@@ -52,6 +55,8 @@ typedef struct s_token
 	bool			is_env_var;
 	int				index;
 	int				type;
+	char			*cc;
+
 }	t_token;
 
 typedef struct s_fds
@@ -62,7 +67,7 @@ typedef struct s_fds
 	int			fd_outfile;
 	int			stdin_ori;
 	int			stdout_ori;
-	bool		msg_err;
+	bool		error_msg;
 	bool		heredoc_quotes;
 	char		*del_heredoc;
 }	t_fds;
@@ -85,9 +90,9 @@ typedef struct	s_minishell
 	char		*line;
 	char		*pwd;
 	char		*old_pwd;
-	//bool		ctrlc_heredoc;
+	bool		ctrlcheredoc;
 	t_token		*token;
-	t_command	*cmd;
+	t_command	*command;
 	pid_t		pid;
 	
 }	t_minishell;
@@ -132,12 +137,23 @@ void		ms_listening_no_interact_sig(void);
 bool	ms_lexer_main(t_minishell *ms);
 void	ms_close_fds(t_command *cmds, bool close_backups);
 void		ms_data_free(t_minishell *ms, bool clear_history);
-void	ms_ptr_free(void *ptr);
+void	free_star(void *ptr);
 void	ms_del_all_nodes_tkn(t_token **lst, void (*del)(void *));
 void	ms_del_one_node_tkn(t_token *lst, void (*del)(void *));
 void	ms_rm_echo_empty_words(t_token **arg_list);
-
-
+t_command	*ms_new_cmd_lst(void);
+void	ms_exit_msg(t_minishell *ms, char *msg, int exit_code);
+t_command	*ms_scroll_lstcmd(t_command *aux);
+void	ms_parser_main(t_minishell *ms);
+void	ms_add_tkn_lst(t_token **lst, t_token *new_node);
+t_token	*ms_tkn_create(char *content, char *cntnt_cpy, int type, int qs);
+int	ms_msg_err(char *cc, char *info, char *msg, int error_code);
+bool	ms_dollar_error(char *content, int scan);
 int ft_atoi_long(const char *str, bool *error);
+char	*replace_str_heredoc(char *str, char *var_value, int index);
+char	*ms_xtract_var_value(t_token *token, char *content, t_minishell *ms);
+void	ms_exit_ms(t_minishell *ms, int exit_code);
+char	*ms_strjoin(char *str1, char *str2);
+
 
 #endif

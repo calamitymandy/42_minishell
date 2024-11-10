@@ -37,43 +37,13 @@ char	*ms_put_name_tmp(void)
 }
 
 
-void	ms_ptr_free(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}
-
-void	ms_ptr_free_arr(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i])
-		{
-			if (tab[i])
-			{
-				ms_ptr_free(tab[i]);
-				tab[i] = NULL;
-			}
-			i++;
-		}
-		free(tab);
-		tab = NULL;
-	}
-}
-
 bool	ms_fds_error2(t_fds *fds)
 {
 	if (fds->outfile)
 	{
 		if (fds->fd_outfile == -1 || (fds->infile && fds->fd_infile == -1))
 			return (true);
-		ms_ptr_free(fds->outfile);
+		free_star(fds->outfile);
 		close(fds->fd_outfile);
 	}
 	return (false);
@@ -95,31 +65,31 @@ bool	ms_fds_error(t_fds *fds)
 			return (true);
 		if (fds->del_heredoc)
 		{
-			ms_ptr_free(fds->del_heredoc);
+			free_star(fds->del_heredoc);
 			fds->del_heredoc = NULL;
 			unlink(fds->infile);
 		}
-		ms_ptr_free(fds->infile);
+		free_star(fds->infile);
 		close(fds->fd_infile);
 	}
 	return (false);
 }
-bool	ms_set_fd_struct(t_command *cmd)
+bool	ms_set_fd_struct(t_command *command)
 {
-	if (!cmd->fds)
+	if (!command->fds)
 	{
-		cmd->fds = malloc(sizeof * cmd->fds);
-		if (!cmd->fds)
+		command->fds = malloc(sizeof * command->fds);
+		if (!command->fds)
 			return (false);
-		cmd->fds->infile = NULL;
-		cmd->fds->outfile = NULL;
-		cmd->fds->del_heredoc = NULL;
-		cmd->fds->heredoc_quotes = false;
-		cmd->fds->fd_infile = -1;
-		cmd->fds->fd_outfile = -1;
-		cmd->fds->stdin_ori = -1;
-		cmd->fds->stdout_ori = -1;
-		cmd->fds->error_msg = false;
+		command->fds->infile = NULL;
+		command->fds->outfile = NULL;
+		command->fds->del_heredoc = NULL;
+		command->fds->heredoc_quotes = false;
+		command->fds->fd_infile = -1;
+		command->fds->fd_outfile = -1;
+		command->fds->stdin_ori = -1;
+		command->fds->stdout_ori = -1;
+		command->fds->error_msg = false;
 	}
 	return (true);
 }
@@ -151,9 +121,9 @@ void	ms_cmd_no_arg_prccs(t_minishell *ms)
 {
 	t_command	*new_cmd;
 
-	if (!ms || !ms->cmd)
+	if (!ms || !ms->command)
 		return ;
-	new_cmd = ms->cmd;
+	new_cmd = ms->command;
 	while (new_cmd && new_cmd->command)
 	{
 		if (!new_cmd->args)
@@ -164,7 +134,7 @@ void	ms_cmd_no_arg_prccs(t_minishell *ms)
 		}
 		new_cmd = new_cmd->next;
 	}
-	new_cmd = ms_scroll_lstcmd(ms->cmd);
+	new_cmd = ms_scroll_lstcmd(ms->command);
 }
 
 t_command	*ms_new_cmd_lst(void)
@@ -237,7 +207,7 @@ void	ms_del_one_node_tkn(t_token *lst, void (*del)(void *))
 		lst->prev->next = lst->next;
 	if (lst->next)
 		lst->next->prev = lst->prev;
-	ms_ptr_free(lst);
+	free_star(lst);
 }
 
 void	ms_rm_echo_empty_words(t_token **arg_list)
@@ -253,7 +223,7 @@ void	ms_rm_echo_empty_words(t_token **arg_list)
 			aux = aux->next;
 			if (aux == (*arg_list)->next)
 				(*arg_list) = (*arg_list)->next;
-			ms_del_one_node_tkn(aux->prev, ms_ptr_free);
+			ms_del_one_node_tkn(aux->prev, free_star);
 		}
 		else
 			aux = aux->next;
@@ -275,7 +245,7 @@ int	ms_word_n_var_counter(t_token *aux)
 }
 
 bool	ms_cmd_arg_creat_n_fill(t_token **arg_list, \
-	t_command *cmd, bool is_echo)
+	t_command *command, bool is_echo)
 {
 	int		arg_amnt;
 	t_token	*aux;
@@ -285,25 +255,25 @@ bool	ms_cmd_arg_creat_n_fill(t_token **arg_list, \
 		ms_rm_echo_empty_words(arg_list);
 	aux = *arg_list;
 	arg_amnt = ms_word_n_var_counter(aux);
-	cmd->args = malloc(sizeof(char *) * (arg_amnt + 2));
-	if (!cmd->args)
+	command->args = malloc(sizeof(char *) * (arg_amnt + 2));
+	if (!command->args)
 		return (false);
 	i = 0;
-	cmd->args[i] = ft_strdup(cmd->command);
+	command->args[i] = ft_strdup(command->command);
 	i++;
 	while (aux->type == WORD || aux->type == VAR)
 	{
-		cmd->args[i] = ft_strdup(aux->content);
+		command->args[i] = ft_strdup(aux->content);
 		i++;
 		aux = aux->next;
 	}
-	cmd->args[i] = NULL;
+	command->args[i] = NULL;
 	*arg_list = aux;
 	return (true);
 }
 
 char	**ms_create_table(
-	int args_amnt, char **args_table, t_command *cmd, t_token **arg_list)
+	int args_amnt, char **args_table, t_command *command, t_token **arg_list)
 {
 	int		i;
 	t_token	*aux;
@@ -312,7 +282,7 @@ char	**ms_create_table(
 	aux = *arg_list;
 	while (i < args_amnt)
 	{
-		args_table[i] = cmd->args[i];
+		args_table[i] = command->args[i];
 		i++;
 	}
 	while (aux->type == WORD || aux->type == VAR)
@@ -325,7 +295,7 @@ char	**ms_create_table(
 	return (args_table);
 }
 
-bool	ms_cmd_arg_only_fill(t_token **arg_list, t_command *cmd, bool is_echo)
+bool	ms_cmd_arg_only_fill(t_token **arg_list, t_command *command, bool is_echo)
 {
 	int		var_word_amnt;
 	t_token	*aux;
@@ -342,33 +312,33 @@ bool	ms_cmd_arg_only_fill(t_token **arg_list, t_command *cmd, bool is_echo)
 		aux = aux->next;
 	}
 	args_amnt = 0;
-	while (cmd->args[args_amnt])
+	while (command->args[args_amnt])
 		args_amnt++;
 	args_table = malloc(sizeof(char *) * (var_word_amnt + args_amnt + 1));
 	if (!args_table)
 		return (false);
-	args_table = ms_create_table(args_amnt, args_table, cmd, arg_list);
-	free(cmd->args);
-	cmd->args = args_table;
+	args_table = ms_create_table(args_amnt, args_table, command, arg_list);
+	free(command->args);
+	command->args = args_table;
 	*arg_list = aux;
 	return (true);
 }
 
-bool	ms_cmd_arg_filler(t_token **arg_list, t_command *cmd)
+bool	ms_cmd_arg_filler(t_token **arg_list, t_command *command)
 {
-	if (ft_strcmp(cmd->command, "echo") == 0)
+	if (ft_strcmp(command->command, "echo") == 0)
 	{
-		if (!(cmd->args))
-			return (ms_cmd_arg_creat_n_fill(arg_list, cmd, true));
+		if (!(command->args))
+			return (ms_cmd_arg_creat_n_fill(arg_list, command, true));
 		else
-			return (ms_cmd_arg_only_fill(arg_list, cmd, true));
+			return (ms_cmd_arg_only_fill(arg_list, command, true));
 	}
 	else
 	{
-		if (!(cmd->args))
-			return (ms_cmd_arg_creat_n_fill(arg_list, cmd, false));
+		if (!(command->args))
+			return (ms_cmd_arg_creat_n_fill(arg_list, command, false));
 		else
-			return (ms_cmd_arg_only_fill(arg_list, cmd, false));
+			return (ms_cmd_arg_only_fill(arg_list, command, false));
 	}
 	return (true);
 }
@@ -392,12 +362,12 @@ void	ms_split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms)
 			ms_add_tkn_lst(&args_list,
 				ms_tkn_create(ft_strdup(splited_cntn[i]), NULL, WORD, OK_Q));
 	}
-	ms_add_tkn_lst(&args_list, ms_tkn_creat(NULL, NULL, END, OK_Q));
+	ms_add_tkn_lst(&args_list, ms_tkn_create(NULL, NULL, END, OK_Q));
 	if (!ms_cmd_arg_filler(&args_list, new_cmd))
 		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	free_tkn_ptr = args_list;
-	ms_del_all_nodes_tkn(&free_tkn_ptr, &ms_ptr_free);
-	ms_ptr_free_arr(splited_cntn);
+	ms_del_all_nodes_tkn(&free_tkn_ptr, &free_star);
+	free_two_stars(splited_cntn);
 }
 
 void	ms_word_n_var_parser(t_minishell *ms, t_token **aux)
@@ -408,7 +378,7 @@ void	ms_word_n_var_parser(t_minishell *ms, t_token **aux)
 	token = *aux;
 	while (token->type == WORD || token->type == VAR)
 	{
-		new_cmd = ms_scroll_lstcmd(ms->cmd);
+		new_cmd = ms_scroll_lstcmd(ms->command);
 		if (token->prev == NULL || (token->prev && token->prev->type == PIPE)
 			|| new_cmd->command == NULL || new_cmd->command[0] == '\0')
 		{
@@ -453,7 +423,7 @@ void	ms_infile_parser(t_minishell *ms, t_token **aux)
 	t_command	*last_cmd;
 
 	aux_aux = *aux;
-	last_cmd = ms_scroll_lstcmd(ms->cmd);
+	last_cmd = ms_scroll_lstcmd(ms->command);
 	if (last_cmd->fds && last_cmd->fds->error_msg)
 	{
 		ms_skip_next_token(aux);
@@ -496,6 +466,33 @@ char	*ms_heredoc_var_xpndr(t_minishell *ms, char *var)
 	return (var);
 }
 
+char	*ms_addspace_btwn_words(char **words)
+{
+	char	*str;
+	char	*tmp;
+	int		i;
+
+	i = -1;
+	while (words[++i])
+	{
+		tmp = str;
+		if (i == 0)
+			str = ft_strdup(words[0]);
+		else
+		{
+			str = ft_strjoin(tmp, words[i]);
+			free_star(tmp);
+		}
+		if (words[i + 1])
+		{
+			tmp = str;
+			str = ft_strjoin(tmp, " ");
+			free_star(tmp);
+		}
+	}
+	free_two_stars(words);
+	return (str);
+}
 char	*ms_heredoc_xpndr_main(t_minishell *ms, char *line)
 {
 	char	**words;
@@ -535,7 +532,7 @@ bool	ms_loop_breaker(t_minishell *ms, char **line, t_fds *fds, bool *success)
 		*line = ms_heredoc_xpndr_main(ms, *line);
 		if (!(*line))
 		{
-			ms_ptr_free(*line);
+			free_star(*line);
 			*success = false;
 			return (BREAK);
 		}
@@ -561,9 +558,9 @@ bool	ms_heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 		if (ms_loop_breaker(ms, &line, fds, &success))
 			break ;
 		ft_putendl_fd(line, tmp_fd);
-		ms_ptr_free(line);
+		free_star(line);
 	}
-	ms_ptr_free(line);
+	free_star(line);
 	return (success);
 }
 
@@ -591,7 +588,7 @@ void	ms_heredoc_main(t_minishell *ms, t_token **aux)
 	t_fds		*fds;
 
 	pre_delim = *aux;
-	last_cmd = ms_scroll_lstcmd(ms->cmd);
+	last_cmd = ms_scroll_lstcmd(ms->command);
 	if (!ms_set_fd_struct(last_cmd))
 		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	fds = last_cmd->fds;
@@ -630,13 +627,13 @@ void	ms_create_trunc(t_fds *fds, char *file_name, char *cc)
 	}
 }
 
-void	(t_minishell *ms, t_token **aux)
+void	ms_trunc_parser(t_minishell *ms, t_token **aux)
 {
 	t_token		*tkn_process;
 	t_command	*last_cmd;
 
 	tkn_process = *aux;
-	last_cmd = ms_scroll_lstcmd(ms->cmd);
+	last_cmd = ms_scroll_lstcmd(ms->command);
 	if (last_cmd->fds && last_cmd->fds->error_msg)
 	{
 		ms_skip_next_token(aux); 
@@ -671,7 +668,7 @@ void	ms_append_parser(t_minishell *ms, t_token **aux)
 	t_command	*last_cmd;
 
 	tkn_process = *aux;
-	last_cmd = ms_scroll_lstcmd(ms->cmd);
+	last_cmd = ms_scroll_lstcmd(ms->command);
 	if (!ms_set_fd_struct(last_cmd))
 		ms_exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	if (!ms->ctrlcheredoc)
@@ -684,7 +681,7 @@ void	ms_pipe_parser(t_minishell *ms, t_token **token_lst)
 {
 	t_command	*last_cmd;
 
-	last_cmd = ms_scroll_lstcmd(ms->cmd);
+	last_cmd = ms_scroll_lstcmd(ms->command);
 	last_cmd->pipe_output = true;
 	ms_addlst_cmd_container(ms, &last_cmd);
 	*token_lst = (*token_lst)->next;
@@ -700,7 +697,7 @@ void	ms_parser_main(t_minishell *ms)
 	while (aux->next)
 	{
 		if (aux == ms->token)
-			ms_addlst_cmd_container(ms, &ms->cmd);
+			ms_addlst_cmd_container(ms, &ms->command);
 		if (aux->type == WORD || aux->type == VAR)
 			ms_word_n_var_parser(ms, &aux);
 		else if (aux->type == INPUT)
