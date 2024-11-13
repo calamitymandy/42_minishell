@@ -31,24 +31,24 @@ void clean_data(t_minishell *mini, bool clear_hist_or_not);
 
 int	g_status;
 
-int	error_msg(char *command, char *info, char *msg, int err_nb)
+int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
 	char	*output;
 
 	output = ft_strdup("$-> ");
-	if (command)
+	if (cmd)
 	{
-		output = ft_strjoin(output, command);
+		output = ft_strjoin(output, cmd);
 		output = ft_strjoin(output, ": ");
 	}
 	if (info)
 	{
-		if (ft_strncmp(command, "export", 7) == 0
-			|| ft_strncmp(command, "unset", 6) == 0)
+		if (ft_strncmp(cmd, "export", 7) == 0
+			|| ft_strncmp(cmd, "unset", 6) == 0)
 			output = ft_strjoin(output, "`");
 		output = ft_strjoin(output, info);
-		if (ft_strncmp(command, "export", 7) == 0
-			|| ft_strncmp(command, "unset", 6) == 0)
+		if (ft_strncmp(cmd, "export", 7) == 0
+			|| ft_strncmp(cmd, "unset", 6) == 0)
 			output = ft_strjoin(output, "'");
 		output = ft_strjoin(output, ": ");
 	}
@@ -491,15 +491,15 @@ int	exec_builtin(t_minishell *mini, t_command *command)
 	int	cmd_res;
 
 	cmd_res = 127;
-	if (ft_strncmp(command->command, "cd", 3) == 0)
+	if (ft_strncmp(command->cmd, "cd", 3) == 0)
 		cmd_res = exec_cd(mini, command->args);
-	else if (ft_strncmp(command->command, "echo", 5) == 0)
+	else if (ft_strncmp(command->cmd, "echo", 5) == 0)
 		cmd_res = exec_echo(mini, command->args);
-	else if (ft_strncmp(command->command, "env", 4) == 0)
+	else if (ft_strncmp(command->cmd, "env", 4) == 0)
 		cmd_res = exec_env_builtin(mini, command->args);
-	else if (ft_strncmp(command->command, "pwd", 4) == 0)
+	else if (ft_strncmp(command->cmd, "pwd", 4) == 0)
 		cmd_res = exec_pwd_builtin(mini, command->args);
-	else if (ft_strncmp(command->command, "exit", 5) == 0)
+	else if (ft_strncmp(command->cmd, "exit", 5) == 0)
 		cmd_res = exec_exit_builtin(mini, command->args);
 	// TODO AMANDINE:
 	// exec_export_builtin
@@ -666,12 +666,12 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
-	//TODO init mini->command->command & mini->token->has_quotes somewhere
-	if (!mini || !mini->command || !mini->command->command
-		|| (mini->command->command[0] == '\0' && mini->token->has_quotes == false))
+	//TODO init mini->command->cmd & mini->token->has_quotes somewhere
+	if (!mini || !mini->command || !mini->command->cmd
+		|| (mini->command->cmd[0] == '\0' && mini->token->has_quotes == false))
 		return (EXIT_SUCCESS);
 	//printf("here it does not print");
-	if (mini->command && !mini->command->command)
+	if (mini->command && !mini->command->cmd)
 	{
 		if (mini->command->fds && !check_in_and_out(mini->command->fds))
 			return (EXIT_FAILURE);
@@ -713,12 +713,12 @@ bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
  * about the file specified by `command` and then checks if it is a directory 
  * using the `S_ISDIR` macro.
  */
-bool	is_directory(char *command)
+bool	is_directory(char *cmd)
 {
 	struct stat	cmd_stat;
 
 	ft_memset(&cmd_stat, 0, sizeof(cmd_stat));
-	stat(command, &cmd_stat);
+	stat(cmd, &cmd_stat);
 	return (S_ISDIR(cmd_stat.st_mode));
 }
 
@@ -749,7 +749,7 @@ int	find_env_index_of_key(char **env, char *key)
  * directories (all_paths). If the command is found in one of 
  * these directories and it is executable, the function returns 
  * the complete path. */
-char	*find_valid_cmd_path(char *command, char **all_paths)
+char	*find_valid_cmd_path(char *cmd, char **all_paths)
 {
 	char	*cmd_path;
 	int		i;
@@ -758,7 +758,7 @@ char	*find_valid_cmd_path(char *command, char **all_paths)
 	i = 0;
 	while (all_paths[i])
 	{
-		cmd_path = ft_strjoin(all_paths[i], command);
+		cmd_path = ft_strjoin(all_paths[i], cmd);
 		if (!cmd_path)
 		{
 			error_msg("malloc", NULL, "an unexpected error occured", EXIT_FAILURE);
@@ -785,7 +785,7 @@ char	*find_valid_cmd_path(char *command, char **all_paths)
 char	*get_path_cmd(t_minishell *mini, char *str)
 {
 	char	**env_paths;
-	char	*command;
+	char	*cmd;
 	char	*cmd_path;
 
 	if (!str)
@@ -795,16 +795,16 @@ char	*get_path_cmd(t_minishell *mini, char *str)
 	env_paths = ft_split(get_env_value(mini->env, "PATH"), ':');
 	if (!env_paths)
 		return (NULL);
-	command = ft_strjoin("/", str);
-	if (!command)
+	cmd = ft_strjoin("/", str);
+	if (!cmd)
 	{
 		free_two_stars(env_paths);
 		return (NULL);
 	}
-	cmd_path = find_valid_cmd_path(command, env_paths);
+	cmd_path = find_valid_cmd_path(cmd, env_paths);
 	if (!cmd_path)
 	{
-		free_star(command);
+		free_star(cmd);
 		free_two_stars(env_paths);
 		return (NULL);
 	}
@@ -812,9 +812,9 @@ char	*get_path_cmd(t_minishell *mini, char *str)
 }
 
 /**
- * The function executes a system binary command in a minishell environment.
+ * The function executes a system binary cmd in a minishell environment.
  * 
- * A system binary command is an executable program that is stored in binary 
+ * A system binary cmd is an executable program that is stored in binary 
  * form on the system, typically located in standard directories like 
  * /bin, /usr/bin, /sbin. These commands are essential for interacting with
  * the operating system and performing various tasks.
@@ -824,11 +824,11 @@ char	*get_path_cmd(t_minishell *mini, char *str)
  */
 int	exec_sys_binary(t_minishell *mini, t_command *command)
 {
-	if (!command->command || command->command[0] == '\0')
+	if (!command->cmd || command->cmd[0] == '\0')
 		return (127);
-	if (is_directory(command->command))
+	if (is_directory(command->cmd))
 		return (127);
-	command->path = get_path_cmd(mini, command->command);
+	command->path = get_path_cmd(mini, command->cmd);
 	if (!command->path)
 		return (127);
 	if (execve(command->path, command->args, mini->env) == -1)
@@ -852,16 +852,16 @@ int	exec_sys_binary(t_minishell *mini, t_command *command)
 */
 int	exec_local_binary(t_minishell *mini, t_command *command)
 {
-	if (ft_strchr(command->command, '/') == NULL
+	if (ft_strchr(command->cmd, '/') == NULL
 		&& find_env_index_of_key(mini->env, "PATH") != -1)
-		return (error_msg(command->command, NULL, "command not found", 127));
-	if (access(command->command, F_OK) != 0)
-		return (error_msg(command->command, NULL, strerror(errno), 127));
-	if (is_directory(command->command))
-		return (error_msg(command->command, NULL, "is a directory", 126));
-	if (access(command->command, F_OK | X_OK) != 0)
-		return (error_msg(command->command, NULL, strerror(errno), 126));
-	if (execve(command->command, command->args, mini->env) == -1)
+		return (error_msg(command->cmd, NULL, "command not found", 127));
+	if (access(command->cmd, F_OK) != 0)
+		return (error_msg(command->cmd, NULL, strerror(errno), 127));
+	if (is_directory(command->cmd))
+		return (error_msg(command->cmd, NULL, "is a directory", 126));
+	if (access(command->cmd, F_OK | X_OK) != 0)
+		return (error_msg(command->cmd, NULL, strerror(errno), 126));
+	if (execve(command->cmd, command->args, mini->env) == -1)
 		return (error_msg("execve", NULL, strerror(errno), errno));
 	return (EXIT_FAILURE);
 }
@@ -875,7 +875,7 @@ int	exec_cmd(t_minishell *mini, t_command *command)
 	set_n_close_pipes_fds(mini->command, command); //Mix of two
 	config_in_and_out(command->fds);
 	close_fds(mini->command, false);
-	if (ft_strchr(command->command, '/') == NULL)
+	if (ft_strchr(command->cmd, '/') == NULL)
 	{
 		res = exec_builtin(mini, command);
 		if (res != 127)
@@ -1045,8 +1045,8 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
-		if ((*lst)->command)
-			(*del)((*lst)->command);
+		if ((*lst)->cmd)
+			(*del)((*lst)->cmd);
 		if ((*lst)->args)
 			(*del)((*lst)->args);
 		if ((*lst)->pipe_fd)

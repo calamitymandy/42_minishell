@@ -2,10 +2,10 @@
 
 
 
-bool	ms_is_export_or_unset(char *command)
+bool	ms_is_export_or_unset(char *cmd)
 {
-	if (ft_strncmp(command, "export", 7) == 0
-		|| ft_strncmp(command, "unset", 6) == 0)
+	if (ft_strncmp(cmd, "export", 7) == 0
+		|| ft_strncmp(cmd, "unset", 6) == 0)
 		return (true);
 	return (false);
 }

@@ -80,7 +80,7 @@ typedef struct s_command
 	struct s_command	*next;
 	int					*pipe_fd;
 	t_fds				*fds;
-	char				*command;
+	char				*cmd;
 	char				*path;
 }	t_command;
 

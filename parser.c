@@ -124,12 +124,12 @@ void	ms_cmd_no_arg_prccs(t_minishell *ms)
 	if (!ms || !ms->command)
 		return ;
 	new_cmd = ms->command;
-	while (new_cmd && new_cmd->command)
+	while (new_cmd && new_cmd->cmd)
 	{
 		if (!new_cmd->args)
 		{
 			new_cmd->args = malloc(sizeof * new_cmd->args * 2);
-			new_cmd->args[0] = ft_strdup(new_cmd->command);
+			new_cmd->args[0] = ft_strdup(new_cmd->cmd);
 			new_cmd->args[1] = NULL;
 		}
 		new_cmd = new_cmd->next;
@@ -145,7 +145,7 @@ t_command	*ms_new_cmd_lst(void)
 	if (!(new_node))
 		return (NULL);
 	ft_memset(new_node, 0, sizeof(t_command));
-	new_node->command = NULL;
+	new_node->cmd = NULL;
 	new_node->path = NULL;
 	new_node->args = NULL;
 	new_node->pipe_output = false;
@@ -259,7 +259,7 @@ bool	ms_cmd_arg_creat_n_fill(t_token **arg_list, \
 	if (!command->args)
 		return (false);
 	i = 0;
-	command->args[i] = ft_strdup(command->command);
+	command->args[i] = ft_strdup(command->cmd);
 	i++;
 	while (aux->type == WORD || aux->type == VAR)
 	{
@@ -326,7 +326,7 @@ bool	ms_cmd_arg_only_fill(t_token **arg_list, t_command *command, bool is_echo)
 
 bool	ms_cmd_arg_filler(t_token **arg_list, t_command *command)
 {
-	if (ft_strcmp(command->command, "echo") == 0)
+	if (ft_strcmp(command->cmd, "echo") == 0)
 	{
 		if (!(command->args))
 			return (ms_cmd_arg_creat_n_fill(arg_list, command, true));
@@ -353,7 +353,7 @@ void	ms_split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms)
 	splited_cntn = ft_split(tkn_cntnt, ' ');
 	if (!splited_cntn)
 		return ;
-	new_cmd->command = ft_strdup(splited_cntn[0]);
+	new_cmd->cmd = ft_strdup(splited_cntn[0]);
 	args_list = NULL;
 	if (splited_cntn[1])
 	{
@@ -380,12 +380,12 @@ void	ms_word_n_var_parser(t_minishell *ms, t_token **aux)
 	{
 		new_cmd = ms_scroll_lstcmd(ms->command);
 		if (token->prev == NULL || (token->prev && token->prev->type == PIPE)
-			|| new_cmd->command == NULL || new_cmd->command[0] == '\0')
+			|| new_cmd->cmd == NULL || new_cmd->cmd[0] == '\0')
 		{
 			if (token->type == VAR && ms_is_there_space(token->content))
 				ms_split_in_args(new_cmd, token->content, ms);
 			else
-				new_cmd->command = ft_strdup(token->content);
+				new_cmd->cmd = ft_strdup(token->content);
 			token = token->next;
 		}
 		else if (!ms_cmd_arg_filler(&token, new_cmd))

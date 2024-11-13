@@ -86,8 +86,8 @@ void	ms_io_free(t_fds *io)
 
 void	ms_del_one_node_cmd(t_command *lst, void (*del)(void *))
 {
-	if (lst->command)
-		(*del)(lst->command);
+	if (lst->cmd)
+		(*del)(lst->cmd);
 	if (lst->args)
 		free_two_stars(lst->args);
 	if (lst->pipe_fd)
