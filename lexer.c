@@ -26,18 +26,7 @@ void	exit_minig(t_minishell *ms, char *msg, int exit_code)
 
 bool	ms_stx_error_cases(t_token *token)
 {
-	/*
-	SPACES = 1,
-	HEREDOC = 2,
-	VAR = 3,
-	INPUT = 4,
-	WORD = 5,
-	PIPE = 6,
-	TRUNC = 7,
-	APPEND = 8,
-	FAILURE = 9,
-	END = 10,
-	*/
+
 	if (token->prev)
 	{
 		if (token->type == PIPE && token->prev->type >= PIPE)

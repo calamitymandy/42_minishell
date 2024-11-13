@@ -92,7 +92,7 @@ typedef struct	s_minishell
 	char		*old_pwd;
 	bool		ctrlcheredoc;
 	t_token		*token;
-	t_command	*command;
+	t_command	*command; //cmd
 	pid_t		pid;
 	
 }	t_minishell;
