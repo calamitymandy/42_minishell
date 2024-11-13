@@ -1,6 +1,6 @@
 NAME        = minishell
 
-SRCS        = main.c close_n_free.c signals.c lexer.c parser.c errors.c utils.c\
+SRCS        = main.c close_n_free.c signals.c lexer.c parser.c errors.c utils.c tokenizer.c\
 
 OBJS        = $(SRCS:.c=.o)
 

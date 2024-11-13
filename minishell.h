@@ -154,6 +154,8 @@ char	*replace_str_heredoc(char *str, char *var_value, int index);
 char	*ms_xtract_var_value(t_token *token, char *content, t_minishell *ms);
 void	ms_exit_ms(t_minishell *ms, int exit_code);
 char	*ms_strjoin(char *str1, char *str2);
-
+bool	ms_quotes_err_n_read(t_minishell *ms, char *line);
+void	exit_minig(t_minishell *ms, char *msg, int exit_code);
+void	ms_err_stx_out(char *message, char *quote, int in_quote);
 
 #endif
