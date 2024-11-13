@@ -81,7 +81,9 @@ bool	ms_word_to_tkn(t_token **tkns, char *line, int scan, int start_word)
 
 	word = malloc(sizeof(char) * (scan - start_word + 1));
 	if (!word)
+	{
 		return (false);
+	}
 	i = 0;
 	while (start_word < scan)
 	{
@@ -162,7 +164,9 @@ bool	ms_quotes_err_n_read(t_minishell *ms, char *line)
 	{
 		quote_stat = ms_quote_stat(quote_stat, line, scan);
 		if (quote_stat == OK_Q)
+		{	
 			start_word = ms_chunk_reader(&scan, line, start_word, ms);
+		}
 	}
 	if (quote_stat != OK_Q)
 	{
