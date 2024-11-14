@@ -42,7 +42,7 @@ void	free_two_stars(char **arr)
 		arr = NULL;
 	}
 }
-bool	ms_reset_io(t_fds *io)
+bool	reset_io(t_fds *io)
 {
 	int	res;
 
@@ -66,11 +66,11 @@ bool	ms_reset_io(t_fds *io)
 	return (res);
 }
 
-void	ms_io_free(t_fds *io)
+void	io_free(t_fds *io)
 {
 	if (!io)
 		return ;
-	ms_reset_io(io);
+	reset_io(io);
 	if (io->del_heredoc)
 	{
 		unlink(io->infile);
@@ -84,7 +84,7 @@ void	ms_io_free(t_fds *io)
 		free_star(io);
 }
 
-void	ms_del_one_node_cmd(t_command *lst, void (*del)(void *))
+void	del_one_node_cmd(t_command *lst, void (*del)(void *))
 {
 	if (lst->cmd)
 		(*del)(lst->cmd);
@@ -93,11 +93,11 @@ void	ms_del_one_node_cmd(t_command *lst, void (*del)(void *))
 	if (lst->pipe_fd)
 		(*del)(lst->pipe_fd);
 	if (lst->fds)
-		ms_io_free(lst->fds);
+		io_free(lst->fds);
 	(*del)(lst);
 }
 
-void	ms_del_all_nodes_cmd(t_command **lst, void (*del)(void *))
+void	del_all_nodes_cmd(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
 
@@ -105,13 +105,13 @@ void	ms_del_all_nodes_cmd(t_command **lst, void (*del)(void *))
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
-		ms_del_one_node_cmd(*lst, del);
+		del_one_node_cmd(*lst, del);
 		*lst = temp;
 	}
 }
 
 
-void	ms_data_free(t_minishell *ms, bool clearhistory)
+void	data_free(t_minishell *ms, bool clearhistory)
 {
 	if (ms && ms->line)
 	{
@@ -119,9 +119,9 @@ void	ms_data_free(t_minishell *ms, bool clearhistory)
 		ms->line = NULL;
 	}
 	if (ms && ms->token)
-		ms_del_all_nodes_tkn(&ms->token, &free_star);
+		del_all_nodes_tkn(&ms->token, &free_star);
 	if (ms && ms->command)
-		ms_del_all_nodes_cmd(&ms->command, &free_star);
+		del_all_nodes_cmd(&ms->command, &free_star);
 	if (clearhistory == true)
 	{
 		if (ms && ms->pwd)
@@ -136,7 +136,7 @@ void	ms_data_free(t_minishell *ms, bool clearhistory)
 
 
 
-void	ms_close_un_pipes_fd(t_command *cmds, t_command *omit_cmd)
+void	close_un_pipes_fd(t_command *cmds, t_command *omit_cmd)
 {
 	while (cmds)
 	{
@@ -149,18 +149,3 @@ void	ms_close_un_pipes_fd(t_command *cmds, t_command *omit_cmd)
 	}
 }
 
-
-
-void	ms_close_fds(t_command *cmds, bool close_backups)
-{
-	if (cmds->fds)
-	{
-		if (cmds->fds->fd_infile != -1)
-			close(cmds->fds->fd_infile);
-		if (cmds->fds->fd_outfile != -1)
-			close(cmds->fds->fd_outfile);
-		if (close_backups)
-			ms_reset_io(cmds->fds);
-	}
-	ms_close_un_pipes_fd(cmds, NULL);
-}

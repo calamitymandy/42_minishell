@@ -1097,10 +1097,10 @@ void	main_loop(t_minishell *mini)
 {
 	while (1)
 	{
-		ms_listening_interact_sig();
+		listening_interact_sig();
 		mini->line = readline("$-> ");
-		ms_listening_no_interact_sig();
-		if(ms_lexer_main(mini))
+		listening_no_interact_sig();
+		if(lexer_main(mini))
 			g_status = exec_main(mini);
 		clean_data(mini, false);
 		//printf("You wrote: %s\n", mini->line);

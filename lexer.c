@@ -7,7 +7,7 @@ void	ft_putendl_fd(char *s, int fd)
 }
 
 
-bool	ms_is_line_empty(char *line)
+bool	is_line_empty(char *line)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ void	exit_minig(t_minishell *ms, char *msg, int exit_code)
 	exit_mini(ms, exit_code);
 }
 
-bool	ms_stx_error_cases(t_token *token)
+bool	stx_error_cases(t_token *token)
 {
 
 	if (token->prev)
@@ -49,7 +49,7 @@ bool	ms_stx_error_cases(t_token *token)
 }
 
 
-char	*ms_strjoin(char *str1, char *str2)
+char	*strjoin(char *str1, char *str2)
 {
 	char	*aux;
 
@@ -63,38 +63,38 @@ char	*ms_strjoin(char *str1, char *str2)
 	return (str1);
 }
 
-void	ms_err_stx_out(char *message, char *quote, int in_quote)
+void	err_stx_out(char *message, char *quote, int in_quote)
 {
 	char	*out;
 
 	out = ft_strdup("minishell: ");
-	out = ms_strjoin(out, message);
+	out = strjoin(out, message);
 	if (in_quote)
-		out = ms_strjoin(out, " `");
+		out = strjoin(out, " `");
 	else
-		out = ms_strjoin(out, ": ");
-	out = ms_strjoin(out, quote);
+		out = strjoin(out, ": ");
+	out = strjoin(out, quote);
 	if (in_quote)
-		out = ms_strjoin(out, "'");
+		out = strjoin(out, "'");
 	ft_putendl_fd(out, STDERR_FILENO);
 	free_star(out);
 }
 
-bool	ms_stx_err_iterator(t_token **token_list)
+bool	stx_err_iterator(t_token **token_list)
 {
 	t_token	*aux;
 
 	aux = *token_list;
 	while (aux)
 	{
-		if (ms_stx_error_cases(aux))
+		if (stx_error_cases(aux))
 		{
 			if (aux->type == END && aux->prev && aux->prev->type > PIPE)
-				ms_err_stx_out(ERR_SYNTX_TKN, "newline", true);
+				err_stx_out(ERR_SYNTX_TKN, "newline", true);
 			else if (aux->type == END && aux->prev && aux->prev->type == PIPE)
-				ms_err_stx_out(ERR_SYNTX_TKN, aux->prev->content, true);
+				err_stx_out(ERR_SYNTX_TKN, aux->prev->content, true);
 			else
-				ms_err_stx_out(ERR_SYNTX_TKN, aux->content, true);
+				err_stx_out(ERR_SYNTX_TKN, aux->content, true);
 			return (true);
 		}
 		aux = aux->next;
@@ -102,20 +102,20 @@ bool	ms_stx_err_iterator(t_token **token_list)
 	return (false);
 }
 
-bool	ms_stx_err(t_token **token_list)
+bool	stx_err(t_token **token_list)
 {
 	t_token	*aux;
 
 	aux = *token_list;
 	if (aux->type == PIPE)
 	{
-		ms_err_stx_out(ERR_SYNTX_TKN, aux->content, true);
+		err_stx_out(ERR_SYNTX_TKN, aux->content, true);
 		g_status = ERR_PIPE_STX;
 		return (true);
 	}
 	while (aux)
 	{
-		if (ms_stx_err_iterator(&aux))
+		if (stx_err_iterator(&aux))
 			return (true);
 		aux = aux->next;
 	}
@@ -123,7 +123,7 @@ bool	ms_stx_err(t_token **token_list)
 }
 
 
-bool	ms_is_between_d_quot(char *content, int scan)
+bool	is_between_d_quot(char *content, int scan)
 {
 	if (scan > 0)
 	{
@@ -135,7 +135,7 @@ bool	ms_is_between_d_quot(char *content, int scan)
 	return (false);
 }
 
-bool	ms_is_bad_char_next(char next)
+bool	is_bad_char_next(char next)
 {
 	if (next == '$' || next == ' ' || next == '=' || next == '\0')
 		return (true);
@@ -143,16 +143,16 @@ bool	ms_is_bad_char_next(char next)
 		return (false);
 }
 
-bool	ms_dollar_error(char *content, int scan)
+bool	dollar_error(char *content, int scan)
 {
-	if ((ms_is_bad_char_next(content[scan + 1])) \
-		|| (ms_is_between_d_quot(content, scan)))
+	if ((is_bad_char_next(content[scan + 1])) \
+		|| (is_between_d_quot(content, scan)))
 		return (true);
 	else
 		return (false);
 }
 
-void	ms_quote_stat_expndr(t_token **node, char scan)
+void	quote_stat_expndr(t_token **node, char scan)
 {
 	if (scan == '\'' && (*node)->var_q_stat == OK_Q)
 		(*node)->var_q_stat = OPN_SQ;
@@ -164,7 +164,7 @@ void	ms_quote_stat_expndr(t_token **node, char scan)
 		(*node)->var_q_stat = OK_Q;
 }
 
-bool	ms_isalphanum_or__(char c)
+bool	isalphanum_or__(char c)
 {
 	if (!ft_isalnum(c) && c != '_')
 		return (false);
@@ -173,7 +173,7 @@ bool	ms_isalphanum_or__(char c)
 }
 
 
-int	ms_var_name_len(char *content)
+int	var_name_len(char *content)
 {
 	int		i;
 	int		len;
@@ -187,7 +187,7 @@ int	ms_var_name_len(char *content)
 	len = 0;
 	while (content[i])
 	{
-		if (!ms_isalphanum_or__(content[i]))
+		if (!isalphanum_or__(content[i]))
 			break ;
 		len++;
 		i++;
@@ -195,7 +195,7 @@ int	ms_var_name_len(char *content)
 	return (len);
 }
 
-void	ms_val_cpy(char *new, char *value, int *j)
+void	val_cpy(char *new, char *value, int *j)
 {
 	int	i;
 
@@ -208,7 +208,7 @@ void	ms_val_cpy(char *new, char *value, int *j)
 	}
 }
 
-char	*ms_get_var_str(char *content, char *value, int trim_len, int scan)
+char	*get_var_str(char *content, char *value, int trim_len, int scan)
 {
 	int		i;
 	int		j;
@@ -223,8 +223,8 @@ char	*ms_get_var_str(char *content, char *value, int trim_len, int scan)
 	{
 		if (content[i] == '$' && i == scan)
 		{
-			ms_val_cpy(new, value, &j);
-			i = i + ms_var_name_len(content + scan) + 1;
+			val_cpy(new, value, &j);
+			i = i + var_name_len(content + scan) + 1;
 			if (content[i] == '\0')
 				break ;
 		}
@@ -234,14 +234,14 @@ char	*ms_get_var_str(char *content, char *value, int trim_len, int scan)
 	return (new);
 }
 
-char	*ms_replace_for_xpanded(t_token **aux, char *content, char *value, int scan)
+char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan)
 {
 	int		trim_len;
 	char	*trim_cntnt;
 
-	trim_len = (ft_strlen(content) - ms_var_name_len(content + scan)
+	trim_len = (ft_strlen(content) - var_name_len(content + scan)
 			+ ft_strlen(value));
-	trim_cntnt = ms_get_var_str(content, value, trim_len, scan);
+	trim_cntnt = get_var_str(content, value, trim_len, scan);
 	if (aux && *aux)
 	{
 		free_star((*aux)->content);
@@ -260,7 +260,7 @@ char	*replace_str_heredoc(char *str, char *var_value, int index)
 	else
 	{
 		tmp = str;
-		str = ms_replace_for_xpanded(NULL, str, var_value, index);
+		str = replace_for_xpanded(NULL, str, var_value, index);
 		free_star(tmp);
 	}
 	free_star(var_value);
@@ -268,14 +268,14 @@ char	*replace_str_heredoc(char *str, char *var_value, int index)
 }
 
 
-bool	ms_xpand_if_null(t_token **aux, char *content, int scan)
+bool	xpand_if_null(t_token **aux, char *content, int scan)
 {
 	int		i;
 	int		j;
 	int		trim_len;
 	char	*trim_cntnt;
 
-	trim_len = ft_strlen(content) - ms_var_name_len(content + scan);
+	trim_len = ft_strlen(content) - var_name_len(content + scan);
 	trim_cntnt = (char *)malloc(sizeof(char) * trim_len + 1);
 	if (!trim_cntnt)
 		return (false);
@@ -285,7 +285,7 @@ bool	ms_xpand_if_null(t_token **aux, char *content, int scan)
 	{
 		if (content[i] == '$' && i == scan)
 		{
-			i = i + ms_var_name_len(content + scan) + 1;
+			i = i + var_name_len(content + scan) + 1;
 			if (content[i] == '\0')
 				break ;
 		}
@@ -297,11 +297,11 @@ bool	ms_xpand_if_null(t_token **aux, char *content, int scan)
 	return (true);
 }
 
-void	ms_process_variables(char *value, t_token **aux, int scan, t_minishell *ms)
+void	process_variables(char *value, t_token **aux, int scan, t_minishell *ms)
 {
 	if (!value)
 	{
-		if (!ms_xpand_if_null(aux, (*aux)->content, scan))
+		if (!xpand_if_null(aux, (*aux)->content, scan))
 		{
 			free_star(value);
 			exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
@@ -309,7 +309,7 @@ void	ms_process_variables(char *value, t_token **aux, int scan, t_minishell *ms)
 	}
 	else
 	{
-		if (!ms_replace_for_xpanded(aux, (*aux)->content, value, scan))
+		if (!replace_for_xpanded(aux, (*aux)->content, value, scan))
 		{
 			free_star(value);
 			exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
@@ -318,7 +318,7 @@ void	ms_process_variables(char *value, t_token **aux, int scan, t_minishell *ms)
 	free_star(value);
 }
 
-char	*ms_dup_env_var_value(t_minishell *ms, char *var_nme)
+char	*dup_env_var_value(t_minishell *ms, char *var_nme)
 {
 	char	*value;
 	int		i;
@@ -337,7 +337,7 @@ char	*ms_dup_env_var_value(t_minishell *ms, char *var_nme)
 
 
 
-char	*ms_xtract_var_name(t_minishell *ms, char *content)
+char	*xtract_var_name(t_minishell *ms, char *content)
 {
 	char	*var_name;
 	char	*tmp;
@@ -355,7 +355,7 @@ char	*ms_xtract_var_name(t_minishell *ms, char *content)
 			break ;
 		}
 	}
-	len = ms_var_name_len(content);
+	len = var_name_len(content);
 	var_name = ft_substr(content, start, len);
 	if (!var_name)
 		exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
@@ -365,7 +365,7 @@ char	*ms_xtract_var_name(t_minishell *ms, char *content)
 	return (var_name);
 }
 
-bool	ms_is_env_var(t_minishell *ms, char *var_nme)
+bool	is_env_var(t_minishell *ms, char *var_nme)
 {
 	int		i;
 	int		len;
@@ -378,17 +378,17 @@ bool	ms_is_env_var(t_minishell *ms, char *var_nme)
 	return (false);
 }
 
-char	*ms_xtract_var_value(t_token *token, char *content, t_minishell *ms)
+char	*xtract_var_value(t_token *token, char *content, t_minishell *ms)
 {
 	char	*value;
 	char	*var_nme;
 
-	var_nme = ms_xtract_var_name(ms, content);
-	if (var_nme && ms_is_env_var(ms, var_nme))
+	var_nme = xtract_var_name(ms, content);
+	if (var_nme && is_env_var(ms, var_nme))
 	{
 		if (token)
 			token->is_env_var = true;
-		value = ms_dup_env_var_value(ms, var_nme);
+		value = dup_env_var_value(ms, var_nme);
 	}
 	else if (var_nme && var_nme[0] == '?' && var_nme[1] == '=')
 		value = ft_itoa(g_status);
@@ -398,7 +398,7 @@ char	*ms_xtract_var_value(t_token *token, char *content, t_minishell *ms)
 	return (value);
 }
 
-void	ms_scan_variables(t_minishell *ms)
+void	scan_variables(t_minishell *ms)
 {
 	t_token	*aux;
 	int		scan;
@@ -411,11 +411,11 @@ void	ms_scan_variables(t_minishell *ms)
 			scan = 0;
 			while (aux->content[scan])
 			{
-				ms_quote_stat_expndr(&aux, aux->content[scan]);
+				quote_stat_expndr(&aux, aux->content[scan]);
 				if ((aux->content[scan] == '$' \
-				&& !ms_dollar_error(aux->content, scan)) \
+				&& !dollar_error(aux->content, scan)) \
 				&& (aux->var_q_stat == OK_Q || aux->var_q_stat == OPN_DQ))
-					ms_process_variables(ms_xtract_var_value \
+					process_variables(xtract_var_value \
 					(aux, aux->content + scan, ms), &aux, scan, ms);
 				else
 					scan++;
@@ -425,7 +425,7 @@ void	ms_scan_variables(t_minishell *ms)
 	}
 }
 
-bool	ms_quote_detector(char *str)
+bool	quote_detector(char *str)
 {
 	int	i;
 
@@ -436,7 +436,7 @@ bool	ms_quote_detector(char *str)
 	return (false);
 }
 
-bool	ms_skip_quot_n_close(t_token **aux, int *pos)
+bool	skip_quot_n_close(t_token **aux, int *pos)
 {
 	if (((*aux)->content[*pos] == '\'' && (*aux)->var_q_stat == OPN_SQ)
 		|| ((*aux)->content[*pos] == '\"' \
@@ -450,7 +450,7 @@ bool	ms_skip_quot_n_close(t_token **aux, int *pos)
 		return (false);
 }
 
-void	ms_skip_quot_n_open(t_token **aux, int *pos)
+void	skip_quot_n_open(t_token **aux, int *pos)
 {
 	if ((*aux)->content[*pos] == '\'')
 		(*aux)->var_q_stat = OPN_SQ;
@@ -459,7 +459,7 @@ void	ms_skip_quot_n_open(t_token **aux, int *pos)
 	(*pos)++;
 }
 
-bool	ms_is_quote_here(t_token **aux, int pos)
+bool	is_quote_here(t_token **aux, int pos)
 {
 	if (((*aux)->content[pos] == '\'' || (*aux)->content[pos] == '\"')
 		&& (*aux)->var_q_stat == OK_Q)
@@ -468,7 +468,7 @@ bool	ms_is_quote_here(t_token **aux, int pos)
 		return (false);
 }
 
-int	ms_len_wthout_quot(char *content, int len)
+int	len_wthout_quot(char *content, int len)
 {
 	int	status;
 	int	i;
@@ -497,7 +497,7 @@ int	ms_len_wthout_quot(char *content, int len)
 	return (len);	
 }
 
-void	ms_quote_eraser(t_token **aux)
+void	quote_eraser(t_token **aux)
 {
 	int		i;
 	int		j;
@@ -505,12 +505,12 @@ void	ms_quote_eraser(t_token **aux)
 
 	i = 0;
 	j = 0;
-	noq_str = malloc(sizeof(char) * ms_len_wthout_quot((*aux)->content, i) + 1);
+	noq_str = malloc(sizeof(char) * len_wthout_quot((*aux)->content, i) + 1);
 	while ((*aux)->content[i])
 	{
-		if (ms_is_quote_here(aux, i))
-			ms_skip_quot_n_open(aux, &i);
-		else if (ms_skip_quot_n_close(aux, &i))
+		if (is_quote_here(aux, i))
+			skip_quot_n_open(aux, &i);
+		else if (skip_quot_n_close(aux, &i))
 			continue ;
 		else
 			noq_str[j++] = (*aux)->content[i++];
@@ -521,22 +521,22 @@ void	ms_quote_eraser(t_token **aux)
 	(*aux)->has_quotes = true;
 }
 
-int	ms_process_quotes(t_minishell *ms)
+int	process_quotes(t_minishell *ms)
 {
 	t_token	*aux;
 
 	aux = ms->token;
 	while (aux)
 	{
-		if (ms_quote_detector(aux->content) \
+		if (quote_detector(aux->content) \
 			&& (aux->prev == NULL || (aux->prev && aux->prev->type != HEREDOC)))
-			ms_quote_eraser(&aux);
+			quote_eraser(&aux);
 		aux = aux->next;
 	}
 	return (0);
 }
 
-void	ms_mark_variables(t_minishell *ms)
+void	mark_variables(t_minishell *ms)
 {
 	t_token	*aux;
 	int		scan;
@@ -559,14 +559,14 @@ void	ms_mark_variables(t_minishell *ms)
 }
 
 
-void	ms_expander_main(t_minishell *ms)
+void	expander_main(t_minishell *ms)
 {
-	ms_mark_variables(ms);
-	ms_scan_variables(ms);
-	ms_process_quotes(ms);
+	mark_variables(ms);
+	scan_variables(ms);
+	process_quotes(ms);
 }
 
-void	ms_token_indx(t_minishell *ms)
+void	token_indx(t_minishell *ms)
 {
 	t_token			*aux;
 	unsigned int	i;
@@ -582,19 +582,19 @@ void	ms_token_indx(t_minishell *ms)
 }
 
 
-bool	ms_lexer_main(t_minishell *ms)
+bool	lexer_main(t_minishell *ms)
 {
 	if (!ms->line)
-		ms_exit_ms(ms, 0); // TODO: Exec exit
-	else if (ms_is_line_empty(ms->line))
+		exit_ms(ms, 0); // TODO: Exec exit
+	else if (is_line_empty(ms->line))
 		return (true);
 	add_history(ms->line);
-	if (ms_quotes_err_n_read(ms, ms->line))
+	if (quotes_err_n_read(ms, ms->line))
 		return (false);
-	if (ms_stx_err(&ms->token))
+	if (stx_err(&ms->token))
 		return (false);
-	ms_expander_main(ms);
-	ms_token_indx(ms);
-	ms_parser_main(ms);
+	expander_main(ms);
+	token_indx(ms);
+	parser_main(ms);
 	return (true);
 }
