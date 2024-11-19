@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/19 17:36:14 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:22:38 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,7 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 			ft_putstr_fd(args[i], STDOUT_FILENO);
 		if (args[i +1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
-		else if (!args[i + 1 && !minus_n_flag])
+		else if (!args[i + 1] && !minus_n_flag)
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
