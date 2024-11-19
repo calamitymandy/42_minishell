@@ -168,7 +168,7 @@ void	token_indx(t_minishell *ms)
 bool	lexer_main(t_minishell *ms)
 {
 	if (!ms->line)
-		exit_ms(ms, 0); // TODO: Exec exit
+		exit_mini(ms, 0); // TODO: Exec exit
 	else if (is_line_empty(ms->line))
 		return (true);
 	add_history(ms->line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/09 19:23:42 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:41:57 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,7 +462,7 @@ int	get_exit_code(char *arg, bool *error)
 			*error = true;
 		i++;
 	}
-	i = ft_atoi_long(arg, error); //TODO AMANDE
+	i = ft_atoi_long(arg, error);
 	return (i % 256);
 }
 
@@ -476,9 +476,10 @@ int	exec_exit_builtin(t_minishell *mini, char **args)
 		exit_code = g_status;
 	else
 	{
-		exit_code = get_exit_code(args[1], &error); //IN PROGRESS AMANDE
+		exit_code = get_exit_code(args[1], &error);
 		if (error)
-			exit_code = error_msg("exit", args[1], "numeric argument required", 255);
+			exit_code = error_msg("exit", args[1],
+					"numeric argument required", 255);
 		else if (args[2])
 			return (error_msg("exit", NULL, "too many arguments", 1));
 	}
@@ -565,7 +566,7 @@ bool	config_in_and_out(t_fds	*in_n_out)
  * Closes the temporary file descriptor.
  * Resets stdin_ori to -1.
  * returns a boolean value indicating whether the fds have been successfully reset.
- */
+
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {
 	int	res;
@@ -589,6 +590,7 @@ bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 	}
 	return (res);
 }
+ */
 
 /**
  * close_fds` closes file descriptors and resets them if specified.
@@ -1018,7 +1020,7 @@ void	clean_token_nodes(t_token **lst, void (*del)(void *), int delete_all)
 	if (delete_all)
 		*lst = NULL;
 }
-
+/*
 void	free_in_and_out_fds(t_fds *in_and_out)
 {
 	if (!in_and_out)
@@ -1036,8 +1038,9 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 	if (in_and_out)
 		free_star(in_and_out);
 }
+*/
 
-/*mix of 2 clean all nodes and clean one node*/
+/*mix of 2 clean all nodes and clean one node
 void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
@@ -1058,8 +1061,9 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 	}
 	*lst = NULL;
 }
+*/
 
-void	clean_data(t_minishell *mini, bool clear_hist_or_not)
+/*void	clean_data(t_minishell *mini, bool clear_hist_or_not)
 {
 	if (mini && mini->line)
 	{
@@ -1081,17 +1085,7 @@ void	clean_data(t_minishell *mini, bool clear_hist_or_not)
 		clear_history();
 	}
 }
-
-void	exit_mini(t_minishell *mini, int exit_code)
-{
-	if (mini)
-	{
-		if (mini->command && mini->command->fds)
-			close_fds(mini->command, true);
-		clean_data(mini, true);
-	}
-	exit(exit_code);
-}
+*/
 
 void	main_loop(t_minishell *mini)
 {
