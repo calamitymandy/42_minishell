@@ -134,11 +134,11 @@ int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms)
 	{
 		if ((*scan) != 0 && !chck_oprtr_type(line, (*scan) - 1))
 			if (!word_to_tkn(&ms->token, line, (*scan), start_word))
-				exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
+				exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 		if (oprtr && oprtr != SPACES)
 		{
 			if (!oprtr_to_tkn(&ms->token, line, (*scan), oprtr))
-				exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
+				exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 			if (oprtr == APPEND || oprtr == HEREDOC)
 				(*scan)++;
 		}

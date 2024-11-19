@@ -18,7 +18,7 @@ bool	is_line_empty(char *line)
 	return (true);
 }
 
-void	exit_minig(t_minishell *ms, char *msg, int exit_code)
+void	exit_and_msg(t_minishell *ms, char *msg, int exit_code)
 {
 	ft_putendl_fd(msg, 2);
 	exit_mini(ms, exit_code);

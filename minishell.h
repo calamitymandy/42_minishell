@@ -155,7 +155,7 @@ char	*xtract_var_value(t_token *token, char *content, t_minishell *ms);
 void	exit_ms(t_minishell *ms, int exit_code);
 char	*strjoin(char *str1, char *str2);
 bool	quotes_err_n_read(t_minishell *ms, char *line);
-void	exit_minig(t_minishell *ms, char *msg, int exit_code);
+void	exit_and_msg(t_minishell *ms, char *msg, int exit_code);
 void	err_stx_out(char *message, char *quote, int in_quote);
 int	quote_stat(int quote_stat, char *line, int scan);
 int	var_name_len(char *content);

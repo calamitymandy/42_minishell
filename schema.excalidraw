@@ -65,8 +65,8 @@
     },
     {
       "type": "ellipse",
-      "version": 1205,
-      "versionNonce": 366441691,
+      "version": 1237,
+      "versionNonce": 1954888873,
       "index": "Zy",
       "isDeleted": false,
       "id": "bHhjRZer8RuLMfanQi00M",
@@ -89,14 +89,14 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1728928159102,
+      "updated": 1731607562268,
       "link": null,
       "locked": false
     },
     {
       "type": "ellipse",
-      "version": 825,
-      "versionNonce": 1077296795,
+      "version": 1007,
+      "versionNonce": 1861811815,
       "index": "Zz",
       "isDeleted": false,
       "id": "CICEXWrkyDhz9RZ6S9weK",
@@ -119,134 +119,14 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1728924264659,
-      "link": null,
-      "locked": false
-    },
-    {
-      "type": "ellipse",
-      "version": 1105,
-      "versionNonce": 1447792411,
-      "index": "Zw",
-      "isDeleted": false,
-      "id": "wDvl509Xi9vKlGZsIxKLP",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 2,
-      "opacity": 100,
-      "angle": 0,
-      "x": 3125.05786960586,
-      "y": -638.4714087141774,
-      "strokeColor": "#f08c00",
-      "backgroundColor": "#40c057",
-      "width": 102.73343912760423,
-      "height": 110.4912196272317,
-      "seed": 112930581,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 2
-      },
-      "boundElements": [],
-      "updated": 1728924392633,
-      "link": null,
-      "locked": false
-    },
-    {
-      "type": "ellipse",
-      "version": 1180,
-      "versionNonce": 1581235669,
-      "index": "Zx",
-      "isDeleted": false,
-      "id": "15cQwh1twR6FgaoIi0sIc",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 2,
-      "opacity": 100,
-      "angle": 0,
-      "x": 2678.6575705335945,
-      "y": -532.8711470259448,
-      "strokeColor": "#e03131",
-      "backgroundColor": "#2f9e44",
-      "width": 107.53324381510423,
-      "height": 106.5332845052085,
-      "seed": 992227387,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 2
-      },
-      "boundElements": [],
-      "updated": 1728924259449,
-      "link": null,
-      "locked": false
-    },
-    {
-      "type": "ellipse",
-      "version": 1205,
-      "versionNonce": 366441691,
-      "index": "Zy",
-      "isDeleted": false,
-      "id": "bHhjRZer8RuLMfanQi00M",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 2,
-      "opacity": 100,
-      "angle": 0,
-      "x": 2457.5378653334,
-      "y": -166.79115918211403,
-      "strokeColor": "#c2255c",
-      "backgroundColor": "#ffd43b",
-      "width": 105.93320719401045,
-      "height": 113.93261396955832,
-      "seed": 2047140437,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 2
-      },
-      "boundElements": [],
-      "updated": 1728928159102,
-      "link": null,
-      "locked": false
-    },
-    {
-      "type": "ellipse",
-      "version": 825,
-      "versionNonce": 1077296795,
-      "index": "Zz",
-      "isDeleted": false,
-      "id": "CICEXWrkyDhz9RZ6S9weK",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 2,
-      "opacity": 100,
-      "angle": 0,
-      "x": 2137.538170509181,
-      "y": -631.8578528059741,
-      "strokeColor": "#e03131",
-      "backgroundColor": "#e03131",
-      "width": 105.93320719401099,
-      "height": 115.3242481326574,
-      "seed": 1966386997,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 2
-      },
-      "boundElements": [],
-      "updated": 1728924264659,
+      "updated": 1731607562268,
       "link": null,
       "locked": false
     },
     {
       "type": "rectangle",
-      "version": 778,
-      "versionNonce": 777942661,
+      "version": 830,
+      "versionNonce": 815722989,
       "index": "a0",
       "isDeleted": false,
       "id": "DFQP_qFDZnGCTy98VdvGu",
@@ -278,14 +158,14 @@
           "type": "arrow"
         }
       ],
-      "updated": 1727973273656,
+      "updated": 1731608646844,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 735,
-      "versionNonce": 783769061,
+      "version": 788,
+      "versionNonce": 1144691079,
       "index": "a1",
       "isDeleted": false,
       "id": "jdu_YgRY0cTbhPDMUnnzb",
@@ -306,7 +186,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1727973273656,
+      "updated": 1731607562268,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -321,8 +201,8 @@
     },
     {
       "type": "text",
-      "version": 246,
-      "versionNonce": 776661157,
+      "version": 251,
+      "versionNonce": 628811369,
       "index": "a2",
       "isDeleted": false,
       "id": "qhThHHyYl_am6BH5i7Af3",
@@ -343,7 +223,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1727973273656,
+      "updated": 1731607562268,
       "link": null,
       "locked": false,
       "fontSize": 28,
@@ -358,8 +238,8 @@
     },
     {
       "type": "rectangle",
-      "version": 1537,
-      "versionNonce": 577380731,
+      "version": 1569,
+      "versionNonce": 819712167,
       "index": "a4",
       "isDeleted": false,
       "id": "Zf1a6cFrAxoYBvhhmpNLD",
@@ -382,14 +262,14 @@
         "type": 3
       },
       "boundElements": [],
-      "updated": 1728928159102,
+      "updated": 1731607562268,
       "link": null,
       "locked": false
     },
     {
       "type": "rectangle",
-      "version": 521,
-      "versionNonce": 2022738949,
+      "version": 606,
+      "versionNonce": 1997076269,
       "index": "a6",
       "isDeleted": false,
       "id": "uAZGYczUYrGiFndksQy2R",
@@ -399,8 +279,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1420.845742361886,
-      "y": -155.70285143171043,
+      "x": 1217.645791190011,
+      "y": -218.10281481061668,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
       "width": 167.67999267578125,
@@ -421,14 +301,14 @@
           "type": "arrow"
         }
       ],
-      "updated": 1727973273656,
+      "updated": 1731608331930,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 468,
-      "versionNonce": 1695204197,
+      "version": 553,
+      "versionNonce": 580618637,
       "index": "a7",
       "isDeleted": false,
       "id": "1cWiIhY89iCbsV_TlgOY2",
@@ -438,8 +318,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1446.845612662179,
-      "y": -137.86284746442527,
+      "x": 1243.645661490304,
+      "y": -200.26281084333152,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
       "width": 115.68025207519531,
@@ -449,7 +329,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1727973273656,
+      "updated": 1731608331930,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -464,8 +344,8 @@
     },
     {
       "type": "rectangle",
-      "version": 777,
-      "versionNonce": 270724645,
+      "version": 782,
+      "versionNonce": 81862697,
       "index": "a8",
       "isDeleted": false,
       "id": "bij8z_DcOarsevp_vcy5m",
@@ -493,7 +373,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1727973273656,
+      "updated": 1731607562268,
       "link": null,
       "locked": false
     },
@@ -536,8 +416,8 @@
     },
     {
       "type": "rectangle",
-      "version": 1162,
-      "versionNonce": 839582789,
+      "version": 1207,
+      "versionNonce": 224334567,
       "index": "aB",
       "isDeleted": false,
       "id": "PKwIWP3srTRQfs-FK3mpU",
@@ -560,7 +440,7 @@
         "type": 3
       },
       "boundElements": [],
-      "updated": 1727973273656,
+      "updated": 1731607562268,
       "link": null,
       "locked": false
     },
@@ -608,8 +488,8 @@
     },
     {
       "type": "text",
-      "version": 289,
-      "versionNonce": 1513442917,
+      "version": 344,
+      "versionNonce": 1241330441,
       "index": "aG",
       "isDeleted": false,
       "id": "3-LDEKaE_BRIszmK5feJd",
@@ -643,7 +523,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1727973273656,
+      "updated": 1731607562268,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -658,8 +538,8 @@
     },
     {
       "type": "arrow",
-      "version": 612,
-      "versionNonce": 2053911275,
+      "version": 699,
+      "versionNonce": 921489389,
       "index": "aK",
       "isDeleted": false,
       "id": "p-FZpHNxG0ueEpVYfTTCz",
@@ -673,8 +553,8 @@
       "y": -10.10282244001121,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 101.32999213262792,
-      "height": 88.9200210571289,
+      "width": 51.94487601355604,
+      "height": 151.31998443603516,
       "seed": 1934190691,
       "groupIds": [],
       "frameId": null,
@@ -682,7 +562,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1727973278163,
+      "updated": 1731608331931,
       "link": null,
       "locked": false,
       "startBinding": null,
@@ -701,15 +581,15 @@
           0
         ],
         [
-          101.32999213262792,
-          -88.9200210571289
+          -51.94487601355604,
+          -151.31998443603516
         ]
       ]
     },
     {
       "type": "arrow",
-      "version": 749,
-      "versionNonce": 1562817579,
+      "version": 799,
+      "versionNonce": 2077485545,
       "index": "aL",
       "isDeleted": false,
       "id": "Z2w0l9nqq0QcBMT3Bs7LB",
@@ -732,7 +612,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1727973278163,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -763,8 +643,8 @@
     },
     {
       "type": "arrow",
-      "version": 483,
-      "versionNonce": 1110767307,
+      "version": 488,
+      "versionNonce": 1260832039,
       "index": "aM",
       "isDeleted": false,
       "id": "b6jaHIwZwo3b3kPdERiRn",
@@ -787,7 +667,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1727973278163,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "startBinding": null,
@@ -1010,8 +890,8 @@
     },
     {
       "type": "text",
-      "version": 795,
-      "versionNonce": 1128677051,
+      "version": 827,
+      "versionNonce": 1936770249,
       "index": "aV",
       "isDeleted": false,
       "id": "s1OncbfQU-45gr9kqT36M",
@@ -1032,7 +912,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1728928159102,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "fontSize": 28,
@@ -1117,11 +997,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "\nif (command->fds)\n\t{\n    if (command->fds->fd_infile != -1)\n        close (command->fds->fd_infile);\n        if (command->fds->fd_outfile != -1)\n        close (command->fds->fd_outfile);\n    if (close_or_not)\n    reset_fds_in_and_out(command->fds);\n\t}\n",
+      "text": "\nif (cmd->fds)\n\t{\n    if (cmd->fds->fd_infile != -1)\n        close (cmd->fds->fd_infile);\n        if (cmd->fds->fd_outfile != -1)\n        close (cmd->fds->fd_outfile);\n    if (close_or_not)\n    reset_fds_in_and_out(cmd->fds);\n\t}\n",
       "textAlign": "left",
       "verticalAlign": "middle",
       "containerId": "bXk7sKoifA-PgBKMu5g2c",
-      "originalText": "\nif (command->fds)\n\t{\n    if (command->fds->fd_infile != -1)\n        close (command->fds->fd_infile);\n        if (command->fds->fd_outfile != -1)\n        close (command->fds->fd_outfile);\n    if (close_or_not)\n    reset_fds_in_and_out(command->fds);\n\t}\n",
+      "originalText": "\nif (cmd->fds)\n\t{\n    if (cmd->fds->fd_infile != -1)\n        close (cmd->fds->fd_infile);\n        if (cmd->fds->fd_outfile != -1)\n        close (cmd->fds->fd_outfile);\n    if (close_or_not)\n    reset_fds_in_and_out(cmd->fds);\n\t}\n",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -1303,8 +1183,8 @@
     },
     {
       "type": "rectangle",
-      "version": 1835,
-      "versionNonce": 1782660094,
+      "version": 1606,
+      "versionNonce": 1283557447,
       "index": "ak",
       "isDeleted": false,
       "id": "5WK6ALoTcpYagB_IuyQZw",
@@ -1314,12 +1194,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1014.2078283823796,
-      "y": 360.67397417340976,
+      "x": 1057.3679846323798,
+      "y": 448.14272417340965,
       "strokeColor": "#1971c2",
       "backgroundColor": "#ffd8a8",
-      "width": 503.80208615516227,
-      "height": 648.9808276766526,
+      "width": 411.4348986551622,
+      "height": 574.7425464266526,
       "seed": 597255455,
       "groupIds": [],
       "frameId": null,
@@ -1327,14 +1207,14 @@
         "type": 3
       },
       "boundElements": [],
-      "updated": 1731163040377,
+      "updated": 1731607562269,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 853,
-      "versionNonce": 1166373474,
+      "version": 793,
+      "versionNonce": 708119083,
       "index": "al",
       "isDeleted": false,
       "id": "2NTPf9Rf07EQeu-W_9vr6",
@@ -1344,8 +1224,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1191.129153183016,
-      "y": 370.49183789939696,
+      "x": 1193.855715683016,
+      "y": 450.74574414939696,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
       "width": 139.16058349609375,
@@ -1360,7 +1240,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1731162602792,
+      "updated": 1727973325476,
       "link": null,
       "locked": false,
       "fontSize": 28,
@@ -1375,8 +1255,8 @@
     },
     {
       "type": "text",
-      "version": 1118,
-      "versionNonce": 1303833250,
+      "version": 681,
+      "versionNonce": 1451437301,
       "index": "am",
       "isDeleted": false,
       "id": "Sf5z5SeRqXxUnLBQ3h1eb",
@@ -1386,12 +1266,12 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1034.0534210205078,
-      "y": 420.033684866769,
+      "x": 1086.2292022705078,
+      "y": 494.822747366769,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 483.0682067871093,
-      "height": 580,
+      "width": 408.384765625,
+      "height": 500,
       "seed": 662264497,
       "groupIds": [],
       "frameId": null,
@@ -1414,23 +1294,23 @@
           "type": "arrow"
         }
       ],
-      "updated": 1731163025723,
+      "updated": 1728574926165,
       "link": null,
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "executes the processed command and returns a status\ncode that updates g_status. \nThe 2nd if block checks if the command should be executed\ndirectly, without piping or chaining to other commands:\n  1. Ensures that command is not sending output through a pipe.\n  2. Ensures that command is not part of a pipeline or a \n      sequence of commands.\n  3. checks if fds input & output are valid, meaning no pb\nwith redirections.\n\nconfig_in_and_out and reset_fds_in_and_out handle\ninput/output redirections (ex: echo \"Hey\" > output.txt). \nthey save & restore the original fds (STDIN & STDOUT) \nwhen needed, and so ensure each command starts with a\nclean input/output state.\n\nint result = prep_the_cmd(mini);\nif (result != 127)\n    return (result);\nif (!command->pipe_output && !command->prev\n&& check_in_and_out(command->fds))\n{\n    config_in_and_out(mini->command->fds);\n    result = exec_builtin(mini, mini->command);\n    reset_fds_in_and_out(mini->command->fds);\n}\nif (result != 127)\n    return (result);\nreturn (create_children(mini));",
+      "text": "executes the processed command and returns a\nstatus code that updates g_status. \nThe 2nd if block checks if the command should \nbe executed directly, without piping or chaining \nto other commands:\n  1 - Ensures that cmd is not sending output \n        through a pipe.\n  2 - Ensures that cmd is not part of a \n        pipeline or a sequence of commands.\n  3 - checks if fds input & output are valid, \n        meaning no pb with redirections.\n\nint result = prep_the_cmd(mini);\nif (result != 127)\n    return (result);\nif (!cmd->pipe_output && !cmd->prev\n&& check_in_and_out(cmd->fds))\n{\n    config_in_and_out(mini->cmd->fds);\n    result = exec_builtin(mini, mini->cmd);\n    reset_fds_in_and_out(mini->cmd->fds);\n}\nif (result != 127)\n    return (result);\nreturn (create_children(mini));",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "executes the processed command and returns a status code that updates g_status. \nThe 2nd if block checks if the command should be executed directly, without piping or chaining to other commands:\n  1. Ensures that command is not sending output through a pipe.\n  2. Ensures that command is not part of a pipeline or a \n      sequence of commands.\n  3. checks if fds input & output are valid, meaning no pb with redirections.\n\nconfig_in_and_out and reset_fds_in_and_out handle input/output redirections (ex: echo \"Hey\" > output.txt). \nthey save & restore the original fds (STDIN & STDOUT) \nwhen needed, and so ensure each command starts with a clean input/output state.\n\nint result = prep_the_cmd(mini);\nif (result != 127)\n    return (result);\nif (!command->pipe_output && !command->prev\n&& check_in_and_out(command->fds))\n{\n    config_in_and_out(mini->command->fds);\n    result = exec_builtin(mini, mini->command);\n    reset_fds_in_and_out(mini->command->fds);\n}\nif (result != 127)\n    return (result);\nreturn (create_children(mini));",
-      "autoResize": false,
+      "originalText": "executes the processed command and returns a\nstatus code that updates g_status. \nThe 2nd if block checks if the command should \nbe executed directly, without piping or chaining \nto other commands:\n  1 - Ensures that cmd is not sending output \n        through a pipe.\n  2 - Ensures that cmd is not part of a \n        pipeline or a sequence of commands.\n  3 - checks if fds input & output are valid, \n        meaning no pb with redirections.\n\nint result = prep_the_cmd(mini);\nif (result != 127)\n    return (result);\nif (!cmd->pipe_output && !cmd->prev\n&& check_in_and_out(cmd->fds))\n{\n    config_in_and_out(mini->cmd->fds);\n    result = exec_builtin(mini, mini->cmd);\n    reset_fds_in_and_out(mini->cmd->fds);\n}\nif (result != 127)\n    return (result);\nreturn (create_children(mini));",
+      "autoResize": true,
       "lineHeight": 1.25
     },
     {
       "type": "arrow",
-      "version": 1306,
-      "versionNonce": 1118623266,
+      "version": 1303,
+      "versionNonce": 1550795689,
       "index": "an",
       "isDeleted": false,
       "id": "w5SBvC3xwtpEviHy_pQ6y",
@@ -1444,8 +1324,8 @@
       "y": 302.817145211356,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
-      "width": 1.530695706975166,
-      "height": 66.67469268804098,
+      "width": 0.8522390787484255,
+      "height": 148.66579027453656,
       "seed": 880792735,
       "groupIds": [],
       "frameId": null,
@@ -1453,7 +1333,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731162602792,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -1477,15 +1357,15 @@
           0
         ],
         [
-          -1.530695706975166,
-          66.67469268804098
+          0.8522390787484255,
+          148.66579027453656
         ]
       ]
     },
     {
       "type": "arrow",
-      "version": 609,
-      "versionNonce": 649592843,
+      "version": 666,
+      "versionNonce": 1473701735,
       "index": "ao",
       "isDeleted": false,
       "id": "rdQpDLBHZuYpqBAOo5I9w",
@@ -1508,7 +1388,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1727973278163,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -1539,8 +1419,8 @@
     },
     {
       "type": "arrow",
-      "version": 723,
-      "versionNonce": 1182382411,
+      "version": 780,
+      "versionNonce": 1660610185,
       "index": "ap",
       "isDeleted": false,
       "id": "ItIk_4OPaxTREFvXVQ_L7",
@@ -1563,7 +1443,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1727973278164,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -1593,85 +1473,9 @@
       ]
     },
     {
-      "type": "rectangle",
-      "version": 825,
-      "versionNonce": 1830380645,
-      "index": "aq",
-      "isDeleted": false,
-      "id": "L5JPY3ewDjcf8aT9IlskY",
-      "fillStyle": "solid",
-      "strokeWidth": 1,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "angle": 0,
-      "x": 1481.3255397251673,
-      "y": 216.77714429582863,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "width": 271.9999389648438,
-      "height": 55.68000793457031,
-      "seed": 1108186449,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 3
-      },
-      "boundElements": [
-        {
-          "type": "text",
-          "id": "q4wbE66CDkcOdT46KuVdR"
-        },
-        {
-          "id": "5ShdY6qOohfDfsWvgC2v6",
-          "type": "arrow"
-        }
-      ],
-      "updated": 1727973273656,
-      "link": null,
-      "locked": false
-    },
-    {
-      "type": "text",
-      "version": 790,
-      "versionNonce": 395939781,
-      "index": "ar",
-      "isDeleted": false,
-      "id": "q4wbE66CDkcOdT46KuVdR",
-      "fillStyle": "solid",
-      "strokeWidth": 1,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "angle": 0,
-      "x": 1535.7493297031947,
-      "y": 234.6171482631138,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "width": 163.15235900878906,
-      "height": 20,
-      "seed": 657507121,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": null,
-      "boundElements": [],
-      "updated": 1727973273656,
-      "link": null,
-      "locked": false,
-      "fontSize": 16,
-      "fontFamily": 1,
-      "text": "lexer_main // TODO",
-      "textAlign": "center",
-      "verticalAlign": "middle",
-      "containerId": "L5JPY3ewDjcf8aT9IlskY",
-      "originalText": "lexer_main // TODO",
-      "autoResize": true,
-      "lineHeight": 1.25
-    },
-    {
       "type": "arrow",
-      "version": 682,
-      "versionNonce": 1361729515,
+      "version": 3443,
+      "versionNonce": 1715976173,
       "index": "as",
       "isDeleted": false,
       "id": "5ShdY6qOohfDfsWvgC2v6",
@@ -1685,8 +1489,8 @@
       "y": 247.81712995256692,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 232.9598159790039,
-      "height": 0.10718471618559988,
+      "width": 273.8002014160156,
+      "height": 167.87119885132492,
       "seed": 1504601215,
       "groupIds": [],
       "frameId": null,
@@ -1694,14 +1498,14 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1727973278164,
+      "updated": 1731608765195,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
-        "elementId": "L5JPY3ewDjcf8aT9IlskY",
-        "focus": -0.10845765496892679,
-        "gap": 8.640129089355469,
+        "elementId": "1_jf8XYLjL5LlB5bZAXP2",
+        "focus": 0.7739898196733886,
+        "gap": 1,
         "fixedPoint": null
       },
       "lastCommittedPoint": null,
@@ -1713,8 +1517,12 @@
           0
         ],
         [
-          232.9598159790039,
-          -0.10718471618559988
+          229.20010375976562,
+          -29.539962768554688
+        ],
+        [
+          273.8002014160156,
+          -167.87119885132492
         ]
       ]
     },
@@ -1792,8 +1600,8 @@
     },
     {
       "type": "text",
-      "version": 939,
-      "versionNonce": 1768928772,
+      "version": 940,
+      "versionNonce": 581642663,
       "index": "aw",
       "isDeleted": false,
       "id": "PouM-FdD05Re7ZNKv_VuA",
@@ -1803,7 +1611,7 @@
       "roughness": 0,
       "opacity": 100,
       "angle": 0,
-      "x": 1936.8153686523438,
+      "x": 1937.6152954101562,
       "y": 427.01995849609375,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -1819,16 +1627,16 @@
           "type": "arrow"
         }
       ],
-      "updated": 1721843071002,
+      "updated": 1731608123691,
       "link": null,
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "if (!mini || !command || command->command || (command->command[0] == \n'\\0' && >token->has_quotes == false))\n\treturn (EXIT_SUCCESS);\nif (mini->command && !mini->command->command)\n{\n    if (command->fds && !check_in_and_out(command-\n>fds))\n\treturn (EXIT_FAILURE);\nreturn (EXIT_SUCCESS);\n}\nif (!create_pipes(mini))\n    return (EXIT_FAILURE);\nreturn (127);",
+      "text": "if (!mini || !cmd || cmd->cmd || (cmd->cmd[0] == \n'\\0' && >token->has_quotes == false))\n\treturn (EXIT_SUCCESS);\nif (mini->cmd && !mini->cmd->cmd)\n{\n    if (cmd->fds && !check_in_and_out(cmd-\n>fds))\n\treturn (EXIT_FAILURE);\nreturn (EXIT_SUCCESS);\n}\nif (!create_pipes(mini))\n    return (EXIT_FAILURE);\nreturn (127);",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "if (!mini || !command || command->command || (command->command[0] == '\\0' && >token->has_quotes == false))\n\treturn (EXIT_SUCCESS);\nif (mini->command && !mini->command->command)\n{\n    if (command->fds && !check_in_and_out(command->fds))\n\treturn (EXIT_FAILURE);\nreturn (EXIT_SUCCESS);\n}\nif (!create_pipes(mini))\n    return (EXIT_FAILURE);\nreturn (127);",
+      "originalText": "if (!mini || !cmd || cmd->cmd || (cmd->cmd[0] == '\\0' && >token->has_quotes == false))\n\treturn (EXIT_SUCCESS);\nif (mini->cmd && !mini->cmd->cmd)\n{\n    if (cmd->fds && !check_in_and_out(cmd->fds))\n\treturn (EXIT_FAILURE);\nreturn (EXIT_SUCCESS);\n}\nif (!create_pipes(mini))\n    return (EXIT_FAILURE);\nreturn (127);",
       "autoResize": false,
       "lineHeight": 1.25
     },
@@ -2280,8 +2088,8 @@
     },
     {
       "type": "rectangle",
-      "version": 1626,
-      "versionNonce": 1447400411,
+      "version": 1970,
+      "versionNonce": 1345820745,
       "index": "b09",
       "isDeleted": false,
       "id": "X4ghxTxs0tjb8AUh1P-6V",
@@ -2304,14 +2112,14 @@
         "type": 3
       },
       "boundElements": [],
-      "updated": 1728924264659,
+      "updated": 1731607562269,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 1430,
-      "versionNonce": 230449275,
+      "version": 1657,
+      "versionNonce": 585346247,
       "index": "b0A",
       "isDeleted": false,
       "id": "zt_cog_7BG5mkZ7HEw7yq",
@@ -2332,7 +2140,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1728924264659,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -2347,8 +2155,8 @@
     },
     {
       "type": "text",
-      "version": 1797,
-      "versionNonce": 300980507,
+      "version": 2129,
+      "versionNonce": 806332201,
       "index": "b0B",
       "isDeleted": false,
       "id": "H1fkHuguBfgBohZ5-lq5m",
@@ -2369,7 +2177,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1728924264659,
+      "updated": 1731607562269,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -2384,8 +2192,8 @@
     },
     {
       "type": "arrow",
-      "version": 3113,
-      "versionNonce": 453093154,
+      "version": 2989,
+      "versionNonce": 874447931,
       "index": "b0D",
       "isDeleted": false,
       "id": "xr8non17tofCY-f2MGnuS",
@@ -2395,12 +2203,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1376.923840822404,
-      "y": 911.7193461644844,
+      "x": 1432.888684572404,
+      "y": 910.2154399144844,
       "strokeColor": "#1971c2",
       "backgroundColor": "#ffc9c9",
-      "width": 1089.680212081572,
-      "height": 297.1810700720706,
+      "width": 1033.965368331572,
+      "height": 298.6849763220706,
       "seed": 1321131324,
       "groupIds": [],
       "frameId": null,
@@ -2408,13 +2216,13 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163121455,
+      "updated": 1728576804619,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "GjyZ-YSrGeoTlHjneuH-B",
-        "focus": 0.24169606880256253,
+        "focus": 0.24328278018702892,
         "gap": 8.896973333579126,
         "fixedPoint": null
       },
@@ -2427,12 +2235,12 @@
           0
         ],
         [
-          560.3185350509791,
-          137.57594827928403
+          504.6036913009791,
+          139.07985452928403
         ],
         [
-          1089.680212081572,
-          297.1810700720706
+          1033.965368331572,
+          298.6849763220706
         ]
       ]
     },
@@ -2546,11 +2354,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "t_command        *command = mini->command;\nwhile (mini->pid != 0 && command)\n{\n    mini->pid = fork();\n    if (mini->pid == -1)\n        return (error_msg(\"fork\", NULL, ...)\n    else if (mini->pid == 0)\n        exec_cmd(mini, command); \n    command = command->next;\n}\nreturn (child_status(mini));",
+      "text": "t_command        *cmd = mini->cmd;\nwhile (mini->pid != 0 && cmd)\n{\n    mini->pid = fork();\n    if (mini->pid == -1)\n        return (error_msg(\"fork\", NULL, ...)\n    else if (mini->pid == 0)\n        exec_cmd(mini, cmd); \n    cmd = cmd->next;\n}\nreturn (child_status(mini));",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "t_command        *command = mini->command;\nwhile (mini->pid != 0 && command)\n{\n    mini->pid = fork();\n    if (mini->pid == -1)\n        return (error_msg(\"fork\", NULL, ...)\n    else if (mini->pid == 0)\n        exec_cmd(mini, command); \n    command = command->next;\n}\nreturn (child_status(mini));",
+      "originalText": "t_command        *cmd = mini->cmd;\nwhile (mini->pid != 0 && cmd)\n{\n    mini->pid = fork();\n    if (mini->pid == -1)\n        return (error_msg(\"fork\", NULL, ...)\n    else if (mini->pid == 0)\n        exec_cmd(mini, cmd); \n    cmd = cmd->next;\n}\nreturn (child_status(mini));",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -2747,11 +2555,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "int        res;\nif (!check_in_and_out(command->fds))\n    exit_mini(mini, EXIT_FAILURE);\nset_n_close_pipes_fds(mini->command, command); //Mix of two\nconfig_in_and_out(command->fds);\nclose_fds(mini->command, false);\nif (ft_strchr(command->command, '/') == NULL)\n    {\n        res = exec_builtin(mini, command);\n        if (res != 127)\n            exit_mini(mini, res);\n        res = exec_sys_binary(mini, command);\n        if (res != 127)\n            exit_mini(mini, res);\n    }\n    res = exec_local_binary(mini, command);\n    exit_mini(mini, res);\n    return (res);",
+      "text": "int        res;\nif (!check_in_and_out(cmd->fds))\n    exit_mini(mini, EXIT_FAILURE);\nset_n_close_pipes_fds(mini->cmd, cmd); //Mix of two\nconfig_in_and_out(cmd->fds);\nclose_fds(mini->cmd, false);\nif (ft_strchr(cmd->cmd, '/') == NULL)\n    {\n        res = exec_builtin(mini, cmd);\n        if (res != 127)\n            exit_mini(mini, res);\n        res = exec_sys_binary(mini, cmd);\n        if (res != 127)\n            exit_mini(mini, res);\n    }\n    res = exec_local_binary(mini, cmd);\n    exit_mini(mini, res);\n    return (res);",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "int        res;\nif (!check_in_and_out(command->fds))\n    exit_mini(mini, EXIT_FAILURE);\nset_n_close_pipes_fds(mini->command, command); //Mix of two\nconfig_in_and_out(command->fds);\nclose_fds(mini->command, false);\nif (ft_strchr(command->command, '/') == NULL)\n    {\n        res = exec_builtin(mini, command);\n        if (res != 127)\n            exit_mini(mini, res);\n        res = exec_sys_binary(mini, command);\n        if (res != 127)\n            exit_mini(mini, res);\n    }\n    res = exec_local_binary(mini, command);\n    exit_mini(mini, res);\n    return (res);",
+      "originalText": "int        res;\nif (!check_in_and_out(cmd->fds))\n    exit_mini(mini, EXIT_FAILURE);\nset_n_close_pipes_fds(mini->cmd, cmd); //Mix of two\nconfig_in_and_out(cmd->fds);\nclose_fds(mini->cmd, false);\nif (ft_strchr(cmd->cmd, '/') == NULL)\n    {\n        res = exec_builtin(mini, cmd);\n        if (res != 127)\n            exit_mini(mini, res);\n        res = exec_sys_binary(mini, cmd);\n        if (res != 127)\n            exit_mini(mini, res);\n    }\n    res = exec_local_binary(mini, cmd);\n    exit_mini(mini, res);\n    return (res);",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -2971,11 +2779,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "Waits for all child processes to finish and gathers the exit status of the shell's \nmain process (identified by mini->pid):\n* 1- Closes file descriptors with close_fds(mini->command, false);\n* 2- Waits for child processes using waitpid.\n* 3- Stores the status of the main child process.\n    After all child processes have finished and the loop ends, the function evaluates \n    how the main child process (stored in save_status) terminated:\n        * WIFSIGNALED(save_status) checks if child was terminated by a \n          signal (SIGKILL, SIGINT).\n        * If the child was terminated by a signal, the exit status is calculated as \n          128 + WTERMSIG(save_status), where WTERMSIG extracts the signal number.\n        * WIFEXITED(save_status) checks if the child terminated normally via a \n          call to exit() or by returning from main(). If so, the exit status is set to \n          the exit code of the child, extracted using WEXITSTATUS(save_status).\n        * else : If the child didn’t terminate in either of the above two conditions,\n           it returns save_status as-is, which might handle other rare termination cases.\n* 4- Checks if the child was terminated by a signal or exited normally and returns \nthe appropriate status.\n\nThe function is crucial for correctly handling the termination of child processes and \ncommunicating their exit status to the parent shell process, which affects how the \nshell responds after a command is executed.",
+      "text": "Waits for all child processes to finish and gathers the exit status of the shell's \nmain process (identified by mini->pid):\n* 1- Closes file descriptors with close_fds(mini->cmd, false);\n* 2- Waits for child processes using waitpid.\n* 3- Stores the status of the main child process.\n    After all child processes have finished and the loop ends, the function evaluates \n    how the main child process (stored in save_status) terminated:\n        * WIFSIGNALED(save_status) checks if child was terminated by a \n          signal (SIGKILL, SIGINT).\n        * If the child was terminated by a signal, the exit status is calculated as \n          128 + WTERMSIG(save_status), where WTERMSIG extracts the signal number.\n        * WIFEXITED(save_status) checks if the child terminated normally via a \n          call to exit() or by returning from main(). If so, the exit status is set to \n          the exit code of the child, extracted using WEXITSTATUS(save_status).\n        * else : If the child didn’t terminate in either of the above two conditions,\n           it returns save_status as-is, which might handle other rare termination cases.\n* 4- Checks if the child was terminated by a signal or exited normally and returns \nthe appropriate status.\n\nThe function is crucial for correctly handling the termination of child processes and \ncommunicating their exit status to the parent shell process, which affects how the \nshell responds after a command is executed.",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Waits for all child processes to finish and gathers the exit status of the shell's \nmain process (identified by mini->pid):\n* 1- Closes file descriptors with close_fds(mini->command, false);\n* 2- Waits for child processes using waitpid.\n* 3- Stores the status of the main child process.\n    After all child processes have finished and the loop ends, the function evaluates \n    how the main child process (stored in save_status) terminated:\n        * WIFSIGNALED(save_status) checks if child was terminated by a \n          signal (SIGKILL, SIGINT).\n        * If the child was terminated by a signal, the exit status is calculated as \n          128 + WTERMSIG(save_status), where WTERMSIG extracts the signal number.\n        * WIFEXITED(save_status) checks if the child terminated normally via a \n          call to exit() or by returning from main(). If so, the exit status is set to \n          the exit code of the child, extracted using WEXITSTATUS(save_status).\n        * else : If the child didn’t terminate in either of the above two conditions,\n           it returns save_status as-is, which might handle other rare termination cases.\n* 4- Checks if the child was terminated by a signal or exited normally and returns \nthe appropriate status.\n\nThe function is crucial for correctly handling the termination of child processes and \ncommunicating their exit status to the parent shell process, which affects how the \nshell responds after a command is executed.",
+      "originalText": "Waits for all child processes to finish and gathers the exit status of the shell's \nmain process (identified by mini->pid):\n* 1- Closes file descriptors with close_fds(mini->cmd, false);\n* 2- Waits for child processes using waitpid.\n* 3- Stores the status of the main child process.\n    After all child processes have finished and the loop ends, the function evaluates \n    how the main child process (stored in save_status) terminated:\n        * WIFSIGNALED(save_status) checks if child was terminated by a \n          signal (SIGKILL, SIGINT).\n        * If the child was terminated by a signal, the exit status is calculated as \n          128 + WTERMSIG(save_status), where WTERMSIG extracts the signal number.\n        * WIFEXITED(save_status) checks if the child terminated normally via a \n          call to exit() or by returning from main(). If so, the exit status is set to \n          the exit code of the child, extracted using WEXITSTATUS(save_status).\n        * else : If the child didn’t terminate in either of the above two conditions,\n           it returns save_status as-is, which might handle other rare termination cases.\n* 4- Checks if the child was terminated by a signal or exited normally and returns \nthe appropriate status.\n\nThe function is crucial for correctly handling the termination of child processes and \ncommunicating their exit status to the parent shell process, which affects how the \nshell responds after a command is executed.",
       "autoResize": false,
       "lineHeight": 1.25
     },
@@ -3207,8 +3015,8 @@
     },
     {
       "type": "rectangle",
-      "version": 2163,
-      "versionNonce": 282108606,
+      "version": 2162,
+      "versionNonce": 203135295,
       "index": "b0u",
       "isDeleted": false,
       "id": "atg8eKN8vp86ItivmyZ0r",
@@ -3230,13 +3038,8 @@
       "roundness": {
         "type": 3
       },
-      "boundElements": [
-        {
-          "id": "MoICpyIH5oIqxrcgoT4sE",
-          "type": "arrow"
-        }
-      ],
-      "updated": 1731163248830,
+      "boundElements": [],
+      "updated": 1728494180584,
       "link": null,
       "locked": false
     },
@@ -3320,11 +3123,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": " The function executes a system binary command in the \nminishell environment.\n \nA system binary command is an executable program that is \nstored in binary form on the system, typically located in \nstandard directories like /bin, /usr/bin, /sbin. \nThese commands are essential for interacting with the \noperating system and performing various tasks.\n\n * Examples of basic Commands: ls, cat, rm, cp(Copies files \nor directories), mv(Moves or renames files or directories), .        \n\nif (!command->command || command->command[0] == '\\0')\n    return (127);\nif (is_directory(command->command))\n    return (127);\ncmd->path = get_path_cmd(mini, command->command);\nif (!command->path)\n    return (127);\nif (execve(command->path, command->args, mini->env) == -1)\n    error_msg(\"execve\", NULL, strerror(errno), errno);\nreturn (EXIT_FAILURE);",
+      "text": " The function executes a system binary command in the \nminishell environment.\n \nA system binary command is an executable program that is \nstored in binary form on the system, typically located in \nstandard directories like /bin, /usr/bin, /sbin. \nThese commands are essential for interacting with the \noperating system and performing various tasks.\n\n * Examples of basic Commands: ls, cat, rm, cp(Copies files \nor directories), mv(Moves or renames files or directories), .        \n\nif (!cmd->cmd || cmd->cmd[0] == '\\0')\n    return (127);\nif (is_directory(cmd->cmd))\n    return (127);\ncmd->path = get_path_cmd(mini, cmd->cmd);\nif (!cmd->path)\n    return (127);\nif (execve(cmd->path, cmd->args, mini->env) == -1)\n    error_msg(\"execve\", NULL, strerror(errno), errno);\nreturn (EXIT_FAILURE);",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": " The function executes a system binary command in the \nminishell environment.\n \nA system binary command is an executable program that is \nstored in binary form on the system, typically located in \nstandard directories like /bin, /usr/bin, /sbin. \nThese commands are essential for interacting with the \noperating system and performing various tasks.\n\n * Examples of basic Commands: ls, cat, rm, cp(Copies files \nor directories), mv(Moves or renames files or directories), .        \n\nif (!command->command || command->command[0] == '\\0')\n    return (127);\nif (is_directory(command->command))\n    return (127);\ncmd->path = get_path_cmd(mini, command->command);\nif (!command->path)\n    return (127);\nif (execve(command->path, command->args, mini->env) == -1)\n    error_msg(\"execve\", NULL, strerror(errno), errno);\nreturn (EXIT_FAILURE);",
+      "originalText": " The function executes a system binary command in the \nminishell environment.\n \nA system binary command is an executable program that is \nstored in binary form on the system, typically located in \nstandard directories like /bin, /usr/bin, /sbin. \nThese commands are essential for interacting with the \noperating system and performing various tasks.\n\n * Examples of basic Commands: ls, cat, rm, cp(Copies files \nor directories), mv(Moves or renames files or directories), .        \n\nif (!cmd->cmd || cmd->cmd[0] == '\\0')\n    return (127);\nif (is_directory(cmd->cmd))\n    return (127);\ncmd->path = get_path_cmd(mini, cmd->cmd);\nif (!cmd->path)\n    return (127);\nif (execve(cmd->path, cmd->args, mini->env) == -1)\n    error_msg(\"execve\", NULL, strerror(errno), errno);\nreturn (EXIT_FAILURE);",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -3434,11 +3237,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "char        **env_paths;\n        char        *command;\n        char        *cmd_path;\n\n        if (!str)\n                return (NULL);\n        if (find_env_index_of_key(mini->env, \"PATH\") == -1)\n                return (NULL);\n        env_paths = ft_split(get_env_value(mini->env, \"PATH\"), ':');\n        if (!env_paths)\n                return (NULL);\n        command = ft_strjoin(\"/\", str);\n        if (!command)\n        {\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        cmd_path = find_valid_cmd_path(command, env_paths);\n        if (!cmd_path)\n        {\n                free_star(command);\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        return (cmd_path);",
+      "text": "char        **env_paths;\n        char        *cmd;\n        char        *cmd_path;\n\n        if (!str)\n                return (NULL);\n        if (find_env_index_of_key(mini->env, \"PATH\") == -1)\n                return (NULL);\n        env_paths = ft_split(get_env_value(mini->env, \"PATH\"), ':');\n        if (!env_paths)\n                return (NULL);\n        cmd = ft_strjoin(\"/\", str);\n        if (!cmd)\n        {\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        cmd_path = find_valid_cmd_path(cmd, env_paths);\n        if (!cmd_path)\n        {\n                free_star(cmd);\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        return (cmd_path);",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "char        **env_paths;\n        char        *command;\n        char        *cmd_path;\n\n        if (!str)\n                return (NULL);\n        if (find_env_index_of_key(mini->env, \"PATH\") == -1)\n                return (NULL);\n        env_paths = ft_split(get_env_value(mini->env, \"PATH\"), ':');\n        if (!env_paths)\n                return (NULL);\n        command = ft_strjoin(\"/\", str);\n        if (!command)\n        {\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        cmd_path = find_valid_cmd_path(command, env_paths);\n        if (!cmd_path)\n        {\n                free_star(command);\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        return (cmd_path);",
+      "originalText": "char        **env_paths;\n        char        *cmd;\n        char        *cmd_path;\n\n        if (!str)\n                return (NULL);\n        if (find_env_index_of_key(mini->env, \"PATH\") == -1)\n                return (NULL);\n        env_paths = ft_split(get_env_value(mini->env, \"PATH\"), ':');\n        if (!env_paths)\n                return (NULL);\n        cmd = ft_strjoin(\"/\", str);\n        if (!cmd)\n        {\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        cmd_path = find_valid_cmd_path(cmd, env_paths);\n        if (!cmd_path)\n        {\n                free_star(cmd);\n                free_two_stars(env_paths);\n                return (NULL);\n        }\n        return (cmd_path);",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -3938,11 +3741,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "The function is designed to locate the full path to a\nvalidmcommand by searching through a list of directories \n(all_paths). If the command is found in one of these \ndirectories and it is executable, the function returns \nthe complete path. \n\nchar        *cmd_path;\nint                i;\n\ncmd_path = NULL;\ni = 0;\nwhile (all_paths[i])\n{\n    cmd_path = ft_strjoin(all_paths[i], command);\n    if (!cmd_path)\n        {\n            error_msg(\"malloc\", NULL, \"an unexpected error \n                                   occured\", EXIT_FAILURE);\n            return (NULL);\n        }\nif (access(cmd_path, F_OK | X_OK) == 0)\n    return (cmd_path);\nfree_star(cmd_path);\ni++;\n}\nreturn (NULL);",
+      "text": "The function is designed to locate the full path to a\nvalidmcommand by searching through a list of directories \n(all_paths). If the command is found in one of these \ndirectories and it is executable, the function returns \nthe complete path. \n\nchar        *cmd_path;\nint                i;\n\ncmd_path = NULL;\ni = 0;\nwhile (all_paths[i])\n{\n    cmd_path = ft_strjoin(all_paths[i], cmd);\n    if (!cmd_path)\n        {\n            error_msg(\"malloc\", NULL, \"an unexpected error \n                                   occured\", EXIT_FAILURE);\n            return (NULL);\n        }\nif (access(cmd_path, F_OK | X_OK) == 0)\n    return (cmd_path);\nfree_star(cmd_path);\ni++;\n}\nreturn (NULL);",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "The function is designed to locate the full path to a\nvalidmcommand by searching through a list of directories \n(all_paths). If the command is found in one of these \ndirectories and it is executable, the function returns \nthe complete path. \n\nchar        *cmd_path;\nint                i;\n\ncmd_path = NULL;\ni = 0;\nwhile (all_paths[i])\n{\n    cmd_path = ft_strjoin(all_paths[i], command);\n    if (!cmd_path)\n        {\n            error_msg(\"malloc\", NULL, \"an unexpected error \n                                   occured\", EXIT_FAILURE);\n            return (NULL);\n        }\nif (access(cmd_path, F_OK | X_OK) == 0)\n    return (cmd_path);\nfree_star(cmd_path);\ni++;\n}\nreturn (NULL);",
+      "originalText": "The function is designed to locate the full path to a\nvalidmcommand by searching through a list of directories \n(all_paths). If the command is found in one of these \ndirectories and it is executable, the function returns \nthe complete path. \n\nchar        *cmd_path;\nint                i;\n\ncmd_path = NULL;\ni = 0;\nwhile (all_paths[i])\n{\n    cmd_path = ft_strjoin(all_paths[i], cmd);\n    if (!cmd_path)\n        {\n            error_msg(\"malloc\", NULL, \"an unexpected error \n                                   occured\", EXIT_FAILURE);\n            return (NULL);\n        }\nif (access(cmd_path, F_OK | X_OK) == 0)\n    return (cmd_path);\nfree_star(cmd_path);\ni++;\n}\nreturn (NULL);",
       "autoResize": false,
       "lineHeight": 1.25
     },
@@ -4037,8 +3840,8 @@
     },
     {
       "type": "text",
-      "version": 1326,
-      "versionNonce": 1622754833,
+      "version": 1331,
+      "versionNonce": 1468038119,
       "index": "b1d",
       "isDeleted": false,
       "id": "fU_NEBZOgKJp6I-TT34xr",
@@ -4068,7 +3871,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1728495392685,
+      "updated": 1731607562270,
       "link": null,
       "locked": false,
       "fontSize": 28,
@@ -4110,18 +3913,18 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": " The function `is_directory` checks if a\ngiven path is a directory or not.\nReturns a boolean value indicating \nwhether the given `command` path is a directory \nor not. It uses the `stat` function to \nretrieve information about the file specified \nby `command` and then checks if it is a directory \nusing the `S_ISDIR` macro.\n\nstruct stat        cmd_stat;\n\nft_memset(&cmd_stat, 0, sizeof(cmd_stat));\nstat(command, &cmd_stat);\nreturn (S_ISDIR(cmd_stat.st_mode));",
+      "text": " The function `is_directory` checks if a\ngiven path is a directory or not.\nReturns a boolean value indicating \nwhether the given `cmd` path is a directory \nor not. It uses the `stat` function to \nretrieve information about the file specified \nby `cmd` and then checks if it is a directory \nusing the `S_ISDIR` macro.\n\nstruct stat        cmd_stat;\n\nft_memset(&cmd_stat, 0, sizeof(cmd_stat));\nstat(cmd, &cmd_stat);\nreturn (S_ISDIR(cmd_stat.st_mode));",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": " The function `is_directory` checks if a\ngiven path is a directory or not.\nReturns a boolean value indicating \nwhether the given `command` path is a directory \nor not. It uses the `stat` function to \nretrieve information about the file specified \nby `command` and then checks if it is a directory \nusing the `S_ISDIR` macro.\n\nstruct stat        cmd_stat;\n\nft_memset(&cmd_stat, 0, sizeof(cmd_stat));\nstat(command, &cmd_stat);\nreturn (S_ISDIR(cmd_stat.st_mode));",
+      "originalText": " The function `is_directory` checks if a\ngiven path is a directory or not.\nReturns a boolean value indicating \nwhether the given `cmd` path is a directory \nor not. It uses the `stat` function to \nretrieve information about the file specified \nby `cmd` and then checks if it is a directory \nusing the `S_ISDIR` macro.\n\nstruct stat        cmd_stat;\n\nft_memset(&cmd_stat, 0, sizeof(cmd_stat));\nstat(cmd, &cmd_stat);\nreturn (S_ISDIR(cmd_stat.st_mode));",
       "autoResize": true,
       "lineHeight": 1.25
     },
     {
       "type": "arrow",
-      "version": 1319,
-      "versionNonce": 427808657,
+      "version": 1323,
+      "versionNonce": 1002625545,
       "index": "b1f",
       "isDeleted": false,
       "id": "3cOTz3BWWPm7Zzp0HItLv",
@@ -4144,7 +3947,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1728494183381,
+      "updated": 1731607562270,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -4176,8 +3979,8 @@
     },
     {
       "type": "arrow",
-      "version": 1215,
-      "versionNonce": 112823102,
+      "version": 1163,
+      "versionNonce": 718860767,
       "index": "b1l",
       "isDeleted": false,
       "id": "MoICpyIH5oIqxrcgoT4sE",
@@ -4187,12 +3990,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 6.267654384107325,
-      "x": 1183.9712602709462,
-      "y": 1764.439560747138,
+      "x": 1184.2017226185535,
+      "y": 1765.374966649047,
       "strokeColor": "#f08c00",
       "backgroundColor": "transparent",
-      "width": 1055.7945775242501,
-      "height": 154.3473493810543,
+      "width": 935.1093173417262,
+      "height": 125.60548316727113,
       "seed": 1088425061,
       "groupIds": [],
       "frameId": null,
@@ -4200,14 +4003,14 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163253311,
+      "updated": 1728494180584,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
-        "elementId": "atg8eKN8vp86ItivmyZ0r",
-        "focus": 0.9021968277020429,
-        "gap": 1,
+        "elementId": "BQhMNUFqsmuVBTG4xbCIm",
+        "focus": 1.024197136110487,
+        "gap": 30.834321768839004,
         "fixedPoint": null
       },
       "lastCommittedPoint": null,
@@ -4223,8 +4026,8 @@
           -97.51350736555719
         ],
         [
-          1055.7945775242501,
-          -154.3473493810543
+          935.1093173417262,
+          -125.60548316727113
         ]
       ],
       "elbowed": false
@@ -4330,11 +4133,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "Function designed to execute a command that is specified as a local binary. \nA local binary command refers to a program or script that is located in a \nspecific directory on the file system and is executed by specifying either a \nrelative or absolute path to the file. \nex: ./hello.sh or /home/user/bin/my_program\n\nThis function is used to handle the execution of commands that are\nspecified with a relative or absolute path (i.e., commands with / in them).\nIt checks whether the command exists, is not a directory, and is executable.\nIf all checks pass, it attempts to execute the command using execve. \nIf execution fails or any conditions aren't met, appropriate error messages \nare returned with relevant exit codes (127 for command not found, \n126 for permission errors, and errno for other errors).\n\nif (ft_strchr(command->command, '/') == NULL\n        && find_env_index_of_key(mini->env, \"PATH\") != -1)\n    return (error_msg(command->command, NULL, \"command not found\", 127));\nif (access(command->command, F_OK) != 0)\n    return (error_msg(command->command, NULL, strerror(errno), 127));\nif (is_directory(command->command))\n    return (error_msg(command->command, NULL, \"is a directory\", 126));\nif (access(command->command, F_OK | X_OK) != 0)\n    return (error_msg(command->command, NULL, strerror(errno), 126));\nif (execve(command->command, command->args, mini->env) == -1)\n    return (error_msg(\"execve\", NULL, strerror(errno), errno));\nreturn (EXIT_FAILURE);",
+      "text": "Function designed to execute a command that is specified as a local binary. \nA local binary command refers to a program or script that is located in a \nspecific directory on the file system and is executed by specifying either a \nrelative or absolute path to the file. \nex: ./hello.sh or /home/user/bin/my_program\n\nThis function is used to handle the execution of commands that are\nspecified with a relative or absolute path (i.e., commands with / in them).\nIt checks whether the command exists, is not a directory, and is executable.\nIf all checks pass, it attempts to execute the command using execve. \nIf execution fails or any conditions aren't met, appropriate error messages \nare returned with relevant exit codes (127 for command not found, \n126 for permission errors, and errno for other errors).\n\nif (ft_strchr(cmd->cmd, '/') == NULL\n        && find_env_index_of_key(mini->env, \"PATH\") != -1)\n    return (error_msg(cmd->cmd, NULL, \"command not found\", 127));\nif (access(cmd->cmd, F_OK) != 0)\n    return (error_msg(cmd->cmd, NULL, strerror(errno), 127));\nif (is_directory(cmd->cmd))\n    return (error_msg(cmd->cmd, NULL, \"is a directory\", 126));\nif (access(cmd->cmd, F_OK | X_OK) != 0)\n    return (error_msg(cmd->cmd, NULL, strerror(errno), 126));\nif (execve(cmd->cmd, cmd->args, mini->env) == -1)\n    return (error_msg(\"execve\", NULL, strerror(errno), errno));\nreturn (EXIT_FAILURE);",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Function designed to execute a command that is specified as a local binary. \nA local binary command refers to a program or script that is located in a \nspecific directory on the file system and is executed by specifying either a \nrelative or absolute path to the file. \nex: ./hello.sh or /home/user/bin/my_program\n\nThis function is used to handle the execution of commands that are\nspecified with a relative or absolute path (i.e., commands with / in them).\nIt checks whether the command exists, is not a directory, and is executable.\nIf all checks pass, it attempts to execute the command using execve. \nIf execution fails or any conditions aren't met, appropriate error messages \nare returned with relevant exit codes (127 for command not found, \n126 for permission errors, and errno for other errors).\n\nif (ft_strchr(command->command, '/') == NULL\n        && find_env_index_of_key(mini->env, \"PATH\") != -1)\n    return (error_msg(command->command, NULL, \"command not found\", 127));\nif (access(command->command, F_OK) != 0)\n    return (error_msg(command->command, NULL, strerror(errno), 127));\nif (is_directory(command->command))\n    return (error_msg(command->command, NULL, \"is a directory\", 126));\nif (access(command->command, F_OK | X_OK) != 0)\n    return (error_msg(command->command, NULL, strerror(errno), 126));\nif (execve(command->command, command->args, mini->env) == -1)\n    return (error_msg(\"execve\", NULL, strerror(errno), errno));\nreturn (EXIT_FAILURE);",
+      "originalText": "Function designed to execute a command that is specified as a local binary. \nA local binary command refers to a program or script that is located in a \nspecific directory on the file system and is executed by specifying either a \nrelative or absolute path to the file. \nex: ./hello.sh or /home/user/bin/my_program\n\nThis function is used to handle the execution of commands that are\nspecified with a relative or absolute path (i.e., commands with / in them).\nIt checks whether the command exists, is not a directory, and is executable.\nIf all checks pass, it attempts to execute the command using execve. \nIf execution fails or any conditions aren't met, appropriate error messages \nare returned with relevant exit codes (127 for command not found, \n126 for permission errors, and errno for other errors).\n\nif (ft_strchr(cmd->cmd, '/') == NULL\n        && find_env_index_of_key(mini->env, \"PATH\") != -1)\n    return (error_msg(cmd->cmd, NULL, \"command not found\", 127));\nif (access(cmd->cmd, F_OK) != 0)\n    return (error_msg(cmd->cmd, NULL, strerror(errno), 127));\nif (is_directory(cmd->cmd))\n    return (error_msg(cmd->cmd, NULL, \"is a directory\", 126));\nif (access(cmd->cmd, F_OK | X_OK) != 0)\n    return (error_msg(cmd->cmd, NULL, strerror(errno), 126));\nif (execve(cmd->cmd, cmd->args, mini->env) == -1)\n    return (error_msg(\"execve\", NULL, strerror(errno), errno));\nreturn (EXIT_FAILURE);",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -4399,8 +4202,8 @@
     },
     {
       "type": "arrow",
-      "version": 734,
-      "versionNonce": 1107189563,
+      "version": 784,
+      "versionNonce": 2046191367,
       "index": "b24",
       "isDeleted": false,
       "id": "NVSDGYY20kY527RX_hO1W",
@@ -4414,7 +4217,7 @@
       "y": 2863.556591705972,
       "strokeColor": "#0c8599",
       "backgroundColor": "#a5d8ff",
-      "width": 724.552417812622,
+      "width": 724.5524178126227,
       "height": 977.2373219630588,
       "seed": 481121681,
       "groupIds": [],
@@ -4423,7 +4226,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1728576693698,
+      "updated": 1731607562270,
       "link": null,
       "locked": false,
       "startBinding": null,
@@ -4454,7 +4257,7 @@
           -977.2373219630588
         ],
         [
-          724.552417812622,
+          724.5524178126227,
           -952.9279741013963
         ]
       ],
@@ -4462,8 +4265,8 @@
     },
     {
       "type": "text",
-      "version": 179,
-      "versionNonce": 790933339,
+      "version": 212,
+      "versionNonce": 340570345,
       "index": "b25",
       "isDeleted": false,
       "id": "UGOBtEGEZIZpRPk3Il79p",
@@ -4489,16 +4292,16 @@
           "type": "arrow"
         }
       ],
-      "updated": 1728928159102,
+      "updated": 1731607562270,
       "link": null,
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "\nif (mini->command && mini->command->fds)\nclose_fds\nclean_data\nexit(exit_code)",
+      "text": "\nif (mini->cmd && mini->cmd->fds)\nclose_fds\nclean_data\nexit(exit_code)",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "\nif (mini->command && mini->command->fds)\nclose_fds\nclean_data\nexit(exit_code)",
+      "originalText": "\nif (mini->cmd && mini->cmd->fds)\nclose_fds\nclean_data\nexit(exit_code)",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -4613,11 +4416,11 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "        if (mini && mini->line)\n        {\n                free_star(mini->line);\n                mini->line = NULL;\n        }\n        if (mini && mini->token)\n                clean_token_nodes(&mini->token, &free_star, 1);\n        if (mini && mini->command)\n                clean_cmd_nodes(&mini->command, &free_star);\n        if (clear_hist_or_not == true)\n        {\n                if (mini && mini->pwd)\n                        free_star(mini->pwd);\n                if (mini && mini->old_pwd)\n                        free_star(mini->old_pwd);\n                if (mini && mini->env)\n                        free_two_stars(mini->env);\n                clear_history();\n        }",
+      "text": "        if (mini && mini->line)\n        {\n                free_star(mini->line);\n                mini->line = NULL;\n        }\n        if (mini && mini->token)\n                clean_token_nodes(&mini->token, &free_star, 1);\n        if (mini && mini->cmd)\n                clean_cmd_nodes(&mini->cmd, &free_star);\n        if (clear_hist_or_not == true)\n        {\n                if (mini && mini->pwd)\n                        free_star(mini->pwd);\n                if (mini && mini->old_pwd)\n                        free_star(mini->old_pwd);\n                if (mini && mini->env)\n                        free_two_stars(mini->env);\n                clear_history();\n        }",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "        if (mini && mini->line)\n        {\n                free_star(mini->line);\n                mini->line = NULL;\n        }\n        if (mini && mini->token)\n                clean_token_nodes(&mini->token, &free_star, 1);\n        if (mini && mini->command)\n                clean_cmd_nodes(&mini->command, &free_star);\n        if (clear_hist_or_not == true)\n        {\n                if (mini && mini->pwd)\n                        free_star(mini->pwd);\n                if (mini && mini->old_pwd)\n                        free_star(mini->old_pwd);\n                if (mini && mini->env)\n                        free_two_stars(mini->env);\n                clear_history();\n        }",
+      "originalText": "        if (mini && mini->line)\n        {\n                free_star(mini->line);\n                mini->line = NULL;\n        }\n        if (mini && mini->token)\n                clean_token_nodes(&mini->token, &free_star, 1);\n        if (mini && mini->cmd)\n                clean_cmd_nodes(&mini->cmd, &free_star);\n        if (clear_hist_or_not == true)\n        {\n                if (mini && mini->pwd)\n                        free_star(mini->pwd);\n                if (mini && mini->old_pwd)\n                        free_star(mini->old_pwd);\n                if (mini && mini->env)\n                        free_two_stars(mini->env);\n                clear_history();\n        }",
       "autoResize": false,
       "lineHeight": 1.25
     },
@@ -4836,18 +4639,18 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "        t_command        *temp;\n        \n        while (*lst != NULL)\n        {\n                temp = (*lst)->next;\n                if ((*lst)->command)\n                        (*del)((*lst)->command);\n                if ((*lst)->args)\n                        (*del)((*lst)->args);\n                if ((*lst)->pipe_fd)\n                        (*del)((*lst)->pipe_fd);\n                if ((*lst)->fds)\n                        free_in_and_out_fds((*lst)->fds);\n                (*del)(*lst);\n                *lst = temp;\n        }\n        *lst = NULL;",
+      "text": "        t_command        *temp;\n        \n        while (*lst != NULL)\n        {\n                temp = (*lst)->next;\n                if ((*lst)->cmd)\n                        (*del)((*lst)->cmd);\n                if ((*lst)->args)\n                        (*del)((*lst)->args);\n                if ((*lst)->pipe_fd)\n                        (*del)((*lst)->pipe_fd);\n                if ((*lst)->fds)\n                        free_in_and_out_fds((*lst)->fds);\n                (*del)(*lst);\n                *lst = temp;\n        }\n        *lst = NULL;",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "        t_command        *temp;\n        \n        while (*lst != NULL)\n        {\n                temp = (*lst)->next;\n                if ((*lst)->command)\n                        (*del)((*lst)->command);\n                if ((*lst)->args)\n                        (*del)((*lst)->args);\n                if ((*lst)->pipe_fd)\n                        (*del)((*lst)->pipe_fd);\n                if ((*lst)->fds)\n                        free_in_and_out_fds((*lst)->fds);\n                (*del)(*lst);\n                *lst = temp;\n        }\n        *lst = NULL;",
+      "originalText": "        t_command        *temp;\n        \n        while (*lst != NULL)\n        {\n                temp = (*lst)->next;\n                if ((*lst)->cmd)\n                        (*del)((*lst)->cmd);\n                if ((*lst)->args)\n                        (*del)((*lst)->args);\n                if ((*lst)->pipe_fd)\n                        (*del)((*lst)->pipe_fd);\n                if ((*lst)->fds)\n                        free_in_and_out_fds((*lst)->fds);\n                (*del)(*lst);\n                *lst = temp;\n        }\n        *lst = NULL;",
       "autoResize": false,
       "lineHeight": 1.25
     },
     {
       "type": "arrow",
-      "version": 823,
-      "versionNonce": 2140990357,
+      "version": 932,
+      "versionNonce": 683798055,
       "index": "b2L",
       "isDeleted": false,
       "id": "aziYGZ8A6m5ebjyOlW3gg",
@@ -4870,7 +4673,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1728928168806,
+      "updated": 1731607562271,
       "link": null,
       "locked": false,
       "startBinding": null,
@@ -5221,8 +5024,8 @@
     },
     {
       "type": "arrow",
-      "version": 1714,
-      "versionNonce": 525655202,
+      "version": 1059,
+      "versionNonce": 606454965,
       "index": "b2U",
       "isDeleted": false,
       "id": "__ZQs3cWyL0VkpNN3fba-",
@@ -5232,12 +5035,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1057.6354522705078,
-      "y": 891.7655731051796,
+      "x": 1111.7719578633594,
+      "y": 882.9178370706987,
       "strokeColor": "#1971c2",
       "backgroundColor": "#a5d8ff",
-      "width": 1254.0096153985896,
-      "height": 1407.129585026739,
+      "width": 1308.1461209914412,
+      "height": 1415.9773210612198,
       "seed": 989879003,
       "groupIds": [],
       "frameId": null,
@@ -5245,19 +5048,19 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163081652,
+      "updated": 1728924811588,
       "link": null,
       "locked": false,
       "startBinding": {
         "elementId": "Sf5z5SeRqXxUnLBQ3h1eb",
-        "focus": -0.34978985560075243,
+        "focus": -0.09862974881018592,
         "gap": 1,
         "fixedPoint": null
       },
       "endBinding": {
         "elementId": "D6pyxXopD-wkrXWihXH3l",
-        "focus": -0.251374893799837,
-        "gap": 8.322853350011428,
+        "focus": -0.25137489379983347,
+        "gap": 8.322853350011883,
         "fixedPoint": null
       },
       "lastCommittedPoint": null,
@@ -5269,20 +5072,20 @@
           0
         ],
         [
-          -180.8711631878673,
-          48.018587319388644
+          -219.87095003071886,
+          125.46788585386946
         ],
         [
-          -1054.00971712385,
-          250.3296074062971
+          -1108.1462227167015,
+          259.1773434407779
         ],
         [
-          -1254.0096153985896,
-          826.3294141283023
+          -1308.1461209914412,
+          835.1771501627832
         ],
         [
-          -839.6095909845272,
-          1407.129585026739
+          -893.7460965773788,
+          1415.9773210612198
         ]
       ],
       "elbowed": false
@@ -5352,8 +5155,8 @@
     },
     {
       "type": "rectangle",
-      "version": 1842,
-      "versionNonce": 1949029794,
+      "version": 1845,
+      "versionNonce": 792243145,
       "index": "b2X",
       "isDeleted": false,
       "id": "FsbAW3QcnjwLontJg4JBF",
@@ -5381,7 +5184,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1729614285237,
+      "updated": 1731607562271,
       "link": null,
       "locked": false
     },
@@ -5433,8 +5236,8 @@
     },
     {
       "type": "text",
-      "version": 973,
-      "versionNonce": 598728762,
+      "version": 976,
+      "versionNonce": 2127532359,
       "index": "b2Z",
       "isDeleted": false,
       "id": "tboVRKLawSsnsiNrerZE4",
@@ -5468,7 +5271,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1730220304203,
+      "updated": 1731607562271,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -5483,8 +5286,8 @@
     },
     {
       "type": "arrow",
-      "version": 786,
-      "versionNonce": 1854228066,
+      "version": 341,
+      "versionNonce": 95442683,
       "index": "b2a",
       "isDeleted": false,
       "id": "mqoqJ29pnwB1-DvRdMy0R",
@@ -5494,12 +5297,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1199.1293656405953,
-      "y": 1003.0008597391578,
+      "x": 1210.9333499869392,
+      "y": 997.7899222391578,
       "strokeColor": "#f08c00",
       "backgroundColor": "#ffc9c9",
-      "width": 80.18325305188228,
-      "height": 76.7795815334822,
+      "width": 91.98723739822617,
+      "height": 81.9905190334822,
       "seed": 1514950148,
       "groupIds": [],
       "frameId": null,
@@ -5507,7 +5310,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163025723,
+      "updated": 1728574714394,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -5531,15 +5334,15 @@
           0
         ],
         [
-          -80.18325305188228,
-          76.7795815334822
+          -91.98723739822617,
+          81.9905190334822
         ]
       ]
     },
     {
       "type": "arrow",
-      "version": 695,
-      "versionNonce": 922883838,
+      "version": 372,
+      "versionNonce": 1916580789,
       "index": "b2b",
       "isDeleted": false,
       "id": "4HlC6BbjEhAxAVfvzjH1M",
@@ -5549,12 +5352,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1292.6899445890958,
-      "y": 749.925137554396,
+      "x": 1350.6821320890958,
+      "y": 743.901700054396,
       "strokeColor": "#1971c2",
       "backgroundColor": "#eebefa",
-      "width": 813.0602619546416,
-      "height": 433.7547868383782,
+      "width": 755.0680744546416,
+      "height": 427.7313493383782,
       "seed": 1634009083,
       "groupIds": [],
       "frameId": null,
@@ -5562,7 +5365,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163138422,
+      "updated": 1728574815755,
       "link": null,
       "locked": false,
       "startBinding": null,
@@ -5581,28 +5384,28 @@
           0
         ],
         [
-          209.36183959649884,
-          -33.001463975459274
+          144.26418334649884,
+          -54.837401475459274
         ],
         [
-          295.9195771874056,
-          -379.8582566544461
+          184.7594209374056,
+          -377.9559129044461
         ],
         [
-          744.7245284057651,
-          -433.7547868383782
+          686.7323409057651,
+          -427.7313493383782
         ],
         [
-          813.0602619546416,
-          -371.32456854306645
+          755.0680744546416,
+          -365.30113104306645
         ]
       ],
       "elbowed": false
     },
     {
       "type": "arrow",
-      "version": 541,
-      "versionNonce": 1125523326,
+      "version": 168,
+      "versionNonce": 83986171,
       "index": "b2c",
       "isDeleted": false,
       "id": "NTAePIInelJcmpUH3N1KX",
@@ -5612,12 +5415,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1304.6369851121847,
-      "y": 827.3022523835746,
+      "x": 1367.5551477519737,
+      "y": 825.7358461335746,
       "strokeColor": "#1971c2",
       "backgroundColor": "#eebefa",
-      "width": 403.4530608664893,
-      "height": 323.7647716755637,
+      "width": 269.9684919767003,
+      "height": 286.84150763957814,
       "seed": 339189755,
       "groupIds": [],
       "frameId": null,
@@ -5625,14 +5428,14 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163160114,
+      "updated": 1728574831233,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "kUAXbI4eTN7z84lEOP_lq",
-        "focus": 0.235055126907086,
-        "gap": 2.301584357566071,
+        "focus": 1.030151952346319,
+        "gap": 1,
         "fixedPoint": null
       },
       "lastCommittedPoint": null,
@@ -5644,24 +5447,24 @@
           0
         ],
         [
-          225.3220015580896,
-          -76.6361012530615
+          152.70081186326547,
+          -38.8079762530615
         ],
         [
-          288.33465008703956,
-          -323.7647716755637
+          184.7596623080608,
+          -275.0303966755637
         ],
         [
-          403.4530608664893,
-          -289.74385138957814
+          269.9684919767003,
+          -286.84150763957814
         ]
       ],
       "elbowed": false
     },
     {
       "type": "arrow",
-      "version": 931,
-      "versionNonce": 1260722530,
+      "version": 299,
+      "versionNonce": 1542467701,
       "index": "b2d",
       "isDeleted": false,
       "id": "d3dT2efhZzS3TpDTklIIS",
@@ -5671,12 +5474,12 @@
       "roughness": 2,
       "opacity": 100,
       "angle": 0,
-      "x": 1058.0417022705078,
-      "y": 872.1786812200635,
+      "x": 1107.9060188331077,
+      "y": 868.2124813889711,
       "strokeColor": "#1971c2",
       "backgroundColor": "#eebefa",
-      "width": 260.67057358612124,
-      "height": 447.0757656711114,
+      "width": 310.53489014872116,
+      "height": 437.2472560708868,
       "seed": 1723545851,
       "groupIds": [],
       "frameId": null,
@@ -5684,18 +5487,18 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1731163164986,
+      "updated": 1728574953087,
       "link": null,
       "locked": false,
       "startBinding": {
         "elementId": "Sf5z5SeRqXxUnLBQ3h1eb",
-        "focus": -0.6785571566859028,
+        "focus": -0.5995012694804354,
         "gap": 1,
         "fixedPoint": null
       },
       "endBinding": {
         "elementId": "vjVJPYR4bDih6OmTNS7UK",
-        "focus": 0.4315726004620786,
+        "focus": 0.28510390054534224,
         "gap": 5.974639390473726,
         "fixedPoint": null
       },
@@ -5708,20 +5511,20 @@
           0
         ],
         [
-          -77.13516284661387,
-          -49.79761437729985
+          -105.29635440921379,
+          -46.4017270462075
         ],
         [
-          -91.0517764506078,
-          -413.23675705080814
+          -124.92781176320773,
+          -408.6924322197158
         ],
         [
-          -226.2731103762901,
-          -447.0757656711114
+          -235.5783392513424,
+          -437.2472560708868
         ],
         [
-          -260.67057358612124,
-          -375.18044170246014
+          -310.53489014872116,
+          -371.2142418713678
         ]
       ],
       "elbowed": false
@@ -7477,8 +7280,8 @@
     },
     {
       "type": "arrow",
-      "version": 1707,
-      "versionNonce": 1019550133,
+      "version": 1739,
+      "versionNonce": 1151486633,
       "index": "b4M",
       "isDeleted": false,
       "id": "216A2jMbF9UljVjCf-bW-",
@@ -7501,7 +7304,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1728928210130,
+      "updated": 1731607562272,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -8107,8 +7910,8 @@
     },
     {
       "type": "rectangle",
-      "version": 2610,
-      "versionNonce": 1737702197,
+      "version": 2615,
+      "versionNonce": 92000359,
       "index": "b4h",
       "isDeleted": false,
       "id": "RJU9Zp_R3ysRmn_OPfRJL",
@@ -8131,7 +7934,7 @@
         "type": 3
       },
       "boundElements": [],
-      "updated": 1728924259449,
+      "updated": 1731607562272,
       "link": null,
       "locked": false
     },
@@ -8670,8 +8473,8 @@
     },
     {
       "type": "rectangle",
-      "version": 2376,
-      "versionNonce": 899836646,
+      "version": 2379,
+      "versionNonce": 2100628873,
       "index": "b4u",
       "isDeleted": false,
       "id": "g6KjhzjrWNNlf9hLrnWW-",
@@ -8694,14 +8497,14 @@
         "type": 3
       },
       "boundElements": [],
-      "updated": 1730220134010,
+      "updated": 1731607562272,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 1435,
-      "versionNonce": 824188454,
+      "version": 1438,
+      "versionNonce": 1720920967,
       "index": "b4v",
       "isDeleted": false,
       "id": "9Xq1dNFM5hiMLIWINSSMb",
@@ -8727,7 +8530,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1730220134010,
+      "updated": 1731607562272,
       "link": null,
       "locked": false,
       "fontSize": 28,
@@ -8742,8 +8545,8 @@
     },
     {
       "type": "text",
-      "version": 1796,
-      "versionNonce": 1956596902,
+      "version": 1799,
+      "versionNonce": 1613526121,
       "index": "b4w",
       "isDeleted": false,
       "id": "q1u12-HJu0gzDt-JL4RZS",
@@ -8769,7 +8572,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1730220134010,
+      "updated": 1731607562272,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -8784,8 +8587,8 @@
     },
     {
       "type": "arrow",
-      "version": 232,
-      "versionNonce": 822438246,
+      "version": 235,
+      "versionNonce": 1582441127,
       "index": "b50",
       "isDeleted": false,
       "id": "tRWIOONYS-6U0Bg5KlMXG",
@@ -8808,7 +8611,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1730220134010,
+      "updated": 1731607562272,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -8844,8 +8647,8 @@
     },
     {
       "type": "rectangle",
-      "version": 2589,
-      "versionNonce": 194482938,
+      "version": 2592,
+      "versionNonce": 22282057,
       "index": "b51",
       "isDeleted": false,
       "id": "sHr78esfFMMERH-XMcDr9",
@@ -8873,14 +8676,14 @@
           "type": "arrow"
         }
       ],
-      "updated": 1730220142669,
+      "updated": 1731607562272,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 1595,
-      "versionNonce": 769519674,
+      "version": 1598,
+      "versionNonce": 1835349447,
       "index": "b52",
       "isDeleted": false,
       "id": "YYuxqd1b-Xq4NQUo4ozz5",
@@ -8906,7 +8709,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1730220156950,
+      "updated": 1731607562273,
       "link": null,
       "locked": false,
       "fontSize": 28,
@@ -8958,8 +8761,8 @@
     },
     {
       "type": "arrow",
-      "version": 411,
-      "versionNonce": 938304122,
+      "version": 414,
+      "versionNonce": 1862741545,
       "index": "b54",
       "isDeleted": false,
       "id": "wD_5O62oZ74jplS2df88r",
@@ -8982,7 +8785,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1730220157458,
+      "updated": 1731607562273,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -9090,8 +8893,8 @@
     },
     {
       "type": "text",
-      "version": 2634,
-      "versionNonce": 554571067,
+      "version": 2691,
+      "versionNonce": 1256776935,
       "index": "b57",
       "isDeleted": false,
       "id": "GPKBUgWAFABk59REkbJLW",
@@ -9112,7 +8915,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1728927864468,
+      "updated": 1731607562273,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -9715,6 +9518,941 @@
       "updated": 1730220431004,
       "link": null,
       "locked": false
+    },
+    {
+      "type": "rectangle",
+      "version": 1080,
+      "versionNonce": 1257934294,
+      "index": "b5R",
+      "isDeleted": false,
+      "id": "1_jf8XYLjL5LlB5bZAXP2",
+      "fillStyle": "cross-hatch",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1514.5257960728236,
+      "y": -129.40270342145658,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "#a5d8ff",
+      "width": 448.00012207031244,
+      "height": 435.5999755859375,
+      "seed": 1620565161,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "oOWIjwIjc3wZGU2doFxY5"
+        },
+        {
+          "id": "5ShdY6qOohfDfsWvgC2v6",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1732039643610,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "oOWIjwIjc3wZGU2doFxY5",
+      "type": "text",
+      "x": 1523.2460566929408,
+      "y": -99.10271562848783,
+      "width": 430.5596008300781,
+      "height": 375,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5RV",
+      "roundness": null,
+      "seed": 1589908135,
+      "version": 1019,
+      "versionNonce": 953171542,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732041156063,
+      "link": null,
+      "locked": false,
+      "text": "-Adds the command to history.\n-Converts the \"line\" string given by\nPROMPT into a linked list of token-type\nstructs and checks for syntax errors.\nquotes_err_n_read\n-Expands the variables into their\ncorresponding values. expander_main\n-Parses each token. parser_main\n\nPrecheck and handling of errors/edge cases:\n-Empty line (always returns TRUE)\n-No line is prompted (executes the built in\nfunction \"exit\")*\n\n*TO DO!!",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "1_jf8XYLjL5LlB5bZAXP2",
+      "originalText": "-Adds the command to history.\n-Converts the \"line\" string given by PROMPT into a linked list of token-type structs and checks for syntax errors. quotes_err_n_read\n-Expands the variables into their corresponding values. expander_main\n-Parses each token. parser_main\n\nPrecheck and handling of errors/edge cases:\n-Empty line (always returns TRUE)\n-No line is prompted (executes the built in function \"exit\")*\n\n*TO DO!!",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "text",
+      "version": 904,
+      "versionNonce": 1675065997,
+      "index": "b5T",
+      "isDeleted": false,
+      "id": "b4wq0hKu3rAOY673oXHXc",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1695.6758891514369,
+      "y": -125.42287554059715,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "transparent",
+      "width": 103.87989807128906,
+      "height": 25,
+      "seed": 77268649,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1731608342379,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "lexer_main",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "lexer_main",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "arrow",
+      "version": 3937,
+      "versionNonce": 1082785805,
+      "index": "b5W",
+      "isDeleted": false,
+      "id": "ICd8j9NOw3AEtQ53pQhSE",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1617.6256343296595,
+      "y": -186.08592988925577,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 223.79989624023438,
+      "height": 371.27350067768305,
+      "seed": 1485247053,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "updated": 1731608658872,
+      "link": null,
+      "locked": false,
+      "startBinding": null,
+      "endBinding": null,
+      "lastCommittedPoint": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "points": [
+        [
+          0,
+          193.60003662109372
+        ],
+        [
+          -169.99996948242188,
+          42.003738204390174
+        ],
+        [
+          -223.79989624023438,
+          -177.6734640565893
+        ]
+      ]
+    },
+    {
+      "type": "rectangle",
+      "version": 1260,
+      "versionNonce": 1666482966,
+      "index": "b5X",
+      "isDeleted": false,
+      "id": "v5EDeXsR2NFxrUEsAzY_-",
+      "fillStyle": "cross-hatch",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0.011526690850816479,
+      "x": 1147.4073963740038,
+      "y": -956.5198141618031,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "#a5d8ff",
+      "width": 448.00012207031244,
+      "height": 588.6018986295256,
+      "seed": 697456227,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "YYWft-yRXHQaU5nIioJPf"
+        }
+      ],
+      "updated": 1732039508803,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "YYWft-yRXHQaU5nIioJPf",
+      "type": "text",
+      "x": 1152.4073963740038,
+      "y": -912.2188648470403,
+      "width": 435.3995361328125,
+      "height": 500,
+      "angle": 0.011526690850816479,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5X8",
+      "roundness": null,
+      "seed": 1212756746,
+      "version": 162,
+      "versionNonce": 1407205846,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732040464438,
+      "link": null,
+      "locked": false,
+      "text": "-Ensures that each open quote (single or\ndouble) gets closed somewhere along the\n\"line\" string and tracks their status(open or\nOK). Returns TRUE if incorrectly set up\n(quote_stat function).\n\n-Whenever an operator is found in the string\n(such as a pipe or a blank char), it marks as\nthe beginning of the next word or operator\n(“start_word” index value. If no operators\nare found along the string, the  start_word\nindex won’t go beyond zero, hence making\nthe whole string a word). function\nchunk_reader.\n \n-The encountered words and/or are created\nas tokens with their corresponding types\nand added  to the tokens list\n(word_to_tkn and oprtr_to_tkn functions)\n",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "left",
+      "verticalAlign": "middle",
+      "containerId": "v5EDeXsR2NFxrUEsAzY_-",
+      "originalText": "-Ensures that each open quote (single or double) gets closed somewhere along the \"line\" string and tracks their status(open or \nOK). Returns TRUE if incorrectly set up (quote_stat function).\n\n-Whenever an operator is found in the string (such as a pipe or a blank char), it marks as the beginning of the next word or operator (“start_word” index value. If no operators are found along the string, the  start_word  index won’t go beyond zero, hence making the whole string a word). function chunk_reader.\n \n-The encountered words and/or are created as tokens with their corresponding types and added  to the tokens list (word_to_tkn and oprtr_to_tkn functions)\n",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "text",
+      "version": 1017,
+      "versionNonce": 1445862486,
+      "index": "b5Z",
+      "isDeleted": false,
+      "id": "bi1p2waJBCDYQBz68e4LX",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1291.7175541498827,
+      "y": -959.8820512905679,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "transparent",
+      "width": 199.3798065185547,
+      "height": 50,
+      "seed": 1298462957,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1732039475771,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "quotes_err_n_read\n",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "quotes_err_n_read\n",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "Keg0fOAMlg5zgS3BK_p95",
+      "type": "arrow",
+      "x": 1828.325966971261,
+      "y": 51.87702069963734,
+      "width": 312.5669583068275,
+      "height": 1375.3586499023208,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5b",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 23192394,
+      "version": 452,
+      "versionNonce": 2044230218,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          34.9996337890625,
+          -719.1998901367188
+        ],
+        [
+          -277.567324517765,
+          -1375.3586499023208
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": {
+        "elementId": "fCML9n_iAoKH26iNfGOIq",
+        "focus": 0.04383018683558855,
+        "gap": 1,
+        "fixedPoint": null
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "type": "rectangle",
+      "version": 1852,
+      "versionNonce": 51881162,
+      "index": "b5c",
+      "isDeleted": false,
+      "id": "fCML9n_iAoKH26iNfGOIq",
+      "fillStyle": "cross-hatch",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0.011526690850816479,
+      "x": 1194.7388327653944,
+      "y": -1917.1753359849804,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "#a5d8ff",
+      "width": 460.7786342468132,
+      "height": 591.2258330262845,
+      "seed": 1563504010,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "D7yvntYsBvH9qnRf4MCBj"
+        },
+        {
+          "id": "Keg0fOAMlg5zgS3BK_p95",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1732042469545,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "D7yvntYsBvH9qnRf4MCBj",
+      "type": "text",
+      "x": 1204.6284550645823,
+      "y": -1846.562419471838,
+      "width": 440.9993896484375,
+      "height": 450,
+      "angle": 0.011526690850816479,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5cV",
+      "roundness": null,
+      "seed": 36413130,
+      "version": 565,
+      "versionNonce": 521960330,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042469545,
+      "link": null,
+      "locked": false,
+      "text": "-Identifies every variable token-type in\nthe token list (mark_variables\nfunction): \n\n-Scan every variable to verify that the\nsyntax is correct, process them and\nextracts their values It also tracks the\nstatus of the quotes(scan_variables\nfunction):\n\n-Seeks and removes the quotes\n(process_quotes function), unless the\nprevious token is HEREDOC type.\nMeasures the length of the content\nstring without quotes.\nCreates a new string with all the quotes\nskipped and substitutes the previous\ncontent",
+      "fontSize": 20,
+      "fontFamily": 8,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "fCML9n_iAoKH26iNfGOIq",
+      "originalText": "-Identifies every variable token-type in the token list (mark_variables function): \n\n-Scan every variable to verify that the syntax is correct, process them and extracts their values It also tracks the status of the quotes(scan_variables function):\n\n-Seeks and removes the quotes (process_quotes function), unless the previous token is HEREDOC type.\nMeasures the length of the content string without quotes.\nCreates a new string with all the quotes skipped and substitutes the previous content",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "text",
+      "version": 983,
+      "versionNonce": 36086026,
+      "index": "b5p",
+      "isDeleted": false,
+      "id": "kZ1YIBPngB0-REzdjt2fu",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1354.31896064395,
+      "y": -1893.1563146682015,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "transparent",
+      "width": 141.87985229492188,
+      "height": 25,
+      "seed": 1939267018,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "expander_main",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "expander_main",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "M34u1CuFhS0W1eisBd7Ln",
+      "type": "arrow",
+      "x": 1904.9256984165736,
+      "y": 94.27716718401234,
+      "width": 106.67037797403395,
+      "height": 1638.2378233748652,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5q",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 821069974,
+      "version": 288,
+      "versionNonce": 1336687062,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042473395,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          106.67037797403395,
+          -1638.2378233748652
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": {
+        "elementId": "7XaCGF3nGmJEiyJcbnIbx",
+        "focus": -0.07587262169875016,
+        "gap": 1.5872670036824275,
+        "fixedPoint": null
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "type": "rectangle",
+      "version": 1309,
+      "versionNonce": 1974835030,
+      "index": "b5r",
+      "isDeleted": false,
+      "id": "7XaCGF3nGmJEiyJcbnIbx",
+      "fillStyle": "cross-hatch",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0.011526690850816479,
+      "x": 1788.6590765090214,
+      "y": -2134.1572253273644,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "#a5d8ff",
+      "width": 448.00012207031244,
+      "height": 588.6018986295256,
+      "seed": 1431736650,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "N5KtB6LP2WF7x_wtzGjPT"
+        },
+        {
+          "id": "M34u1CuFhS0W1eisBd7Ln",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1732042473395,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "N5KtB6LP2WF7x_wtzGjPT",
+      "type": "text",
+      "x": 1798.1593969435917,
+      "y": -2089.8562760126015,
+      "width": 428.9994812011719,
+      "height": 500,
+      "angle": 0.011526690850816479,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5rG",
+      "roundness": null,
+      "seed": 751381526,
+      "version": 49,
+      "versionNonce": 552877206,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042473395,
+      "link": null,
+      "locked": false,
+      "text": "\nAdds every token to the commands list.\nIf it’s a word and it happens to be the\nfirst (or the first after a PIPE type\ntoken), it will check it there’s spaces\nin it and will split the token into the\ncommand and their distinct arguments.\nIf the token is an operator the program\nwill perform the task pointed by said\noperator until END (i.e NULL) is found\nin the token list. (see operator tasks)\nIterates again through the whole\ncommand’s list to check if there are\nsome with no arguments whatsoever. If\nso, it will  update the first argument\nof that command (arg[0]) as the name of\nthe command itself (like any regular\nprogram declared  as int main(int argc,\nchar **argv))\n",
+      "fontSize": 20,
+      "fontFamily": 8,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "7XaCGF3nGmJEiyJcbnIbx",
+      "originalText": "\nAdds every token to the commands list.\nIf it’s a word and it happens to be the first (or the first after a PIPE type token), it will check it there’s spaces in it and will split the token into the command and their distinct arguments.\nIf the token is an operator the program will perform the task pointed by said operator until END (i.e NULL) is found in the token list. (see operator tasks)\nIterates again through the whole command’s list to check if there are some with no arguments whatsoever. If so, it will  update the first argument of that command (arg[0]) as the name of the command itself (like any regular program declared  as int main(int argc, char **argv))\n",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "text",
+      "version": 972,
+      "versionNonce": 2029162262,
+      "index": "b5t",
+      "isDeleted": false,
+      "id": "-FVkCBNzrDGXFrN_TH2SX",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1900.9191625685917,
+      "y": -2123.556257702055,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "transparent",
+      "width": 141.87985229492188,
+      "height": 25,
+      "seed": 1850975702,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1732042473395,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "expander_main",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "expander_main",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "rectangle",
+      "version": 1881,
+      "versionNonce": 327282634,
+      "index": "b5u",
+      "isDeleted": false,
+      "id": "tt5Rpixcse4aDhJ88Xwol",
+      "fillStyle": "cross-hatch",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0.011526690850816479,
+      "x": 541.0477124446104,
+      "y": -2066.022581441692,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "#a5d8ff",
+      "width": 460.7786342468132,
+      "height": 333.7518759827049,
+      "seed": 621505878,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "7ZXVuf-g3LU4Fe-bOUuOP"
+        },
+        {
+          "id": "1ifgA-6x99pGvKdF6P1Xo",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "7ZXVuf-g3LU4Fe-bOUuOP",
+      "type": "text",
+      "x": 551.4373347437983,
+      "y": -2024.1466434503395,
+      "width": 439.9993896484375,
+      "height": 250,
+      "angle": 0.011526690850816479,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5uV",
+      "roundness": null,
+      "seed": 514323094,
+      "version": 93,
+      "versionNonce": 1644521098,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false,
+      "text": "Iterates in a double loop through the\nlist of tokens and its content. If a ‘$’\nchar is found in the inner loop, it\nupdates the token type to\n“variable”(VAR) in the current position\nof the outer loop. \nIt handles the exception of the previous\ntoken being a HEREDOC token-type, in\nwhich cases skips to the next token by\nbreaking the inner loop",
+      "fontSize": 20,
+      "fontFamily": 8,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "tt5Rpixcse4aDhJ88Xwol",
+      "originalText": "Iterates in a double loop through the list of tokens and its content. If a ‘$’ char is found in the inner loop, it updates the token type to “variable”(VAR) in the current position of the outer loop. \nIt handles the exception of the previous token being a HEREDOC token-type, in which cases skips to the next token by breaking the inner loop",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "rectangle",
+      "version": 1888,
+      "versionNonce": 1242614794,
+      "index": "b5w",
+      "isDeleted": false,
+      "id": "81rnD7-6x5C9qpeqAIxOs",
+      "fillStyle": "cross-hatch",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0.011526690850816479,
+      "x": 530.5363093109004,
+      "y": -1697.9620865696515,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "#a5d8ff",
+      "width": 460.7786342468132,
+      "height": 552.544912544444,
+      "seed": 1331410646,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "h_fi5wSgqsvjkz9SgL5z7"
+        },
+        {
+          "id": "OJUyIQvYRLtw7fV4ShndP",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "h_fi5wSgqsvjkz9SgL5z7",
+      "type": "text",
+      "x": 540.4259316100882,
+      "y": -1646.6896302974296,
+      "width": 440.9993896484375,
+      "height": 450,
+      "angle": 0.011526690850816479,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b5wG",
+      "roundness": null,
+      "seed": 382905238,
+      "version": 94,
+      "versionNonce": 1391377098,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false,
+      "text": "If a variable is found (as marked in the\nprevious step), the program will make\nsure that the following char to the ‘$’\nis valid (see invalid cases handled)\nCreates a string which holds the true\nvalue of the variable, checking if the\nname of the variable is an environment\nvalue, in which case just duplicates it.\nIn the special case that the ‘$’ is\nfollowed by a ‘=’ or a ‘?’, the string\nis the value of the g_status stored as a\nchar* (like an itoa func).\nxtract_var_value function.\nMeasures the variable’s name length\n(just iterates until a blank is found),\nand substitutes it for the actual\ncontent of the variable retrieved from\nthe previous step.",
+      "fontSize": 20,
+      "fontFamily": 8,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "81rnD7-6x5C9qpeqAIxOs",
+      "originalText": "If a variable is found (as marked in the previous step), the program will make sure that the following char to the ‘$’ is valid (see invalid cases handled)\nCreates a string which holds the true value of the variable, checking if the name of the variable is an environment value, in which case just duplicates it. In the special case that the ‘$’ is followed by a ‘=’ or a ‘?’, the string is the value of the g_status stored as a char* (like an itoa func). xtract_var_value function.\nMeasures the variable’s name length (just iterates until a blank is found), and substitutes it for the actual content of the variable retrieved from the previous step.",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "text",
+      "version": 1010,
+      "versionNonce": 56758346,
+      "index": "b5y",
+      "isDeleted": false,
+      "id": "eXkjuC2mup9mHE8tXBi_Z",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 696.1190933954149,
+      "y": -2053.9563024611703,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "transparent",
+      "width": 148.33984375,
+      "height": 25,
+      "seed": 1787373846,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "mark_variables",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "mark_variables",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "type": "text",
+      "version": 1001,
+      "versionNonce": 302872330,
+      "index": "b5z",
+      "isDeleted": false,
+      "id": "xl6CAuBM4MtJyD_wSgpqt",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "angle": 0,
+      "x": 683.3190445672899,
+      "y": -1686.7563207717171,
+      "strokeColor": "#1971c2",
+      "backgroundColor": "transparent",
+      "width": 147.57984924316406,
+      "height": 50,
+      "seed": 1426243158,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1732042469546,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "scan_variables\n",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "scan_variables\n",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "OJUyIQvYRLtw7fV4ShndP",
+      "type": "arrow",
+      "x": 1355.059080578032,
+      "y": -1634.256290254139,
+      "width": 367.2000732421875,
+      "height": 6.4000244140625,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b60",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1148297738,
+      "version": 294,
+      "versionNonce": 864491094,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042469758,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -367.2000732421875,
+          6.4000244140625
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": {
+        "elementId": "81rnD7-6x5C9qpeqAIxOs",
+        "focus": -0.7148576119950761,
+        "gap": 1,
+        "fixedPoint": null
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "1ifgA-6x99pGvKdF6P1Xo",
+      "type": "arrow",
+      "x": 1367.8590073358446,
+      "y": -1781.456241426014,
+      "width": 360,
+      "height": 241.60006713867188,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b61",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 497822602,
+      "version": 251,
+      "versionNonce": 1178459030,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1732042469758,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -220.79998779296875,
+          -70.40005493164062
+        ],
+        [
+          -360,
+          -241.60006713867188
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": {
+        "elementId": "tt5Rpixcse4aDhJ88Xwol",
+        "focus": -0.9217018973109564,
+        "gap": 4.588717986639381,
+        "fixedPoint": null
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
     }
   ],
   "appState": {
