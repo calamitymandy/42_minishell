@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 18:48:43 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/19 17:14:18 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:19:00 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ bool    check_long_range(int neg, unsigned long long num, bool *error)
 {
     if ((neg == 1 && num > LONG_MAX)
             || (neg == -1 && num > -(unsigned long)LONG_MIN))
-        error = true;
-    return (error);
+        *error = true;
+    return (*error);
 }
 
 int ft_atoi_long(const char *str, bool *error)
