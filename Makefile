@@ -1,6 +1,7 @@
 NAME        = minishell
 
-SRCS        = main.c close_n_free.c expand.c signals.c utils.c\
+
+SRCS        = main.c close_n_free.c signals.c lexer.c parser.c errors.c utils.c tokenizer.c expander.c utils.c\
 
 OBJS        = $(SRCS:.c=.o)
 
@@ -10,7 +11,7 @@ INCLUDES    = -I$(LIBFT_DIR)
 LIBS        = -lreadline -L$(LIBFT_DIR) -lft
 
 CC          = gcc
-CFLAGS      = $(INCLUDES) -I.
+CFLAGS      = $(INCLUDES) -g -I.
 LDFLAGS     = $(LIBS)
 
 all: $(NAME)

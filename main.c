@@ -487,21 +487,21 @@ int	exec_exit_builtin(t_minishell *mini, char **args)
 	return (2);
 }
 
-int	exec_builtin(t_minishell *mini, t_command *cmd)
+int	exec_builtin(t_minishell *mini, t_command *command)
 {
 	int	cmd_res;
 
 	cmd_res = 127;
-	if (ft_strncmp(cmd->cmd, "cd", 3) == 0)
-		cmd_res = exec_cd(mini, cmd->args);
-	else if (ft_strncmp(cmd->cmd, "echo", 5) == 0)
-		cmd_res = exec_echo(mini, cmd->args);
-	else if (ft_strncmp(cmd->cmd, "env", 4) == 0)
-		cmd_res = exec_env_builtin(mini, cmd->args);
-	else if (ft_strncmp(cmd->cmd, "pwd", 4) == 0)
-		cmd_res = exec_pwd_builtin(mini, cmd->args);
-	else if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
-		cmd_res = exec_exit_builtin(mini, cmd->args);
+	if (ft_strncmp(command->cmd, "cd", 3) == 0)
+		cmd_res = exec_cd(mini, command->args);
+	else if (ft_strncmp(command->cmd, "echo", 5) == 0)
+		cmd_res = exec_echo(mini, command->args);
+	else if (ft_strncmp(command->cmd, "env", 4) == 0)
+		cmd_res = exec_env_builtin(mini, command->args);
+	else if (ft_strncmp(command->cmd, "pwd", 4) == 0)
+		cmd_res = exec_pwd_builtin(mini, command->args);
+	else if (ft_strncmp(command->cmd, "exit", 5) == 0)
+		cmd_res = exec_exit_builtin(mini, command->args);
 	// TODO AMANDINE:
 	// exec_export_builtin
 	// exec_unset_builtin
@@ -594,30 +594,30 @@ bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 /**
  * close_fds` closes file descriptors and resets them if specified.
  * If `close_or_not` is true, the function will call `reset_fds_in_and_out` 
- * to reset the file descriptors in the `cmd` structure.
+ * to reset the file descriptors in the `command` structure.
  * 
  * MIXED WITH CLOSE_PIPE_FD (while) to closes pipe file descriptors for all 
  * commands except NULL.
  */
-void	close_fds(t_command *cmd, bool close_or_not)
+void	close_fds(t_command *command, bool close_or_not)
 {
-	if (cmd->fds)
+	if (command->fds)
 	{
-		if (cmd->fds->fd_infile != -1)
-				close (cmd->fds->fd_infile);
-		if (cmd->fds->fd_outfile != -1)
-				close (cmd->fds->fd_outfile);
+		if (command->fds->fd_infile != -1)
+				close (command->fds->fd_infile);
+		if (command->fds->fd_outfile != -1)
+				close (command->fds->fd_outfile);
 		if (close_or_not)
-			reset_fds_in_and_out(cmd->fds);
+			reset_fds_in_and_out(command->fds);
 	}
-	while (cmd)
+	while (command)
 	{
-		if (cmd != NULL && cmd->pipe_fd)
+		if (command != NULL && command->pipe_fd)
 		{
-			close(cmd->pipe_fd[0]);
-			close(cmd->pipe_fd[1]);
+			close(command->pipe_fd[0]);
+			close(command->pipe_fd[1]);
 		}
-		cmd = cmd->next;
+		command = command->next;
 	}
 }
 
@@ -628,7 +628,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	mini->line = NULL;
 	//mini->ctrlc_heredoc = false; TODO
 	mini->token = NULL;
-	mini->cmd = NULL;
+	mini->command = NULL;
 	mini->pid = -1;
 	g_status = 0;
 	return (true);
@@ -646,7 +646,7 @@ bool	create_pipes(t_minishell *mini)
 	int			*fd;
 	t_command	*temp_cmd;
 
-	temp_cmd = mini->cmd;
+	temp_cmd = mini->command;
 	while (temp_cmd)
 	{
 		if (temp_cmd->pipe_output
@@ -667,14 +667,14 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
-	//TODO init mini->cmd->cmd & mini->token->has_quotes somewhere
-	if (!mini || !mini->cmd || !mini->cmd->cmd
-		|| (mini->cmd->cmd[0] == '\0' && mini->token->has_quotes == false))
+	//TODO init mini->command->cmd & mini->token->has_quotes somewhere
+	if (!mini || !mini->command || !mini->command->cmd
+		|| (mini->command->cmd[0] == '\0' && mini->token->has_quotes == false))
 		return (EXIT_SUCCESS);
 	//printf("here it does not print");
-	if (mini->cmd && !mini->cmd->cmd)
+	if (mini->command && !mini->command->cmd)
 	{
-		if (mini->cmd->fds && !check_in_and_out(mini->cmd->fds))
+		if (mini->command->fds && !check_in_and_out(mini->command->fds))
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
@@ -709,9 +709,9 @@ bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
 
 /**
  * The function `is_directory` checks if a given path is a directory or not.
- * returns a boolean value indicating whether the given `cmd` path
+ * returns a boolean value indicating whether the given `command` path
  * is a directory or not. It uses the `stat` function to retrieve information 
- * about the file specified by `cmd` and then checks if it is a directory 
+ * about the file specified by `command` and then checks if it is a directory 
  * using the `S_ISDIR` macro.
  */
 bool	is_directory(char *cmd)
@@ -813,9 +813,9 @@ char	*get_path_cmd(t_minishell *mini, char *str)
 }
 
 /**
- * The function executes a system binary command in a minishell environment.
+ * The function executes a system binary cmd in a minishell environment.
  * 
- * A system binary command is an executable program that is stored in binary 
+ * A system binary cmd is an executable program that is stored in binary 
  * form on the system, typically located in standard directories like 
  * /bin, /usr/bin, /sbin. These commands are essential for interacting with
  * the operating system and performing various tasks.
@@ -823,16 +823,16 @@ char	*get_path_cmd(t_minishell *mini, char *str)
  * Examples of basic Commands: ls, cat, cp(Copies files or directories), 
  * mv(Moves or renames files or directories), rm.
  */
-int	exec_sys_binary(t_minishell *mini, t_command *cmd)
+int	exec_sys_binary(t_minishell *mini, t_command *command)
 {
-	if (!cmd->cmd || cmd->cmd[0] == '\0')
+	if (!command->cmd || command->cmd[0] == '\0')
 		return (127);
-	if (is_directory(cmd->cmd))
+	if (is_directory(command->cmd))
 		return (127);
-	cmd->path = get_path_cmd(mini, cmd->cmd);
-	if (!cmd->path)
+	command->path = get_path_cmd(mini, command->cmd);
+	if (!command->path)
 		return (127);
-	if (execve(cmd->path, cmd->args, mini->env) == -1)
+	if (execve(command->path, command->args, mini->env) == -1)
 		error_msg("execve", NULL, strerror(errno), errno);
 	return (EXIT_FAILURE);
 }
@@ -851,41 +851,41 @@ int	exec_sys_binary(t_minishell *mini, t_command *cmd)
  * are returned with relevant exit codes (127 for command not found, 
  * 126 for permission errors, and errno for other errors).
 */
-int	exec_local_binary(t_minishell *mini, t_command *cmd)
+int	exec_local_binary(t_minishell *mini, t_command *command)
 {
-	if (ft_strchr(cmd->cmd, '/') == NULL
+	if (ft_strchr(command->cmd, '/') == NULL
 		&& find_env_index_of_key(mini->env, "PATH") != -1)
-		return (error_msg(cmd->cmd, NULL, "command not found", 127));
-	if (access(cmd->cmd, F_OK) != 0)
-		return (error_msg(cmd->cmd, NULL, strerror(errno), 127));
-	if (is_directory(cmd->cmd))
-		return (error_msg(cmd->cmd, NULL, "is a directory", 126));
-	if (access(cmd->cmd, F_OK | X_OK) != 0)
-		return (error_msg(cmd->cmd, NULL, strerror(errno), 126));
-	if (execve(cmd->cmd, cmd->args, mini->env) == -1)
+		return (error_msg(command->cmd, NULL, "command not found", 127));
+	if (access(command->cmd, F_OK) != 0)
+		return (error_msg(command->cmd, NULL, strerror(errno), 127));
+	if (is_directory(command->cmd))
+		return (error_msg(command->cmd, NULL, "is a directory", 126));
+	if (access(command->cmd, F_OK | X_OK) != 0)
+		return (error_msg(command->cmd, NULL, strerror(errno), 126));
+	if (execve(command->cmd, command->args, mini->env) == -1)
 		return (error_msg("execve", NULL, strerror(errno), errno));
 	return (EXIT_FAILURE);
 }
 
-int	exec_cmd(t_minishell *mini, t_command *cmd)
+int	exec_cmd(t_minishell *mini, t_command *command)
 {
 	int	res;
 
-	if (!check_in_and_out(cmd->fds))
+	if (!check_in_and_out(command->fds))
 		exit_mini(mini, EXIT_FAILURE);
-	set_n_close_pipes_fds(mini->cmd, cmd); //Mix of two
-	config_in_and_out(cmd->fds);
-	close_fds(mini->cmd, false);
-	if (ft_strchr(cmd->cmd, '/') == NULL)
+	set_n_close_pipes_fds(mini->command, command); //Mix of two
+	config_in_and_out(command->fds);
+	close_fds(mini->command, false);
+	if (ft_strchr(command->cmd, '/') == NULL)
 	{
-		res = exec_builtin(mini, cmd);
+		res = exec_builtin(mini, command);
 		if (res != 127)
 			exit_mini(mini, res);
-		res = exec_sys_binary(mini, cmd);
+		res = exec_sys_binary(mini, command);
 		if (res != 127)
 			exit_mini(mini, res);
 	}
-	res = exec_local_binary(mini, cmd);
+	res = exec_local_binary(mini, command);
 	exit_mini(mini, res);
 	return (res);
 }
@@ -918,7 +918,7 @@ int	child_status(t_minishell *mini)
 	int		status;
 	int		save_status;
 
-	close_fds(mini->cmd, false);
+	close_fds(mini->command, false);
 	save_status = 0;
 	pid_from_waitpid = 0;
 	while (pid_from_waitpid != -1 || errno != ECHILD)
@@ -939,17 +939,17 @@ int	child_status(t_minishell *mini)
 
 int	create_children(t_minishell *mini)
 {
-	t_command	*cmd;
+	t_command	*command;
 
-	cmd = mini->cmd;
-	while (mini->pid != 0 && cmd)
+	command = mini->command;
+	while (mini->pid != 0 && command)
 	{
 		mini->pid = fork();
 		if (mini->pid == -1)
 			return (error_msg("fork", NULL, strerror(errno), EXIT_FAILURE));
 		else if (mini->pid == 0)
-			exec_cmd(mini, cmd);
-		cmd = cmd->next;
+			exec_cmd(mini, command);
+		command = command->next;
 	}
 	return (child_status(mini));
 }
@@ -959,8 +959,8 @@ int	create_children(t_minishell *mini)
  * 
  * The 2nd if block checks if the command should be executed directly, 
  * without piping or chaining to other commands:
- * 1 - Ensures that cmd is not sending output through a pipe.
- * 2 - Ensures that cmd is not part of a pipeline or a sequence of commands.
+ * 1 - Ensures that command is not sending output through a pipe.
+ * 2 - Ensures that command is not part of a pipeline or a sequence of commands.
  * 3 - checks if fds input & output are valid, meaning no pb with redirections.
  * 
  * config_in_and_out and reset_fds_in_and_out are necessary to handle input/output 
@@ -968,7 +968,7 @@ int	create_children(t_minishell *mini)
  * original fds (STDIN & STDOUT) when needed, and so ensure each command starts
  * with a clean input/output state.
  * 
- * 127 = cmd unknown
+ * 127 = command unknown
  */
 int	exec_main(t_minishell *mini)
 {
@@ -977,12 +977,12 @@ int	exec_main(t_minishell *mini)
 	result = prep_the_cmd(mini);
 	if (result != 127)
 		return (result);
-	if (!mini->cmd->pipe_output && !mini->cmd->prev
-		&& check_in_and_out(mini->cmd->fds))
+	if (!mini->command->pipe_output && !mini->command->prev
+		&& check_in_and_out(mini->command->fds))
 	{
-		config_in_and_out(mini->cmd->fds);
-		result = exec_builtin(mini, mini->cmd);
-		reset_fds_in_and_out(mini->cmd->fds);
+		config_in_and_out(mini->command->fds);
+		result = exec_builtin(mini, mini->command);
+		reset_fds_in_and_out(mini->command->fds);
 	}
 	if (result != 127)
 		return (result);
@@ -1069,8 +1069,8 @@ void	clean_data(t_minishell *mini, bool clear_hist_or_not)
 	}
 	if (mini && mini->token)
 		clean_token_nodes(&mini->token, &free_star, 1);
-	if (mini && mini->cmd)
-		clean_cmd_nodes(&mini->cmd, &free_star);
+	if (mini && mini->command)
+		clean_cmd_nodes(&mini->command, &free_star);
 	if (clear_hist_or_not == true)
 	{
 		if (mini && mini->pwd)
@@ -1087,20 +1087,22 @@ void	exit_mini(t_minishell *mini, int exit_code)
 {
 	if (mini)
 	{
-		if (mini->cmd && mini->cmd->fds)
-			close_fds(mini->cmd, true);
+		if (mini->command && mini->command->fds)
+			close_fds(mini->command, true);
 		clean_data(mini, true);
 	}
 	exit(exit_code);
 }
+
 void	main_loop(t_minishell *mini)
 {
 	while (1)
 	{
-		ms_listening_interact_sig();
+		listening_interact_sig();
 		mini->line = readline("$-> ");
-		ms_listening_no_interact_sig();
-		g_status = exec_main(mini);
+		listening_no_interact_sig();
+		if(lexer_main(mini))
+			g_status = exec_main(mini);
 		clean_data(mini, false);
 		//printf("You wrote: %s\n", mini->line);
 		//printf("You wrote: %d\n", g_status);

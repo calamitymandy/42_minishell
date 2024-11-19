@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h> // QUIT?
 #include <unistd.h>
+#include <fcntl.h> 
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
@@ -27,21 +28,35 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-#define MAX_INPUT_SIZE 1024
 
 #include "./libft/libft.h"
+
+#define MAX_INPUT_SIZE 1024
+# define ERR_SYNTX_QUO	"syntax error: unclosed quote:"
+# define ERR_SYNTX_TKN	"syntax error near unexpected token"
+# define ERR_ALLOC		"Memory allocation error"
+# define CMD_UNKNOWN		127
+# define CMD_NOT_EXECUTABLE	126
+# define ERR_NUM_ARR		255
+# define ERR_PIPE_STX		258
+# define BREAK	1
+# define GO		0
 
 extern int	g_status;
 
 typedef struct s_token
 {
 	bool			has_quotes;
+	int				var_q_stat;
 	struct s_token	*prev;
 	struct s_token	*next;
 	char			*content;
 	char			*token_type;
+	bool			is_env_var;
 	int				index;
 	int				type;
+	char			*cc;
+
 }	t_token;
 
 typedef struct s_fds
@@ -52,7 +67,8 @@ typedef struct s_fds
 	int			fd_outfile;
 	int			stdin_ori;
 	int			stdout_ori;
-	bool		msg_err;
+	bool		error_msg;
+	bool		heredoc_quotes;
 	char		*del_heredoc;
 }	t_fds;
 
@@ -74,9 +90,9 @@ typedef struct	s_minishell
 	char		*line;
 	char		*pwd;
 	char		*old_pwd;
-	//bool		ctrlc_heredoc;
+	bool		ctrlcheredoc;
 	t_token		*token;
-	t_command	*cmd;
+	t_command	*command; //cmd??
 	pid_t		pid;
 	
 }	t_minishell;
@@ -84,7 +100,23 @@ typedef struct	s_minishell
 //enums
 enum e_token_types
 {
+	SPACES = 1,
+	HEREDOC,
 	VAR,
+	INPUT,
+	WORD,
+	PIPE,
+	TRUNC,
+	APPEND,
+	FAILURE,
+	END
+};
+
+enum e_quotes
+{
+	OPN_SQ,
+	OPN_DQ,
+	OK_Q
 };
 
 void exit_mini(t_minishell *mini, int exit_code);
@@ -93,16 +125,44 @@ void main_loop(t_minishell *mini);
 
 void	free_star(void *ptr);
 void	free_two_stars(char **arr);
-void		ms_ctrl_backslash_ignore(void);
-void		ms_ctrl_c_newline_hdoc(int signal);
-void		ms_listening_hdoc_input_sig(void);
-void		ms_ctrl_c_newline(int signal);
-void		ms_listening_interact_sig(void);
-void		ms_sigquit_handler_no_interact(int signal);
-void		ms_ctrl_backslash_ignore_no_interact(void);
-void		ms_ctrl_c_newline_no_interact(int signal);
-void		ms_listening_no_interact_sig(void);
-
+void		ctrl_backslash_ignore(void);
+void		ctrl_c_newline_hdoc(int signal);
+void		listening_hdoc_input_sig(void);
+void		ctrl_c_newline(int signal);
+void		listening_interact_sig(void);
+void		sigquit_handler_no_interact(int signal);
+void		ctrl_backslash_ignore_no_interact(void);
+void		ctrl_c_newline_no_interact(int signal);
+void		listening_no_interact_sig(void);
+bool	lexer_main(t_minishell *ms);
+void	close_fds(t_command *cmds, bool close_backups);
+void		data_free(t_minishell *ms, bool clear_history);
+void	free_star(void *ptr);
+void	del_all_nodes_tkn(t_token **lst, void (*del)(void *));
+void	del_one_node_tkn(t_token *lst, void (*del)(void *));
+void	rm_echo_empty_words(t_token **arg_list);
+t_command	*new_cmd_lst(void);
+void	exit_msg(t_minishell *ms, char *msg, int exit_code);
+t_command	*scroll_lstcmd(t_command *aux);
+void	parser_main(t_minishell *ms);
+void	add_tkn_lst(t_token **lst, t_token *new_node);
+t_token	*tkn_create(char *content, char *cntnt_cpy, int type, int qs);
+int	msg_err(char *cc, char *info, char *msg, int error_code);
+bool	dollar_error(char *content, int scan);
 int ft_atoi_long(const char *str, bool *error);
+char	*replace_str_heredoc(char *str, char *var_value, int index);
+char	*xtract_var_value(t_token *token, char *content, t_minishell *ms);
+void	exit_ms(t_minishell *ms, int exit_code);
+char	*strjoin(char *str1, char *str2);
+bool	quotes_err_n_read(t_minishell *ms, char *line);
+void	exit_minig(t_minishell *ms, char *msg, int exit_code);
+void	err_stx_out(char *message, char *quote, int in_quote);
+int	quote_stat(int quote_stat, char *line, int scan);
+int	var_name_len(char *content);
+bool	isalphanum_or_blank(char c);
+void	expander_main(t_minishell *ms);
+char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
+char	*get_var_str(char *content, char *value, int trim_len, int scan);
+
 
 #endif

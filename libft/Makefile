@@ -72,7 +72,10 @@ SRC = ft_isalpha.c \
 	  ft_abs.c \
 	  ft_free_string.c\
 	  ft_isblank.c\
-
+	  ft_strcmp.c\
+	  get_next_line.c\
+	  get_next_line_utils.c\
+	  
 OBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Werror
