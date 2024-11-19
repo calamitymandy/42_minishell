@@ -13,16 +13,16 @@ bool	is_export_or_unset(char *cmd)
 void	exit_msg(t_minishell *ms, char *msg, int exit_code)
 {
 	ft_putendl_fd(msg, 2);
-	exit_ms(ms, exit_code);
+	exit_mini(ms, exit_code);
 }
 
-void	exit_ms(t_minishell *ms, int exit_code)
+void	exit_mini(t_minishell *mini, int exit_code)
 {
-	if (ms)
+	if (mini)
 	{
-		if (ms->command && ms->command->fds)
-			close_fds(ms->command, true);
-		data_free(ms, true);
+		if (mini->command && mini->command->fds)
+			close_fds(mini->command, true);
+		clean_data(mini, true);
 	}
 	exit(exit_code);
 }
