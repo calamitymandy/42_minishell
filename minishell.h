@@ -158,5 +158,11 @@ bool	quotes_err_n_read(t_minishell *ms, char *line);
 void	exit_minig(t_minishell *ms, char *msg, int exit_code);
 void	err_stx_out(char *message, char *quote, int in_quote);
 int	quote_stat(int quote_stat, char *line, int scan);
+int	var_name_len(char *content);
+bool	isalphanum_or_blank(char c);
+void	expander_main(t_minishell *ms);
+char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
+char	*get_var_str(char *content, char *value, int trim_len, int scan);
+
 
 #endif
