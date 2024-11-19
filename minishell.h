@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/06 19:07:11 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:47:37 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void		ctrl_c_newline_no_interact(int signal);
 void		listening_no_interact_sig(void);
 bool	lexer_main(t_minishell *ms);
 void	close_fds(t_command *cmds, bool close_backups);
-void		data_free(t_minishell *ms, bool clear_history);
+void		clean_data(t_minishell *ms, bool clear_history);
 void	free_star(void *ptr);
 void	del_all_nodes_tkn(t_token **lst, void (*del)(void *));
 void	del_one_node_tkn(t_token *lst, void (*del)(void *));
@@ -152,7 +152,7 @@ bool	dollar_error(char *content, int scan);
 int ft_atoi_long(const char *str, bool *error);
 char	*replace_str_heredoc(char *str, char *var_value, int index);
 char	*xtract_var_value(t_token *token, char *content, t_minishell *ms);
-void	exit_ms(t_minishell *ms, int exit_code);
+void	exit_mini(t_minishell *ms, int exit_code);
 char	*strjoin(char *str1, char *str2);
 bool	quotes_err_n_read(t_minishell *ms, char *line);
 void	exit_minig(t_minishell *ms, char *msg, int exit_code);
@@ -163,6 +163,6 @@ bool	isalphanum_or_blank(char c);
 void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
-
+bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
 
 #endif

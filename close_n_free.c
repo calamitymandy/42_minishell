@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/09/03 18:44:33 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:41:46 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,76 +42,78 @@ void	free_two_stars(char **arr)
 		arr = NULL;
 	}
 }
-bool	reset_io(t_fds *io)
+/**
+ * Restores the original stdin & stdout fds if they were saved:
+ * Uses dup2 to restore the original stdin & stdout.
+ * Closes the temporary file descriptor.
+ * Resets stdin_ori to -1.
+ * returns a boolean value indicating whether the fds have been successfully reset.
+ */
+bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {
 	int	res;
 
 	res = true;
-	if (!io)
+	if (!fds_in_and_out)
 		return (res);
-	if (io->stdin_ori != -1)
+	if (fds_in_and_out->stdin_ori != -1)
 	{
-		if (dup2(io->stdin_ori, STDIN_FILENO) == -1)
+		if (dup2(fds_in_and_out->stdin_ori, STDIN_FILENO) == -1)
 			res = false;
-		close(io->stdin_ori);
-		io->stdin_ori = -1;
+		close(fds_in_and_out->stdin_ori);
+		fds_in_and_out->stdin_ori = -1;
 	}
-	if (io->stdout_ori != -1)
+	if (fds_in_and_out->stdout_ori != -1)
 	{
-		if (dup2(io->stdout_ori, STDOUT_FILENO) == -1)
+		if (dup2(fds_in_and_out->stdout_ori, STDOUT_FILENO) == -1)
 			res = false;
-		close(io->stdout_ori);
-		io->stdout_ori = -1;
+		close(fds_in_and_out->stdout_ori);
+		fds_in_and_out->stdout_ori = -1;
 	}
 	return (res);
 }
 
-void	io_free(t_fds *io)
+void	free_in_and_out_fds(t_fds *in_and_out)
 {
-	if (!io)
+	if (!in_and_out)
 		return ;
-	reset_io(io);
-	if (io->del_heredoc)
+	reset_fds_in_and_out(in_and_out);
+	if (in_and_out->del_heredoc)
 	{
-		unlink(io->infile);
-		free_star(io->del_heredoc);
+		unlink(in_and_out->del_heredoc);
+		free_star(in_and_out->del_heredoc);
 	}
-	if (io->infile)
-		free_star(io->infile);
-	if (io->outfile)
-		free_star(io->outfile);
-	if (io)
-		free_star(io);
+	if (in_and_out->infile)
+		free_star(in_and_out->infile);
+	if (in_and_out->outfile)
+		free_star(in_and_out->outfile);
+	if (in_and_out)
+		free_star(in_and_out);
 }
 
-void	del_one_node_cmd(t_command *lst, void (*del)(void *))
-{
-	if (lst->cmd)
-		(*del)(lst->cmd);
-	if (lst->args)
-		free_two_stars(lst->args);
-	if (lst->pipe_fd)
-		(*del)(lst->pipe_fd);
-	if (lst->fds)
-		io_free(lst->fds);
-	(*del)(lst);
-}
-
-void	del_all_nodes_cmd(t_command **lst, void (*del)(void *))
+void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
-
-	temp = NULL;
+	
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
-		del_one_node_cmd(*lst, del);
+		if ((*lst)->cmd)
+			(*del)((*lst)->cmd);
+		if ((*lst)->args)
+			(*del)((*lst)->args);
+		if ((*lst)->pipe_fd)
+			(*del)((*lst)->pipe_fd);
+		if ((*lst)->fds)
+			free_in_and_out_fds((*lst)->fds);
+		(*del)(*lst);
 		*lst = temp;
 	}
+	*lst = NULL;
 }
 
 
-void	data_free(t_minishell *ms, bool clearhistory)
+void	clean_data(t_minishell *ms, bool clearhistory)
 {
 	if (ms && ms->line)
 	{
@@ -121,7 +123,7 @@ void	data_free(t_minishell *ms, bool clearhistory)
 	if (ms && ms->token)
 		del_all_nodes_tkn(&ms->token, &free_star);
 	if (ms && ms->command)
-		del_all_nodes_cmd(&ms->command, &free_star);
+		clean_cmd_nodes(&ms->command, &free_star);
 	if (clearhistory == true)
 	{
 		if (ms && ms->pwd)
