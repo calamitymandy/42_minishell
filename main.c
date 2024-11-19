@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/09 19:23:42 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:36:14 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,7 +462,7 @@ int	get_exit_code(char *arg, bool *error)
 			*error = true;
 		i++;
 	}
-	i = ft_atoi_long(arg, error); //TODO AMANDE
+	i = ft_atoi_long(arg, error);
 	return (i % 256);
 }
 
@@ -476,9 +476,10 @@ int	exec_exit_builtin(t_minishell *mini, char **args)
 		exit_code = g_status;
 	else
 	{
-		exit_code = get_exit_code(args[1], &error); //IN PROGRESS AMANDE
+		exit_code = get_exit_code(args[1], &error);
 		if (error)
-			exit_code = error_msg("exit", args[1], "numeric argument required", 255);
+			exit_code = error_msg("exit", args[1],
+					"numeric argument required", 255);
 		else if (args[2])
 			return (error_msg("exit", NULL, "too many arguments", 1));
 	}
