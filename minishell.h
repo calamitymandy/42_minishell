@@ -164,5 +164,6 @@ void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
+int	exec_exit_builtin(t_minishell *mini, char **args);
 
 #endif

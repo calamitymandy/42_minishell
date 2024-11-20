@@ -1098,7 +1098,7 @@ void	main_loop(t_minishell *mini)
 			g_status = exec_main(mini);
 		clean_data(mini, false);
 		//printf("You wrote: %s\n", mini->line);
-		//printf("You wrote: %d\n", g_status);
+		//printf("g_status: %d\n", g_status);
 	}
 }
 

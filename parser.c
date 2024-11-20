@@ -552,7 +552,7 @@ bool	heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 		listening_hdoc_input_sig();
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(STDIN_FILENO); 
-		listening_no_interact_sig();
+		listening_no_interact_sig(); //ambiguous name
 		if (line)
 			quit_newline_char(line);
 		if (loop_breaker(ms, &line, fds, &success))
