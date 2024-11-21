@@ -122,7 +122,6 @@ enum e_quotes
 void exit_mini(t_minishell *mini, int exit_code);
 bool init_main_struct(t_minishell *mini, char **env);
 void main_loop(t_minishell *mini);
-
 void	free_star(void *ptr);
 void	free_two_stars(char **arr);
 void		ctrl_backslash_ignore(void);
