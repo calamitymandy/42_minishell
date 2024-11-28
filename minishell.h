@@ -122,7 +122,6 @@ enum e_quotes
 void exit_mini(t_minishell *mini, int exit_code);
 bool init_main_struct(t_minishell *mini, char **env);
 void main_loop(t_minishell *mini);
-
 void	free_star(void *ptr);
 void	free_two_stars(char **arr);
 void		ctrl_backslash_ignore(void);
@@ -155,7 +154,7 @@ char	*xtract_var_value(t_token *token, char *content, t_minishell *ms);
 void	exit_mini(t_minishell *ms, int exit_code);
 char	*strjoin(char *str1, char *str2);
 bool	quotes_err_n_read(t_minishell *ms, char *line);
-void	exit_minig(t_minishell *ms, char *msg, int exit_code);
+void	exit_and_msg(t_minishell *ms, char *msg, int exit_code);
 void	err_stx_out(char *message, char *quote, int in_quote);
 int	quote_stat(int quote_stat, char *line, int scan);
 int	var_name_len(char *content);
@@ -164,5 +163,6 @@ void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
+int	exec_exit_builtin(t_minishell *mini, char **args);
 
 #endif

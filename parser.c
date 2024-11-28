@@ -552,7 +552,7 @@ bool	heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 		listening_hdoc_input_sig();
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(STDIN_FILENO); 
-		listening_no_interact_sig();
+		listening_no_interact_sig(); //ambiguous name
 		if (line)
 			quit_newline_char(line);
 		if (loop_breaker(ms, &line, fds, &success))
@@ -681,7 +681,7 @@ void	pipe_parser(t_minishell *ms, t_token **token_lst)
 {
 	t_command	*last_cmd;
 
-	last_cmd = scroll_lstcmd(ms->command);
+last_cmd = scroll_lstcmd(ms->command);
 	last_cmd->pipe_output = true;
 	addlst_cmd_container(ms, &last_cmd);
 	*token_lst = (*token_lst)->next;

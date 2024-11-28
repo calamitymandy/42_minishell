@@ -158,7 +158,7 @@ char	*xtract_var_name(t_minishell *ms, char *content)
 	len = var_name_len(content);
 	var_name = ft_substr(content, start, len);
 	if (!var_name)
-		exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	tmp = ft_strjoin(var_name, "=");
 	free_star(var_name);
 	var_name = tmp;
@@ -265,7 +265,7 @@ void	process_variables(char *value, t_token **aux, int scan, t_minishell *ms)
 		if (!xpand_if_null(aux, (*aux)->content, scan))
 		{
 			free_star(value);
-			exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
+			exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 		}
 	}
 	else
@@ -273,7 +273,7 @@ void	process_variables(char *value, t_token **aux, int scan, t_minishell *ms)
 		if (!replace_for_xpanded(aux, (*aux)->content, value, scan))
 		{
 			free_star(value);
-			exit_minig(ms, ERR_ALLOC, EXIT_FAILURE);
+			exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 		}
 	}
 	free_star(value);
