@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/19 19:41:57 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:26:26 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,91 @@ int	exec_exit_builtin(t_minishell *mini, char **args)
 	return (2);
 }
 
+bool	valid_env_key(char *key)
+{
+	int	i;
+	
+	i = 0;
+	if (key == NULL || key[0] == '\0')
+		return (false);
+	if (ft_isalpha(key[i]) == 0 && key[i] != '_')
+		return (false);
+	i++;
+	while (key[i] && key[i] != '=')
+	{
+		if (ft_isalnum(key[i]) == 0 && key[i] != '_')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static char **key_value_arr(char *key)
+{
+	char	**arr;
+	char	*equal;
+
+	equal = ft_strchr(key, '=');
+	if (!equal)
+		return (NULL);
+	arr = malloc(sizeof(char *) * 3);
+	arr[0] = ft_substr(key, 0, equal - key);
+	arr[1] = ft_substr(equal, 1, ft_strlen(equal));
+	arr[2] = NULL;
+	return (arr);
+}
+
+int	export_builtin(t_minishell *mini)
+{
+	char 	*env_quotes;
+	int		i;
+	int		n;
+
+	i = 0;
+	if (!mini->env)
+		return (EXIT_FAILURE);
+	n = nb_env_variables(mini->env);
+	qsort_env(mini->env, n); //TODO
+	i = 0;
+	while (i < n)
+	{
+		env_quotes = add_env_quotes(mini->env[i]); //TODO
+		printf("declare -x %s\n", env_quotes);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+
+int	exec_export_builtin(t_minishell *mini, char **args)
+{
+	int		i;
+	char	**arr;
+	int		res;
+
+	res = EXIT_SUCCESS;
+	i = 1;
+	if (!args[i])
+		return (export_builtin(mini)); //IN PROGRESS
+	while (args[i])
+	{
+		if (!valid_env_key(args[i]))
+		{
+			error_msg("export", args[i], "not a valid identifier", \
+			false);
+			res = EXIT_FAILURE;
+		}
+		else if (ft_strchr(args[i], '=') != NULL)
+		{
+			arr = key_value_arr(args[i]);
+			add_or_update_env_var(mini, arr[0], arr[1]);
+			free_two_stars(arr);
+		}
+		i++;
+	}
+	return (res);
+}
+
 int	exec_builtin(t_minishell *mini, t_command *command)
 {
 	int	cmd_res;
@@ -502,8 +587,9 @@ int	exec_builtin(t_minishell *mini, t_command *command)
 		cmd_res = exec_pwd_builtin(mini, command->args);
 	else if (ft_strncmp(command->cmd, "exit", 5) == 0)
 		cmd_res = exec_exit_builtin(mini, command->args);
+	else if (ft_strncmp(command->cmd, "export", 7) == 0)
+		cmd_res = exec_export_builtin(mini, command->args); // IN PROGRESS
 	// TODO AMANDINE:
-	// exec_export_builtin
 	// exec_unset_builtin
 	return (cmd_res);
 }
