@@ -122,13 +122,6 @@ bool	stx_err(t_token **token_list)
 	return (false);
 }
 
-
-
-
-
-
-
-
 char	*replace_str_heredoc(char *str, char *var_value, int index)
 {
 	char	*tmp;
@@ -146,9 +139,6 @@ char	*replace_str_heredoc(char *str, char *var_value, int index)
 	return (str);
 }
 
-
-
-
 void	token_indx(t_minishell *ms)
 {
 	t_token			*aux;
@@ -158,7 +148,7 @@ void	token_indx(t_minishell *ms)
 	i = 0;
 	while (aux->next)
 	{
-		aux->index += i; // why "+="? where are the previous indexes coming from?
+		aux->index += i;
 		i++;
 		aux = aux->next;
 	}
