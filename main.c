@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/28 20:26:26 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:36:16 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,19 +521,106 @@ static char **key_value_arr(char *key)
 	return (arr);
 }
 
+/* Used to sort environment variables in the minishell, 
+where the array of strings represents the environment variables 
+in the format KEY=VALUE. Sorting can make it easier to display 
+or manage these variables.*/
+
+void	qsort_env_vars(char **env, int nb_env_var)
+{
+	int		i;
+	int		j;
+	char	*aux;
+
+	i = 0;
+	while (i < nb_env_var - 1)
+	{
+		j = i + 1;
+		while (j < nb_env_var)
+		{
+			if (ft_strcmp(env[i], env[j]) > 0)
+			{
+				aux = env[i];
+				env[i] = env[j];
+				env[j] = aux;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+char	*strjoin_n_free(char *s1, char const *s2)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	char	*new;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	new = malloc(sizeof(char) * len);
+	if (!new)
+		return (NULL);
+	while (s1[i])
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		new[i++] = s2[j++];
+	new[i] = 0;
+	free(s1);
+	return (new);
+}
+
+void	free_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+char	*add_env_quotes(char *env_var)
+{
+	char	**split;
+	char	*quoted_env_var;
+	int		i;
+
+	i = 1;
+	split = ft_split(env_var, '=');
+	quoted_env_var = ft_strjoin(split[0], "=\"");
+	while (split[i] && split[i + 1])
+	{
+		quoted_env_var = strjoin_n_free(quoted_env_var, split[i++]);
+		quoted_env_var = strjoin_n_free(quoted_env_var, "=");
+	}
+	if (split[i])
+		quoted_env_var = strjoin_n_free(quoted_env_var, split[i]);
+	quoted_env_var = strjoin_n_free(quoted_env_var, "\"");
+	free_array(split);
+	return (quoted_env_var);
+}
+
 int	export_builtin(t_minishell *mini)
 {
 	char 	*env_quotes;
 	int		i;
-	int		n;
+	int		nb_env_var;
 
 	i = 0;
 	if (!mini->env)
 		return (EXIT_FAILURE);
-	n = nb_env_variables(mini->env);
-	qsort_env(mini->env, n); //TODO
+	nb_env_var = nb_env_variables(mini->env);
+	qsort_env_vars(mini->env, nb_env_var);
 	i = 0;
-	while (i < n)
+	while (i < nb_env_var)
 	{
 		env_quotes = add_env_quotes(mini->env[i]); //TODO
 		printf("declare -x %s\n", env_quotes);
