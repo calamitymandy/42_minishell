@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/12/03 19:36:16 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:39:11 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 	free_star(temp);
 	return (true);
 }
+
 /* The function update_pwd_n_old is responsible for updating the current 
  * working directory (PWD) and the previous working directory (OLDPWD) 
  * environment variables when a directory change occurs in the shell. 
@@ -622,7 +623,7 @@ int	export_builtin(t_minishell *mini)
 	i = 0;
 	while (i < nb_env_var)
 	{
-		env_quotes = add_env_quotes(mini->env[i]); //TODO
+		env_quotes = add_env_quotes(mini->env[i]);
 		printf("declare -x %s\n", env_quotes);
 		i++;
 	}
@@ -639,7 +640,7 @@ int	exec_export_builtin(t_minishell *mini, char **args)
 	res = EXIT_SUCCESS;
 	i = 1;
 	if (!args[i])
-		return (export_builtin(mini)); //IN PROGRESS
+		return (export_builtin(mini));
 	while (args[i])
 	{
 		if (!valid_env_key(args[i]))
@@ -675,9 +676,9 @@ int	exec_builtin(t_minishell *mini, t_command *command)
 	else if (ft_strncmp(command->cmd, "exit", 5) == 0)
 		cmd_res = exec_exit_builtin(mini, command->args);
 	else if (ft_strncmp(command->cmd, "export", 7) == 0)
-		cmd_res = exec_export_builtin(mini, command->args); // IN PROGRESS
-	// TODO AMANDINE:
-	// exec_unset_builtin
+		cmd_res = exec_export_builtin(mini, command->args);
+	//else if (ft_strncmp(command->cmd, "unset", 6) == 0)
+	//	cmd_res = exec_unset_builtin(mini, command->args); // TODO
 	return (cmd_res);
 }
 
