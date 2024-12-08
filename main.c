@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/12/08 23:31:18 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/12/09 00:14:27 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -706,6 +706,92 @@ int	exec_export_builtin(t_minishell *mini, char **args)
 			arr = key_value_arr(args[i]);
 			add_or_update_env_var(mini, arr[0], arr[1]);
 			free_two_stars(arr);
+		}
+		i++;
+	}
+	return (res);
+}
+
+/* 
+1-Invalid Position Check: If pos is greater than the total number 
+of environment variables (nb_env_variables(ms->env)), the 
+function returns false. This ensures the position is valid.
+2-Free the Target Variable: Frees the memory of the environment 
+variable at position pos using free_star().
+3-Shift Remaining Variables: Starting from pos, the function 
+shifts all subsequent variables one position to the left:
+Copies the value from ms->env[i + 1] to ms->env[i] using ft_strdup().
+Frees the memory of the old ms->env[i + 1] after copying it.
+4-Update the Environment Array: After all variables are shifted,
+the function resizes the environment array to remove the extra, 
+unused space: Calls callocate_env_variables() to reallocate 
+memory for the updated array. If this call fails 
+(ms->env becomes NULL), the function returns false.
+5-Return Success: If all steps are successful, the function 
+returns true.
+*/
+
+bool	delete_env_var_pos(t_minishell *mini, int pos)
+{
+	int	i;
+	int	count;
+	
+	if (pos > nb_env_variables(mini->env))
+		return (false);
+	i = pos;
+	count = pos;
+	free_star(mini->env[pos]);
+	while (mini->env[i + 1])
+	{
+		mini->env[i] = ft_strdup(mini->env[i + 1]);
+		free_star(mini->env[i + 1]);
+		count++;
+		i++;
+	}
+	mini->env = callocate_env_variables(mini, count);
+	if (!mini->env)
+		return (false);
+	return (true);
+}
+
+/*
+1-Initialization: res is set to EXIT_SUCCESS & i starts at 1
+to skip the command name (args[0]).
+2-Iterate Over Arguments from args[1] with while loop
+3-Validation: valid_env_key() checks if the current argument 
+(args[i]) is a valid environment variable name.
+Ensures the argument does not contain an = (invalid for unset)
+using ft_strchr(args[i], '=').
+If argument is invalid: error_msg() & res updated to EXIT_FAILURE.
+4-Search and Delete:
+If the argument is valid: Searches for the env var in the array 
+using srch_env_i() & returns the index if found, or -1 if not.
+If the variable exists (pos != -1) delete_env_var_pos() delete it.
+5-Return Value: After processing all arguments, the function 
+returns res, indicating success or failure.
+*/
+
+int 	exec_unset_builtin(t_minishell *mini, char **args)
+{
+	int i;
+	int pos;
+	int	res;
+
+	res = EXIT_SUCCESS;
+	i = 1;
+	while (args[i])
+	{
+		if (!valid_env_key(args[i]) || ft_strchr(args[i], '=') != NULL)
+		{
+			error_msg("unset", args[i], "not a valid identifier", \
+				false);
+				res = EXIT_FAILURE;
+		}
+		else
+		{
+			pos = srch_env_i(mini->env, args[i]);
+			if (pos != -1)
+				delete_env_var_pos(mini, pos);
 		}
 		i++;
 	}
