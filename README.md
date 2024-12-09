@@ -25,3 +25,33 @@ VSCode nos va a señalar los archivos con conflictos en color rojo y con un sign
 - Una vez solucionados los conflictos, podrás hacer un commit para subir los cambios de tu rama actualizada a GitHub.
 
 *Nota: Este comando dará un error si tienes cambios en tu rama que no hayas agregado a git todavía.
+
+
+
+
+
+The export and unset commands are commonly used in shell environments to manage environment variables. Here's how they work and how you can use them effectively:
+
+export
+The export command is used to set or mark variables to be available to child processes of the shell.
+
+Create and Export a Variable:
+
+bash
+export MY_VAR="hello world"
+
+echo $MY_VAR
+Output:
+hello world
+
+Export a Variable for a Child Process:
+bash
+export GREETING="Hi there! "
+
+bash -c 'echo $GREETING'
+Output:
+Hi there!
+
+List All Exported Variables:
+bash
+export
