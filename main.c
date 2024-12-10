@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/12/09 16:50:04 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:18:14 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -813,8 +813,8 @@ int	exec_builtin(t_minishell *mini, t_command *command)
 		cmd_res = exec_exit_builtin(mini, command->args);
 	else if (ft_strncmp(command->cmd, "export", 7) == 0)
 		cmd_res = exec_export_builtin(mini, command->args);
-	//else if (ft_strncmp(command->cmd, "unset", 6) == 0)
-	//	cmd_res = exec_unset_builtin(mini, command->args); // TODO
+	else if (ft_strncmp(command->cmd, "unset", 6) == 0)
+		cmd_res = exec_unset_builtin(mini, command->args);
 	return (cmd_res);
 }
 
