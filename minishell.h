@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/19 19:47:37 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2024/12/10 19:35:10 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,23 @@ void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
+
 int	exec_exit_builtin(t_minishell *mini, char **args);
+char	**callocate_env_variables(t_minishell *mini, int size);
+int	error_msg(char *cmd, char *info, char *msg, int err_nb);
+int	nb_env_variables(char **env);
+bool	valid_env_key(char *key);
+int		srch_env_i(char **env, char *pwd_or_old);
+bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value);
+void	qsort_env_vars(char **env, int nb_env_var);
+char	*add_env_quotes(char *env_var);
+
+// builtins_export_unset
+int			exec_export_builtin(t_minishell *mini, char **args);
+int			export_builtin(t_minishell *mini);
+int 		exec_unset_builtin(t_minishell *mini, char **args);
+bool		delete_env_var_pos(t_minishell *mini, int pos);
+char		**key_value_arr(char *key);
+
 
 #endif

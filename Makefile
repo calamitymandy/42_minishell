@@ -1,6 +1,6 @@
 NAME        = minishell
 
-SRCS        = main.c close_n_free.c signals.c signals_prompt.c lexer.c parser.c errors.c tokenizer.c expander.c utils.c
+SRCS        = main.c close_n_free.c signals.c signals_prompt.c lexer.c parser.c errors.c tokenizer.c expander.c utils.c builtins_export_unset.c 
 OBJS        = $(SRCS:.c=.o)
 
 LIBFT_DIR   = libft
