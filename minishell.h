@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/12/10 19:35:10 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:13:56 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,7 @@ char	*get_var_str(char *content, char *value, int trim_len, int scan);
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
 
 int	exec_exit_builtin(t_minishell *mini, char **args);
-char	**callocate_env_variables(t_minishell *mini, int size);
-int	error_msg(char *cmd, char *info, char *msg, int err_nb);
-int	nb_env_variables(char **env);
 bool	valid_env_key(char *key);
-int		srch_env_i(char **env, char *pwd_or_old);
-bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value);
 void	qsort_env_vars(char **env, int nb_env_var);
 char	*add_env_quotes(char *env_var);
 
@@ -181,5 +176,21 @@ int 		exec_unset_builtin(t_minishell *mini, char **args);
 bool		delete_env_var_pos(t_minishell *mini, int pos);
 char		**key_value_arr(char *key);
 
+// env_built
+char	*get_env_value(char **env, char *key);
+int		srch_env_i(char **env, char *pwd_or_old);
+int	nb_env_variables(char **env);
+
+// utils_errors
+int	error_msg(char *cmd, char *info, char *msg, int err_nb);
+
+// builtins_cd_pwd
+int	exec_cd(t_minishell *mini, char **args);
+bool	cd(t_minishell *mini, char *path);
+void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path);
+
+// env_handlers
+bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value);
+char	**callocate_env_variables(t_minishell *mini, int size);
 
 #endif
