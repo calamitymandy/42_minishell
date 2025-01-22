@@ -63,3 +63,45 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 	free_star(temp);
 	return (true);
 }
+
+/* 
+1-Invalid Position Check: If pos is greater than the total number 
+of environment variables (nb_env_variables(ms->env)), the 
+function returns false. This ensures the position is valid.
+2-Free the Target Variable: Frees the memory of the environment 
+variable at position pos using free_star().
+3-Shift Remaining Variables: Starting from pos, the function 
+shifts all subsequent variables one position to the left:
+Copies the value from ms->env[i + 1] to ms->env[i] using ft_strdup().
+Frees the memory of the old ms->env[i + 1] after copying it.
+4-Update the Environment Array: After all variables are shifted,
+the function resizes the environment array to remove the extra, 
+unused space: Calls callocate_env_variables() to reallocate 
+memory for the updated array. If this call fails 
+(ms->env becomes NULL), the function returns false.
+5-Return Success: If all steps are successful, the function 
+returns true.
+*/
+
+bool	delete_env_var_pos(t_minishell *mini, int pos)
+{
+	int	i;
+	int	count;
+	
+	if (pos > nb_env_variables(mini->env))
+		return (false);
+	i = pos;
+	count = pos;
+	free_star(mini->env[pos]);
+	while (mini->env[i + 1])
+	{
+		mini->env[i] = ft_strdup(mini->env[i + 1]);
+		free_star(mini->env[i + 1]);
+		count++;
+		i++;
+	}
+	mini->env = callocate_env_variables(mini, count);
+	if (!mini->env)
+		return (false);
+	return (true);
+}

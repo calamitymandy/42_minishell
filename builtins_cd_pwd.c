@@ -102,3 +102,35 @@ int	exec_cd(t_minishell *mini, char **args)
 	}
 	return (!cd(mini, args[1]));
 }
+
+/*  * 4096 is path max *
+ * 1- IF cd was used, mini->pwd is set, so it prints it.
+ * 2- if not: get cwd whith getcwd()
+ * 3- IF cwd prints it.
+ * 4- if not -> error_msg
+ *
+ * getcwd: Get the pathname of the current working directory, and put it 
+ * in SIZE bytes of BUF. Returns NULL if the directory couldn't be determined 
+ * or SIZE was too small.
+ * If successful, returns BUF.
+*/
+int	exec_pwd_builtin(t_minishell *mini, char **args)
+{
+	char	buffer[4096];
+	char	*cwd;
+
+	(void)args;
+	if (mini->pwd)
+	{
+		ft_putendl_fd(mini->pwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	cwd = getcwd(buffer, 4096);
+	if (cwd)
+	{
+		ft_putendl_fd(cwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	error_msg("pwd", NULL, strerror(errno), errno);
+	return (EXIT_FAILURE);
+}

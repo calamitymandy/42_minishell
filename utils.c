@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 18:48:43 by amdemuyn          #+#    #+#             */
-/*   Updated: 2024/11/19 17:19:00 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:51:52 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
 
 bool    check_long_range(int neg, unsigned long long num, bool *error)
 {
@@ -46,4 +56,31 @@ int ft_atoi_long(const char *str, bool *error)
         i++;
     }
     return (num * neg);
+}
+
+char	*strjoin_n_free(char *s1, char const *s2)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	char	*new;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	new = malloc(sizeof(char) * len);
+	if (!new)
+		return (NULL);
+	while (s1[i])
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		new[i++] = s2[j++];
+	new[i] = 0;
+	free(s1);
+	return (new);
 }
