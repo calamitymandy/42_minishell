@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/22 21:13:11 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/22 22:27:39 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,37 +151,6 @@ int	exec_env_builtin(t_minishell *mini, char **args)
 		ft_putendl_fd(mini->env[i++], STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
-/*  * 4096 is path max *
- * 1- IF cd was used, mini->pwd is set, so it prints it.
- * 2- if not: get cwd whith getcwd()
- * 3- IF cwd prints it.
- * 4- if not -> error_msg
- *
- * getcwd: Get the pathname of the current working directory, and put it 
- * in SIZE bytes of BUF. Returns NULL if the directory couldn't be determined 
- * or SIZE was too small.
- * If successful, returns BUF.
-*/
-int	exec_pwd_builtin(t_minishell *mini, char **args)
-{
-	char	buffer[4096];
-	char	*cwd;
-
-	(void)args;
-	if (mini->pwd)
-	{
-		ft_putendl_fd(mini->pwd, STDOUT_FILENO);
-		return (EXIT_SUCCESS);
-	}
-	cwd = getcwd(buffer, 4096);
-	if (cwd)
-	{
-		ft_putendl_fd(cwd, STDOUT_FILENO);
-		return (EXIT_SUCCESS);
-	}
-	error_msg("pwd", NULL, strerror(errno), errno);
-	return (EXIT_FAILURE);
-}
 
 int	get_exit_code(char *arg, bool *error)
 {
@@ -227,112 +196,6 @@ int	exec_exit_builtin(t_minishell *mini, char **args)
 	}
 	exit_mini(mini, exit_code);
 	return (2);
-}
-
-bool	valid_env_key(char *key)
-{
-	int	i;
-	
-	i = 0;
-	if (key == NULL || key[0] == '\0')
-		return (false);
-	if (ft_isalpha(key[i]) == 0 && key[i] != '_')
-		return (false);
-	i++;
-	while (key[i] && key[i] != '=')
-	{
-		if (ft_isalnum(key[i]) == 0 && key[i] != '_')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-/* Used to sort environment variables in the minishell, 
-where the array of strings represents the environment variables 
-in the format KEY=VALUE. Sorting can make it easier to display 
-or manage these variables.*/
-
-void	qsort_env_vars(char **env, int nb_env_var)
-{
-	int		i;
-	int		j;
-	char	*aux;
-
-	i = 0;
-	while (i < nb_env_var - 1)
-	{
-		j = i + 1;
-		while (j < nb_env_var)
-		{
-			if (ft_strcmp(env[i], env[j]) > 0)
-			{
-				aux = env[i];
-				env[i] = env[j];
-				env[j] = aux;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-char	*strjoin_n_free(char *s1, char const *s2)
-{
-	size_t	i;
-	size_t	j;
-	size_t	len;
-	char	*new;
-
-	if (!s1 || !s2)
-		return (NULL);
-	i = 0;
-	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	new = malloc(sizeof(char) * len);
-	if (!new)
-		return (NULL);
-	while (s1[i])
-	{
-		new[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-		new[i++] = s2[j++];
-	new[i] = 0;
-	free(s1);
-	return (new);
-}
-
-void	free_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
-
-char	*add_env_quotes(char *env_var)
-{
-	char	**split;
-	char	*quoted_env_var;
-	int		i;
-
-	i = 1;
-	split = ft_split(env_var, '=');
-	quoted_env_var = ft_strjoin(split[0], "=\"");
-	while (split[i] && split[i + 1])
-	{
-		quoted_env_var = strjoin_n_free(quoted_env_var, split[i++]);
-		quoted_env_var = strjoin_n_free(quoted_env_var, "=");
-	}
-	if (split[i])
-		quoted_env_var = strjoin_n_free(quoted_env_var, split[i]);
-	quoted_env_var = strjoin_n_free(quoted_env_var, "\"");
-	free_array(split);
-	return (quoted_env_var);
 }
 
 int	exec_builtin(t_minishell *mini, t_command *command)

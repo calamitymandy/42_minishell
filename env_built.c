@@ -55,3 +55,22 @@ char	*get_env_value(char **env, char *key)
 	free_star(temp);
 	return (NULL);
 }
+
+bool	valid_env_key(char *key)
+{
+	int	i;
+	
+	i = 0;
+	if (key == NULL || key[0] == '\0')
+		return (false);
+	if (ft_isalpha(key[i]) == 0 && key[i] != '_')
+		return (false);
+	i++;
+	while (key[i] && key[i] != '=')
+	{
+		if (ft_isalnum(key[i]) == 0 && key[i] != '_')
+			return (false);
+		i++;
+	}
+	return (true);
+}
