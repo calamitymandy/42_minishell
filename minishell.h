@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/22 22:24:57 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/23 19:07:18 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,9 @@ bool		delete_env_var_pos(t_minishell *mini, int pos);
 //utils
 void	free_array(char **arr);
 char	*strjoin_n_free(char *s1, char const *s2);
+
+//utils_init_data
+bool    set_pwd_n_oldpwd(t_minishell *mini);
+
 
 #endif

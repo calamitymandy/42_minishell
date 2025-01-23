@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/22 22:27:39 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/23 19:13:45 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,8 +338,23 @@ bool	init_main_struct(t_minishell *mini, char **env)
 {
 	//TODO set_env && set_pwd_and oldpwd
 	mini->env = env; //QUIT when TODO is done
+	/* TODO 
+	if (!set_env_var(mini, env))
+	{
+		error_msg("Error", NULL, \
+		"Failed to initialize environment variables", errno);
+		return (false);
+	}
+	*/
+	if (!set_pwd_n_oldpwd(mini)) //IN PROGRESS
+	{
+		error_msg("Error", NULL, \
+		"Failed to initialize working directories", errno);
+		return (false);
+	}
+	
 	mini->line = NULL;
-	//mini->ctrlc_heredoc = false; TODO
+	mini->ctrlcheredoc = false;
 	mini->token = NULL;
 	mini->command = NULL;
 	mini->pid = -1;
