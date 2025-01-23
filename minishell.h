@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/23 19:07:18 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:13:36 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ bool	dollar_error(char *content, int scan);
 int ft_atoi_long(const char *str, bool *error);
 char	*replace_str_heredoc(char *str, char *var_value, int index);
 char	*xtract_var_value(t_token *token, char *content, t_minishell *ms);
-void	exit_mini(t_minishell *ms, int exit_code);
 char	*strjoin(char *str1, char *str2);
 bool	quotes_err_n_read(t_minishell *ms, char *line);
 void	exit_and_msg(t_minishell *ms, char *msg, int exit_code);
@@ -204,5 +203,9 @@ char	*strjoin_n_free(char *s1, char const *s2);
 //utils_init_data
 bool    set_pwd_n_oldpwd(t_minishell *mini);
 
+//builtins_env_exit
+int	exec_env_builtin(t_minishell *mini, char **args);
+int	exec_exit_builtin(t_minishell *mini, char **args);
+int	get_exit_code(char *arg, bool *error);
 
 #endif
