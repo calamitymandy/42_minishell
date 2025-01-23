@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/23 20:12:55 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:27:55 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,9 +263,8 @@ void	close_fds(t_command *command, bool close_or_not)
 
 bool	init_main_struct(t_minishell *mini, char **env)
 {
-	//TODO set_env && set_pwd_and oldpwd
-	mini->env = env; //QUIT when TODO is done
-	/* TODO 
+	mini->env = env; //QUIT when TODO set_env is done
+	/* TODO set_env:
 	if (!set_env_var(mini, env))
 	{
 		error_msg("Error", NULL, \
@@ -273,7 +272,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 		return (false);
 	}
 	*/
-	if (!set_pwd_n_oldpwd(mini)) //IN PROGRESS
+	if (!set_pwd_n_oldpwd(mini))
 	{
 		error_msg("Error", NULL, \
 		"Failed to initialize working directories", errno);
