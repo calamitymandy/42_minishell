@@ -261,17 +261,187 @@ void	close_fds(t_command *command, bool close_or_not)
 	}
 }
 
+bool	create_env(t_minishell *ms)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		free(pwd);
+		return (false);
+	}
+	ms->env = malloc(sizeof(char *) * 4);
+	if (!ms->env)
+		return (false);
+	ms->env[0] = ft_strjoin("PWD=", pwd);
+	ms->env[1] = ft_strdup("SHLVL=1");
+	ms->env[2] = ft_strdup("_=/usr/bin/env");
+	if (!ms->env[0] || !ms->env[1] || !ms->env[2])
+		return (false);
+	ms->env[3] = NULL;
+	free(pwd);
+	return (true);
+}
+
+char	*search_env(t_minishell *ms, char *env_key)
+{
+	int		i;
+	char	**key_value;
+
+	i = 0;
+	while (ms->env[i])
+	{
+		key_value = ft_split(ms->env[i], '=');
+		if (ft_strcmp(key_value[0], env_key) == 0)
+		{
+			free_array(key_value);
+			break ;
+		}
+		else
+			i++;
+		free_array(key_value);
+	}
+	if (!ms->env[i])
+		return (NULL);
+	return (ms->env[i]);
+}
+
+char	**arr_append(char **arr, char *line)
+{
+	int		i;
+	char	**new_arr;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	new_arr = malloc(sizeof(char *) * (i + 2));
+	if (!new_arr)
+		return (NULL);
+	i = 0;
+	while (arr[i])
+	{
+		arr[i] = ft_strdup(arr[i]);
+		i++;
+	}
+	new_arr[i++] = ft_strdup(line);
+	new_arr[i] = NULL;
+	free_array(arr);
+	return (new_arr);
+}
+
+void	modify_or_add_env(t_minishell *ms, char *line)
+{
+	int		i;
+	char	**split_line;
+	char	**split_env;
+
+	split_line = ft_split(line, '=');
+	i = 0;
+	while (ms->env[i])
+	{
+		split_env = ft_split(ms->env[i], '=');
+		if (strcmp(split_line[0], split_env[0]) == 0)
+		{
+			free_array(split_env);
+			free_array(split_line);
+			free(ms->env[i]);
+			ms->env[i] = ft_strdup(line);
+			return ;
+		}
+		i++;
+		free_array(split_env);
+	}
+	free_array(split_line);
+	ms->env[i] = ft_strdup(line);
+}
+
+
+void	modify_mslvl(t_minishell *ms)
+{
+	char	*shlvl;
+	char	*new_shlvl;
+	int		value;
+	char	**split;
+
+	shlvl = search_env(ms, "SHLVL");
+	if (!shlvl)
+	{
+		ms->env = arr_append(ms->env, "SHLVL=1");
+		return ;
+	}
+	split = ft_split(shlvl, '=');
+	value = ft_atoi(split[1]);
+	value++;
+	shlvl = ft_itoa(value);
+	new_shlvl = ft_strjoin("SHLVL=", shlvl);
+	modify_or_add_env(ms, new_shlvl);
+	free(shlvl);
+	free(new_shlvl);
+	free_array(split);
+}
+
+void	refresh_pwd_env(t_minishell *ms)
+{
+	char	*pwd;
+	char	*str;
+
+	pwd = search_env(ms, "PWD");
+	if (!pwd)
+	{
+		str = getcwd(NULL, 0);
+		ms->env = arr_append(ms->env, str);
+		free(str);
+		return ;
+	}
+}
+
+bool copy_environment(t_minishell *ms, char **envp)
+{
+
+	int		i;
+
+	if (*envp)
+		ms->env = ft_arrdup(envp);
+	modify_mslvl(ms);
+	refresh_pwd_env(ms);
+	if (!ms->env)
+		return (false);
+	i = 0;
+	while (ms->env[i])
+	{
+		if (!ms->env[i])
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+
+bool set_env_var(t_minishell *ms, char **env)
+{
+	if (!*env)
+	{
+		if (!create_env(ms))
+			return (false);
+	}
+	else
+	{
+		if (!copy_environment(ms, env))
+			return (false);
+	}
+	return (true);
+}
+
 bool	init_main_struct(t_minishell *mini, char **env)
 {
-	mini->env = env; //QUIT when TODO set_env is done
-	/* TODO set_env:
+
 	if (!set_env_var(mini, env))
 	{
 		error_msg("Error", NULL, \
 		"Failed to initialize environment variables", errno);
 		return (false);
 	}
-	*/
 	if (!set_pwd_n_oldpwd(mini))
 	{
 		error_msg("Error", NULL, \
