@@ -33,6 +33,7 @@ void	ctrl_backslash_ignore_no_interact(void)
 
 void	ctrl_c_newline_no_interact(int signal)
 {
+	printf("non-interactive signal triggered\n");
 	if (signal != SIGINT)
 		return ;
 	ft_putchar_fd('\n', STDOUT_FILENO);

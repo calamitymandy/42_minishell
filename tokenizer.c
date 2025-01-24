@@ -160,7 +160,7 @@ bool	quotes_err_n_read(t_minishell *ms, char *line)
 	end_line = ft_strlen(line);
 	quote_status = OK_Q;
 	scan = -1;
-	while (++scan <= end_line) //happy idea: striteri?
+	while (++scan <= end_line) 
 	{
 		quote_status = quote_stat(quote_status, line, scan);
 		if (quote_status == OK_Q)
