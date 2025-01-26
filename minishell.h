@@ -46,17 +46,16 @@ extern int	g_status;
 
 typedef struct s_token
 {
-	bool			has_quotes;
+	char			*content;
+	char			*cc;
+	bool			is_env_var;
+	int				type;
 	int				var_q_stat;
+	int				index;
+	bool			has_quotes;
 	struct s_token	*prev;
 	struct s_token	*next;
-	char			*content;
-	char			*token_type;
-	bool			is_env_var;
-	int				index;
-	int				type;
-	char			*cc;
-
+	//char 			*token_type;
 }	t_token;
 
 typedef struct s_fds

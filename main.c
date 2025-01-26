@@ -28,9 +28,9 @@ bool	is_var_no_quotes(t_token *tkns, int index)
 	{
 		if (lst->index == index && lst->type == VAR)
 		{
-			while (lst->token_type[i])
+			while (lst->cc[i]) //or token_type
 			{
-				if (lst->token_type[i] == '"' || lst->token_type[i] == '\'')
+				if (lst->cc[i] == '"' || lst->cc[i] == '\'') //or token_type
 					return (false);
 				i++;
 			}
@@ -455,6 +455,7 @@ bool	init_main_struct(t_minishell *mini, char **env)
 	mini->command = NULL;
 	mini->pid = -1;
 	g_status = 0;
+	//printf("the main struct has been succesfully initialized\n");
 	return (true);
 }
 
@@ -828,8 +829,8 @@ void	clean_token_nodes(t_token **lst, void (*del)(void *), int delete_all)
 		{
 			if ((*lst)->content)
 				(*del)((*lst)->content);
-			if ((*lst)->token_type)
-				(*del)((*lst)->token_type);
+			if ((*lst)->cc) //or token_type
+				(*del)((*lst)->cc); //or token_type
 		}
 		if ((*lst)->prev)
 			(*lst)->prev->next = (*lst)->next;

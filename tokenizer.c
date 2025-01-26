@@ -46,7 +46,8 @@ t_token	*tkn_create(char *content, char *cntnt_cpy, int type, int qs)
 	if (!new_node)
 		return (NULL);
 	new_node->content = content;
-	new_node->token_type = cntnt_cpy;
+	new_node->cc = cntnt_cpy;
+	//new_node->token_type = NULL;
 	new_node->is_env_var = false;
 	new_node->type = type;
 	new_node->var_q_stat = qs;
