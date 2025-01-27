@@ -12,15 +12,7 @@
 
 #include "minishell.h"
 
-void	free_array(char **arr)
-{
-	int	i;
 
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
 
 bool    check_long_range(int neg, unsigned long long num, bool *error)
 {

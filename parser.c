@@ -95,21 +95,6 @@ bool	set_fd_struct(t_command *command)
 }
 
 
-
-void	del_all_nodes_tkn(t_token **lst, void (*del)(void *))
-{
-	t_token	*tmp;
-
-	tmp = NULL;
-	while (*lst != NULL)
-	{
-		tmp = (*lst)->next;
-		del_one_node_tkn(*lst, del);
-		*lst = tmp;
-	}
-}
-
-
 t_command	*scroll_lstcmd(t_command *aux)
 {
 	while (aux->next != NULL)
@@ -191,24 +176,7 @@ bool	is_there_space(char *str)
 	return (false);
 }
 
-void	del_one_node_tkn(t_token *lst, void (*del)(void *))
-{
-	if (del && lst && lst->content)
-	{
-		(*del)(lst->content);
-		lst->content = NULL;
-	}
-	if (del && lst && lst->cc)
-	{
-		(*del)(lst->cc);
-		lst->cc = NULL;
-	}
-	if (lst->prev)
-		lst->prev->next = lst->next;
-	if (lst->next)
-		lst->next->prev = lst->prev;
-	free_star(lst);
-}
+
 
 void	rm_echo_empty_words(t_token **arg_list)
 {
@@ -264,6 +232,7 @@ bool	cmd_arg_creat_n_fill(t_token **arg_list, \
 	while (aux->type == WORD || aux->type == VAR)
 	{
 		command->args[i] = ft_strdup(aux->content);
+		printf("arg is %s\n", command->args[i]); //debugging
 		i++;
 		aux = aux->next;
 	}

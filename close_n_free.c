@@ -94,14 +94,32 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
-	
+	int i;
+
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
 		if ((*lst)->cmd)
+		{
+
+			printf("cmd => %s\n", (*lst)->cmd);
 			(*del)((*lst)->cmd);
+			if((*lst)->cmd)
+				printf("the cmd was NOT freed\n");
+
+		}
 		if ((*lst)->args)
+		{
+			i = 0;
+			while((*lst)->args[i])
+			{
+				printf("arg[%i] => %s\n", i, (*lst)->args[i]);
+				i++;
+			}
 			(*del)((*lst)->args);
+			if((*lst)->args)
+				printf("args were NOT, in fact, liberated\n");
+		}
 		if ((*lst)->pipe_fd)
 			(*del)((*lst)->pipe_fd);
 		if ((*lst)->fds)
@@ -112,6 +130,37 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
+void	del_one_node_tkn(t_token *lst, void (*del)(void *))
+{
+	if (del && lst && lst->content)
+	{
+		(*del)(lst->content);
+		lst->content = NULL;
+	}
+	if (del && lst && lst->cc)
+	{
+		(*del)(lst->cc);
+		lst->cc = NULL;
+	}
+	if (lst->prev)
+		lst->prev->next = lst->next;
+	if (lst->next)
+		lst->next->prev = lst->prev;
+	free_star(lst);
+}
+
+void	del_all_nodes_tkn(t_token **lst, void (*del)(void *))
+{
+	t_token	*tmp;
+
+	tmp = NULL;
+	while (*lst != NULL)
+	{
+		tmp = (*lst)->next;
+		del_one_node_tkn(*lst, del);
+		*lst = tmp;
+	}
+}
 
 void	clean_data(t_minishell *ms, bool clearhistory)
 {

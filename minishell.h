@@ -196,7 +196,6 @@ char	**callocate_env_variables(t_minishell *mini, int size);
 bool		delete_env_var_pos(t_minishell *mini, int pos);
 
 //utils
-void	free_array(char **arr);
 char	*strjoin_n_free(char *s1, char const *s2);
 
 //utils_init_data
