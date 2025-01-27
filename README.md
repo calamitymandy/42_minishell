@@ -55,3 +55,18 @@ Hi there!
 List All Exported Variables:
 bash
 export
+
+Pending issues:
+
+
+
+-cd ~ no lleva al directorio home, lo parsea como directorio no encontrado
+-cd "" (empty argument) no cambia el directorio actual en la terminal, pero la minishell lleva al directorio home
+-cd " " o más de un espacio: mismo problema que cd "".
+
+
+-echo "Hello" > file.txt  debería escribir Hello en file.txt (sin mostrarlo por terminal)
+Sin embargo, la minishell muestra Hello en terminal y no lo escribe en file.txt
+Mismo error con ">>" en lugar de ">"
+
+-echo "Hello" | cat > test.txt se parsea como Bad file descriptor. Lo mismo que ls | sort > sorted_files.txt o cat < file.txt | grep "Hello" 

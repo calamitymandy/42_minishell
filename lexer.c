@@ -169,5 +169,6 @@ bool	lexer_main(t_minishell *ms)
 	expander_main(ms);
 	token_indx(ms);
 	parser_main(ms);
+	//printf("the prompt has been succesfully lexed\n");
 	return (true);
 }
