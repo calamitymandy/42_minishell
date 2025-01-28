@@ -15,48 +15,41 @@
  * 6. Returns the provided error number.
  */
 
+char	*str_append(char *base, const char *to_append)
+{
+	size_t	new_len = ft_strlen(base) + ft_strlen(to_append) + 1;
+	char	*new_str = malloc(new_len);
+	if (!new_str)
+		return (NULL);
+	ft_strlcpy(new_str, base,ft_strlen(base));
+	ft_strlcat(new_str, to_append,ft_strlen(base)+ft_strlen(to_append));
+	free(base);
+	return (new_str);
+}
+
 int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
-	char	*output;
-	char	*temp;
+	char	*output = ft_strdup("$-> ");
+	if (!output)
+		return (err_nb);
 
-	output = ft_strdup("$-> ");  // Initial allocation
 	if (cmd)
 	{
-		temp = output;
-		output = ft_strjoin(output, cmd);  // Concatenate cmd
-		free(temp);  // Free the previous allocation
-		temp = output;
-		output = ft_strjoin(output, ": ");  // Concatenate ": "
-		free(temp);
+		output = str_append(output, cmd);
+		output = str_append(output, ": ");
 	}
 	if (info)
 	{
-		if (ft_strncmp(cmd, "export", 7) == 0
-			|| ft_strncmp(cmd, "unset", 6) == 0)
-		{
-			temp = output;
-			output = ft_strjoin(output, "`");  // Concatenate "`"
-			free(temp);
-		}
-		temp = output;
-		output = ft_strjoin(output, info);  // Concatenate info
-		free(temp);
-		if (ft_strncmp(cmd, "export", 7) == 0
-			|| ft_strncmp(cmd, "unset", 6) == 0)
-		{
-			temp = output;
-			output = ft_strjoin(output, "'");  // Concatenate "'"
-			free(temp);
-		}
-		temp = output;
-		output = ft_strjoin(output, ": ");  // Concatenate ": "
-		free(temp);
+		if (cmd && (ft_strncmp(cmd, "export", 7) == 0 || ft_strncmp(cmd, "unset", 6) == 0))
+			output = str_append(output, "`");
+		output = str_append(output, info);
+		if (cmd && (ft_strncmp(cmd, "export", 7) == 0 || ft_strncmp(cmd, "unset", 6) == 0))
+			output = str_append(output, "'");
+		output = str_append(output, ": ");
 	}
-	temp = output;
-	output = ft_strjoin(output, msg);  // Concatenate the final message
-	free(temp);
-	ft_putendl_fd(output, STDERR_FILENO);  // Print the error message
-	free_star(output);  // Free the final string
+	output = str_append(output, msg);
+	write(STDERR_FILENO, output, ft_strlen(output));
+	write(STDERR_FILENO, "\n", 1);
+	free(output);
 	return (err_nb);
 }
