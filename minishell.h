@@ -136,7 +136,7 @@ bool	lexer_main(t_minishell *ms);
 void	close_fds(t_command *cmds, bool close_backups);
 void		clean_data(t_minishell *ms, bool clear_history);
 void	free_star(void *ptr);
-void	del_all_nodes_tkn(t_token **lst, void (*del)(void *));
+void	clean_tkn_nodes(t_token **lst, void (*del)(void *));
 void	del_one_node_tkn(t_token *lst, void (*del)(void *));
 void	rm_echo_empty_words(t_token **arg_list);
 t_command	*new_cmd_lst(void);

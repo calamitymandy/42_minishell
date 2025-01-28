@@ -335,7 +335,7 @@ void	split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms)
 	if (!cmd_arg_filler(&args_list, new_cmd))
 		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	free_tkn_ptr = args_list;
-	del_all_nodes_tkn(&free_tkn_ptr, &free_star);
+	clean_tkn_nodes(&free_tkn_ptr, &free_star);
 	free_two_stars(splited_cntn);
 }
 

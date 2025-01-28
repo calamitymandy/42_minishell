@@ -61,8 +61,8 @@ Pending issues:
 
 
 -cd ~ no lleva al directorio home, lo parsea como directorio no encontrado
--cd "" (empty argument) no cambia el directorio actual en la terminal, pero la minishell lleva al directorio home
--cd " " o más de un espacio: mismo problema que cd "".
+-cd "" (empty argument). Bash no cambia el directorio actual en la terminal, pero la minishell lleva al directorio home
+-cd " " o más de un espacio: bash muestra el error de "No such file or directory", pero la minishell lleva al directorio home
 
 
 -echo "Hello" > file.txt  debería escribir Hello en file.txt (sin mostrarlo por terminal)
@@ -83,4 +83,4 @@ LEAKS
 	}
 no se está liberando el contenido de command->args. Añadidas lineas de debugging en clean_cmd_nodes (TODO: usar mejor del_all_nodes_cmd). FIXED!
 
--Leaks causados por el mensaje de error al ejecutar un comando no válido (revisar más casos que lleven a la función)
+-(FIXED!)Leaks causados por el mensaje de error al ejecutar un comando no válido (revisar más casos que lleven a la función)

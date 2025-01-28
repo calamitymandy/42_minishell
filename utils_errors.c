@@ -18,26 +18,45 @@
 int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
 	char	*output;
+	char	*temp;
 
-	output = ft_strdup("$-> ");
+	output = ft_strdup("$-> ");  // Initial allocation
 	if (cmd)
 	{
-		output = ft_strjoin(output, cmd);
-		output = ft_strjoin(output, ": ");
+		temp = output;
+		output = ft_strjoin(output, cmd);  // Concatenate cmd
+		free(temp);  // Free the previous allocation
+		temp = output;
+		output = ft_strjoin(output, ": ");  // Concatenate ": "
+		free(temp);
 	}
 	if (info)
 	{
 		if (ft_strncmp(cmd, "export", 7) == 0
 			|| ft_strncmp(cmd, "unset", 6) == 0)
-			output = ft_strjoin(output, "`");
-		output = ft_strjoin(output, info);
+		{
+			temp = output;
+			output = ft_strjoin(output, "`");  // Concatenate "`"
+			free(temp);
+		}
+		temp = output;
+		output = ft_strjoin(output, info);  // Concatenate info
+		free(temp);
 		if (ft_strncmp(cmd, "export", 7) == 0
 			|| ft_strncmp(cmd, "unset", 6) == 0)
-			output = ft_strjoin(output, "'");
-		output = ft_strjoin(output, ": ");
+		{
+			temp = output;
+			output = ft_strjoin(output, "'");  // Concatenate "'"
+			free(temp);
+		}
+		temp = output;
+		output = ft_strjoin(output, ": ");  // Concatenate ": "
+		free(temp);
 	}
-	output = ft_strjoin(output, msg);
-	ft_putendl_fd(output, STDERR_FILENO);
-	free_star(output);
+	temp = output;
+	output = ft_strjoin(output, msg);  // Concatenate the final message
+	free(temp);
+	ft_putendl_fd(output, STDERR_FILENO);  // Print the error message
+	free_star(output);  // Free the final string
 	return (err_nb);
 }
