@@ -73,6 +73,9 @@ Mismo error con ">>" en lugar de ">"
 
 -echo "\$HOME" expande la variable, no la toma como literal (output en bash de este comand: $HOME)
 
+-exit hello no activa el error "numeric argument required". Simplemente abandona la minishell con código de error 0
+
+
 LEAKS
 -(FIXED!)EN la función cmd_arg_creat_n_fill
 	while (aux->type == WORD || aux->type == VAR)

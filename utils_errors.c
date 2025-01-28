@@ -21,8 +21,8 @@ char	*str_append(char *base, const char *to_append)
 	char	*new_str = malloc(new_len);
 	if (!new_str)
 		return (NULL);
-	ft_strlcpy(new_str, base,ft_strlen(base));
-	ft_strlcat(new_str, to_append,ft_strlen(base)+ft_strlen(to_append));
+	ft_strlcpy(new_str, base,ft_strlen(base) + 1);
+	ft_strlcat(new_str, to_append,ft_strlen(base) + ft_strlen(to_append) + 1);
 	free(base);
 	return (new_str);
 }

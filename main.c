@@ -684,7 +684,7 @@ int	exec_local_binary(t_minishell *mini, t_command *command)
 	if (access(command->cmd, F_OK) != 0)
 		return (error_msg(command->cmd, NULL, strerror(errno), 127));
 	if (is_directory(command->cmd))
-		return (error_msg(command->cmd, NULL, "is a directory", 126));
+		return (error_msg(command->cmd, NULL, " Is a directory", 126));
 	if (access(command->cmd, F_OK | X_OK) != 0)
 		return (error_msg(command->cmd, NULL, strerror(errno), 126));
 	if (execve(command->cmd, command->args, mini->env) == -1)
