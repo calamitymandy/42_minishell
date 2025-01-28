@@ -90,11 +90,11 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 	if (in_and_out)
 		free_star(in_and_out);
 }
-
+//----QUARANTINED----
 void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
-	int i;
+	//int i;
 
 	while (*lst != NULL)
 	{
@@ -102,23 +102,23 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 		if ((*lst)->cmd)
 		{
 
-			printf("cmd => %s\n", (*lst)->cmd);
+			//printf("cmd => %s\n", (*lst)->cmd);
 			(*del)((*lst)->cmd);
-			if((*lst)->cmd)
-				printf("the cmd was NOT freed\n");
+			/*if((*lst)->cmd)
+				printf("the cmd was NOT freed\n");*/
 
 		}
 		if ((*lst)->args)
 		{
-			i = 0;
+			/*i = 0;
 			while((*lst)->args[i])
 			{
 				printf("arg[%i] => %s\n", i, (*lst)->args[i]);
 				i++;
-			}
+			}*/
 			(*del)((*lst)->args);
-			if((*lst)->args)
-				printf("args were NOT, in fact, liberated\n");
+			/*if((*lst)->args)
+				printf("args were NOT, in fact, liberated\n");*/
 		}
 		if ((*lst)->pipe_fd)
 			(*del)((*lst)->pipe_fd);
@@ -129,6 +129,7 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 	}
 	*lst = NULL;
 }
+//--------------------/
 
 void	del_one_node_tkn(t_token *lst, void (*del)(void *))
 {
@@ -162,6 +163,33 @@ void	del_all_nodes_tkn(t_token **lst, void (*del)(void *))
 	}
 }
 
+void	del_one_node_cmd(t_command *lst, void (*del)(void *))
+{
+	if (lst->cmd)
+		(*del)(lst->cmd);
+	if (lst->args)
+		free_two_stars(lst->args);
+	if (lst->pipe_fd)
+		(*del)(lst->pipe_fd);
+	if (lst->fds)
+		free_in_and_out_fds(lst->fds);
+	(*del)(lst);
+}
+
+void	del_all_nodes_cmd(t_command **lst, void (*del)(void *))
+{
+	t_command	*temp;
+
+	temp = NULL;
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		del_one_node_cmd(*lst, del);
+		*lst = temp;
+	}
+}
+
+
 void	clean_data(t_minishell *ms, bool clearhistory)
 {
 	if (ms && ms->line)
@@ -172,7 +200,7 @@ void	clean_data(t_minishell *ms, bool clearhistory)
 	if (ms && ms->token)
 		del_all_nodes_tkn(&ms->token, &free_star);
 	if (ms && ms->command)
-		clean_cmd_nodes(&ms->command, &free_star);
+		del_all_nodes_cmd(&ms->command, &free_star);
 	if (clearhistory == true)
 	{
 		if (ms && ms->pwd)

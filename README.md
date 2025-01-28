@@ -71,12 +71,16 @@ Mismo error con ">>" en lugar de ">"
 
 -echo "Hello" | cat > test.txt se parsea como Bad file descriptor. Lo mismo que ls | sort > sorted_files.txt o cat < file.txt | grep "Hello" 
 
+-echo "\$HOME" expande la variable, no la toma como literal (output en bash de este comand: $HOME)
+
 LEAKS
--EN la función cmd_arg_creat_n_fill
+-(FIXED!)EN la función cmd_arg_creat_n_fill
 	while (aux->type == WORD || aux->type == VAR)
 	{
 		command->args[i] = ft_strdup(aux->content);
 		i++;
 		aux = aux->next;
 	}
-no se está liberando el contenido de command->args. Añadidas lineas de debugging en clean_cmd_nodes (TODO: usar mejor del_all_nodes_cmd)
+no se está liberando el contenido de command->args. Añadidas lineas de debugging en clean_cmd_nodes (TODO: usar mejor del_all_nodes_cmd). FIXED!
+
+-Leaks causados por el mensaje de error al ejecutar un comando no válido (revisar más casos que lleven a la función)

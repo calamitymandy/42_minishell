@@ -232,7 +232,7 @@ bool	cmd_arg_creat_n_fill(t_token **arg_list, \
 	while (aux->type == WORD || aux->type == VAR)
 	{
 		command->args[i] = ft_strdup(aux->content);
-		printf("arg is %s\n", command->args[i]); //debugging
+		//printf("arg is %s\n", command->args[i]); //debugging
 		i++;
 		aux = aux->next;
 	}
