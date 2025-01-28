@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/22 22:24:11 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:26:00 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	exec_export_builtin(t_minishell *mini, char **args)
 	return (res);
 }
 
-char **key_value_arr(char *key)
+char	**key_value_arr(char *key)
 {
 	char	**arr;
 	char	*equal;
@@ -111,7 +111,7 @@ variables, the function returns EXIT_SUCCESS to indicate success.*/
 
 int	export_builtin(t_minishell *mini)
 {
-	char 	*env_quotes;
+	char	*env_quotes;
 	int		i;
 	int		nb_env_var;
 
@@ -147,10 +147,10 @@ If the variable exists (pos != -1) delete_env_var_pos() delete it.
 returns res, indicating success or failure.
 */
 
-int 	exec_unset_builtin(t_minishell *mini, char **args)
+int	exec_unset_builtin(t_minishell *mini, char **args)
 {
-	int i;
-	int pos;
+	int	i;
+	int	pos;
 	int	res;
 
 	res = EXIT_SUCCESS;
@@ -161,7 +161,7 @@ int 	exec_unset_builtin(t_minishell *mini, char **args)
 		{
 			error_msg("unset", args[i], "not a valid identifier", \
 				false);
-				res = EXIT_FAILURE;
+			res = EXIT_FAILURE;
 		}
 		else
 		{
