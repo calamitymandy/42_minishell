@@ -1,4 +1,14 @@
-// ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_handlers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 17:31:14 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/01/28 17:32:04 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -6,7 +16,7 @@ char	**callocate_env_variables(t_minishell *mini, int size)
 {
 	char	**new_env;
 	int		i;
-	
+
 	new_env = ft_calloc(size + 1, sizeof * new_env);
 	if (!new_env)
 		return (NULL);
@@ -38,7 +48,7 @@ char	**callocate_env_variables(t_minishell *mini, int size)
 */
 bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value)
 {
-	int 	i;
+	int		i;
 	char	*temp;
 
 	i = srch_env_i(mini->env, pwd_or_old);
@@ -87,7 +97,7 @@ bool	delete_env_var_pos(t_minishell *mini, int pos)
 {
 	int	i;
 	int	count;
-	
+
 	if (pos > nb_env_variables(mini->env))
 		return (false);
 	i = pos;

@@ -1,4 +1,14 @@
-// ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_built.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 17:29:24 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/01/28 17:30:43 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -59,7 +69,7 @@ char	*get_env_value(char **env, char *key)
 bool	valid_env_key(char *key)
 {
 	int	i;
-	
+
 	i = 0;
 	if (key == NULL || key[0] == '\0')
 		return (false);

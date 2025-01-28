@@ -1,4 +1,14 @@
-// ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_cd_pwd.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 17:18:14 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/01/28 17:21:12 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -20,12 +30,12 @@ void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path)
 	if (mini->old_pwd)
 	{
 		free_star(mini->old_pwd);
-		mini->old_pwd =ft_strdup(mini->pwd);
+		mini->old_pwd = ft_strdup(mini->pwd);
 	}
 	if (mini->pwd)
 	{
 		free_star(mini->pwd);
-		mini->pwd =ft_strdup(buf_of_work_dir_path);
+		mini->pwd = ft_strdup(buf_of_work_dir_path);
 	}
 	free_star(buf_of_work_dir_path);
 }
@@ -52,7 +62,7 @@ bool	cd(t_minishell *mini, char *path)
 	if (!buf_of_work_dir_path)
 	{
 		error_msg("cd: error retrieving current directory",
-		"getcwd: cannot access parent directories", strerror(errno), errno);
+			"getcwd: cannot access parent directories", strerror(errno), errno);
 		buf_of_work_dir_path = ft_strjoin(mini->pwd, "/");
 		temp = buf_of_work_dir_path;
 		buf_of_work_dir_path = ft_strjoin(temp, path);
@@ -96,7 +106,8 @@ int	exec_cd(t_minishell *mini, char **args)
 	{
 		path = get_env_value(mini->env, "OLDPWD");
 		if (!path)
-			return (error_msg("cd", NULL, "Error: OLDPWD not set", EXIT_FAILURE));
+			return (error_msg("cd", NULL,
+					"Error: OLDPWD not set", EXIT_FAILURE));
 		ft_putendl_fd(path, 2);
 		return (!cd(mini, path));
 	}
