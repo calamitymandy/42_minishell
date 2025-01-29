@@ -27,36 +27,48 @@
 
 char	*str_append(char *base, const char *to_append)
 {
-	size_t	new_len = ft_strlen(base) + ft_strlen(to_append) + 1;
-	char	*new_str = malloc(new_len);
+	size_t	new_len;
+	char	*new_str;
+
+	new_len = ft_strlen(base) + ft_strlen(to_append) + 1;
+	new_str = malloc(new_len);
 	if (!new_str)
 		return (NULL);
-	ft_strlcpy(new_str, base,ft_strlen(base) + 1);
-	ft_strlcat(new_str, to_append,ft_strlen(base) + ft_strlen(to_append) + 1);
+	ft_strlcpy(new_str, base, ft_strlen(base) + 1);
+	ft_strlcat(new_str, to_append, ft_strlen(base) + ft_strlen(to_append) + 1);
 	free(base);
 	return (new_str);
 }
 
+char	*info_error(char *cmd, char *info, char *s)
+{
+	char	*output;
+
+	if (cmd && (ft_strncmp(cmd, "export", 7) == 0
+			|| ft_strncmp(cmd, "unset", 6) == 0))
+		output = str_append(s, "`");
+	output = str_append(output, info);
+	if (cmd && (ft_strncmp(cmd, "export", 7) == 0
+			|| ft_strncmp(cmd, "unset", 6) == 0))
+		output = str_append(output, "'");
+	output = str_append(output, ": ");
+	return (output);
+}
+
 int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 {
-	char	*output = ft_strdup("$-> ");
+	char	*output;
+
+	output = ft_strdup("$-> ");
 	if (!output)
 		return (err_nb);
-
 	if (cmd)
 	{
 		output = str_append(output, cmd);
 		output = str_append(output, ": ");
 	}
 	if (info)
-	{
-		if (cmd && (ft_strncmp(cmd, "export", 7) == 0 || ft_strncmp(cmd, "unset", 6) == 0))
-			output = str_append(output, "`");
-		output = str_append(output, info);
-		if (cmd && (ft_strncmp(cmd, "export", 7) == 0 || ft_strncmp(cmd, "unset", 6) == 0))
-			output = str_append(output, "'");
-		output = str_append(output, ": ");
-	}
+		output = info_error(cmd, info, output);
 	output = str_append(output, msg);
 	write(STDERR_FILENO, output, ft_strlen(output));
 	write(STDERR_FILENO, "\n", 1);

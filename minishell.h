@@ -210,4 +210,10 @@ int	get_exit_code(char *arg, bool *error);
 int	exec_echo(t_minishell *mini, char **args);
 void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini);
 
+
+int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms);
+void	word_n_var_parser(t_minishell *ms, t_token **aux);
+void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list);
+
+
 #endif

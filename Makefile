@@ -1,8 +1,10 @@
 NAME        = minishell
 
-SRCS        = 	main.c close_n_free.c signals.c signals_prompt.c lexer.c parser.c errors.c tokenizer.c expander.c utils.c \
+SRCS        = 	main.c close_n_free.c signals.c lexer.c errors.c tokenizer.c expander.c utils.c \
 				builtins_export_unset.c env_built.c utils_errors.c builtins_cd_pwd.c env_handlers.c builtins_export_utils.c \
-				utils_init_data.c builtins_env_exit.c builtins_echo.c
+				utils_init_data.c builtins_env_exit.c builtins_echo.c signals_listener.c signals_triggers.c parser_main.c \
+				parser_words.c parser_commands.c chunk_reader.c \
+
 OBJS        = $(SRCS:.c=.o)
 
 LIBFT_DIR   = libft
