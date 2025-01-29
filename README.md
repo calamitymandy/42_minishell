@@ -60,30 +60,10 @@ Pending issues:
 
 
 
--cd ~ no lleva al directorio home, lo parsea como directorio no encontrado
--cd "" (empty argument). Bash no cambia el directorio actual en la terminal, pero la minishell lleva al directorio home
--cd " " o más de un espacio: bash muestra el error de "No such file or directory", pero la minishell lleva al directorio home
 
-
--echo "Hello" > file.txt  debería escribir Hello en file.txt (sin mostrarlo por terminal)
-Sin embargo, la minishell muestra Hello en terminal y no lo escribe en file.txt
-Mismo error con ">>" en lugar de ">"
-
--echo "Hello" | cat > test.txt se parsea como Bad file descriptor. Lo mismo que ls | sort > sorted_files.txt o cat < file.txt | grep "Hello" 
 
 -echo "\$HOME" expande la variable, no la toma como literal (output en bash de este comand: $HOME)
 
--exit hello no activa el error "numeric argument required". Simplemente abandona la minishell con código de error 0
 
+-revisar cd  ~
 
-LEAKS
--(FIXED!)EN la función cmd_arg_creat_n_fill
-	while (aux->type == WORD || aux->type == VAR)
-	{
-		command->args[i] = ft_strdup(aux->content);
-		i++;
-		aux = aux->next;
-	}
-no se está liberando el contenido de command->args. Añadidas lineas de debugging en clean_cmd_nodes (TODO: usar mejor del_all_nodes_cmd). FIXED!
-
--(FIXED!)Leaks causados por el mensaje de error al ejecutar un comando no válido (revisar más casos que lleven a la función)
