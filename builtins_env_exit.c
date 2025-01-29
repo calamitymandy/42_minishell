@@ -1,4 +1,14 @@
-// ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_env_exit.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 17:23:10 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/01/28 17:27:15 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -19,7 +29,7 @@
 int	exec_env_builtin(t_minishell *mini, char **args)
 {
 	int	i;
-	
+
 	if (args && args[1])
 		return (error_msg("env", NULL, "Error: too many arguments", 2));
 	i = 0;
@@ -33,7 +43,7 @@ int	exec_env_builtin(t_minishell *mini, char **args)
 int	get_exit_code(char *arg, bool *error)
 {
 	unsigned long long	i;
-	
+
 	if (!arg)
 		return (g_status);
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/23 20:13:36 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:51:34 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,5 +205,9 @@ bool    set_pwd_n_oldpwd(t_minishell *mini);
 int	exec_env_builtin(t_minishell *mini, char **args);
 int	exec_exit_builtin(t_minishell *mini, char **args);
 int	get_exit_code(char *arg, bool *error);
+
+// builtins_echo
+int	exec_echo(t_minishell *mini, char **args);
+void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini);
 
 #endif
