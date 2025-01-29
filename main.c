@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:46:40 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:05:55 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ bool	config_in_and_out(t_fds	*in_n_out)
 		&& (dup2(in_n_out->fd_infile, STDIN_FILENO) == -1))
 		result = error_msg("dup2", in_n_out->infile, strerror(errno), false);
 	if (in_n_out->fd_outfile != -1
-		&& (dup2(in_n_out->fd_outfile, STDIN_FILENO) == -1))
+		&& (dup2(in_n_out->fd_outfile, STDOUT_FILENO) == -1))
 		result = error_msg("dup2", in_n_out->outfile, strerror(errno), false);
 	return (result);
 }
@@ -462,11 +462,9 @@ bool	create_pipes(t_minishell *mini)
 
 int	prep_the_cmd(t_minishell *mini)
 {
-	//TODO init mini->command->cmd & mini->token->has_quotes somewhere
 	if (!mini || !mini->command || !mini->command->cmd
 		|| (mini->command->cmd[0] == '\0' && mini->token->has_quotes == false))
 		return (EXIT_SUCCESS);
-	//printf("here it does not print");
 	if (mini->command && !mini->command->cmd)
 	{
 		if (mini->command->fds && !check_in_and_out(mini->command->fds))
@@ -891,8 +889,6 @@ void	main_loop(t_minishell *mini)
 		if(lexer_main(mini))
 			g_status = exec_main(mini);
 		clean_data(mini, false);
-		//printf("You wrote: %s\n", mini->line);
-		//printf("g_status: %d\n", g_status);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_n_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:28:07 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:44:30 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 	if (in_and_out)
 		free_star(in_and_out);
 }
-
+/* mix of 2 with: ms_del_one_node_cmd*/ 
 void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
