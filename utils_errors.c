@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:33:31 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:33:45 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/30 19:15:59 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*info_error(char *cmd, char *info, char *s)
 {
 	char	*output;
 
+	output = NULL;
 	if (cmd && (ft_strncmp(cmd, "export", 7) == 0
 			|| ft_strncmp(cmd, "unset", 6) == 0))
 		output = str_append(s, "`");

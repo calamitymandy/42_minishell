@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:51:34 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/01/30 19:20:44 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,8 @@ int	get_exit_code(char *arg, bool *error);
 // builtins_echo
 int	exec_echo(t_minishell *mini, char **args);
 void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini);
-
+bool	is_var_no_quotes(t_token *tkns, int index);
+char	*remove_extra_spaces(const char *str);
 
 int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms);
 void	word_n_var_parser(t_minishell *ms, t_token **aux);
