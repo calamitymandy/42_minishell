@@ -56,14 +56,12 @@ List All Exported Variables:
 bash
 export
 
-Pending issues:
-
-
-
+Potential issues:
 
 
 -echo "\$HOME" expande la variable, no la toma como literal (output en bash de este comand: $HOME)
 
-
 -revisar cd  ~
+
+-HEREDOC da fallo de segmentación
 

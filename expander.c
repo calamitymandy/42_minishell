@@ -78,7 +78,7 @@ bool	dollar_error(char *content, int scan)
 }
 
 
-bool	isalphanum_or_blank(char c)
+bool	isalphanum_or_underscore(char c)
 {
 	if (!ft_isalnum(c) && c != '_')
 		return (false);
@@ -100,7 +100,7 @@ int	var_name_len(char *content)
 	len = 0;
 	while (content[i])
 	{
-		if (!isalphanum_or_blank(content[i]))
+		if (!isalphanum_or_underscore(content[i]))
 			break ;
 		len++;
 		i++;

@@ -55,7 +55,6 @@ typedef struct s_token
 	bool			has_quotes;
 	struct s_token	*prev;
 	struct s_token	*next;
-	//char 			*token_type;
 }	t_token;
 
 typedef struct s_fds
@@ -156,7 +155,7 @@ void	exit_and_msg(t_minishell *ms, char *msg, int exit_code);
 void	err_stx_out(char *message, char *quote, int in_quote);
 int	quote_stat(int quote_stat, char *line, int scan);
 int	var_name_len(char *content);
-bool	isalphanum_or_blank(char c);
+bool	isalphanum_or_underscore(char c);
 void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
@@ -214,6 +213,11 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini);
 int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms);
 void	word_n_var_parser(t_minishell *ms, t_token **aux);
 void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list);
+void	infile_parser(t_minishell *ms, t_token **aux);
+void	heredoc_main(t_minishell *ms, t_token **aux);
+void	skip_next_token(t_token **aux);
+bool	set_fd_struct(t_command *command);
+bool	fds_error(t_fds *fds);
 
 
 #endif
