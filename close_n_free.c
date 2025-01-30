@@ -94,14 +94,14 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
-	
+
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
 		if ((*lst)->cmd)
 			(*del)((*lst)->cmd);
 		if ((*lst)->args)
-			(*del)((*lst)->args);
+			free_two_stars((*lst)->args);
 		if ((*lst)->pipe_fd)
 			(*del)((*lst)->pipe_fd);
 		if ((*lst)->fds)
@@ -113,6 +113,65 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 }
 
 
+void	del_one_node_tkn(t_token *lst, void (*del)(void *))
+{
+	if (del && lst && lst->content)
+	{
+		(*del)(lst->content);
+		lst->content = NULL;
+	}
+	if (del && lst && lst->cc)
+	{
+		(*del)(lst->cc);
+		lst->cc = NULL;
+	}
+	if (lst->prev)
+		lst->prev->next = lst->next;
+	if (lst->next)
+		lst->next->prev = lst->prev;
+	free_star(lst);
+}
+
+void	clean_tkn_nodes(t_token **lst, void (*del)(void *))
+{
+	t_token	*tmp;
+
+	tmp = NULL;
+	while (*lst != NULL)
+	{
+		tmp = (*lst)->next;
+		del_one_node_tkn(*lst, del);
+		*lst = tmp;
+	}
+}
+
+void	del_one_node_cmd(t_command *lst, void (*del)(void *))
+{
+	if (lst->cmd)
+		(*del)(lst->cmd);
+	if (lst->args)
+		free_two_stars(lst->args);
+	if (lst->pipe_fd)
+		(*del)(lst->pipe_fd);
+	if (lst->fds)
+		free_in_and_out_fds(lst->fds);
+	(*del)(lst);
+}
+
+void	del_all_nodes_cmd(t_command **lst, void (*del)(void *))
+{
+	t_command	*temp;
+
+	temp = NULL;
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		del_one_node_cmd(*lst, del);
+		*lst = temp;
+	}
+}
+
+
 void	clean_data(t_minishell *ms, bool clearhistory)
 {
 	if (ms && ms->line)
@@ -121,7 +180,7 @@ void	clean_data(t_minishell *ms, bool clearhistory)
 		ms->line = NULL;
 	}
 	if (ms && ms->token)
-		del_all_nodes_tkn(&ms->token, &free_star);
+		clean_tkn_nodes(&ms->token, &free_star);
 	if (ms && ms->command)
 		clean_cmd_nodes(&ms->command, &free_star);
 	if (clearhistory == true)

@@ -29,7 +29,7 @@ char	*add_env_quotes(char *env_var)
 	if (split[i])
 		quoted_env_var = strjoin_n_free(quoted_env_var, split[i]);
 	quoted_env_var = strjoin_n_free(quoted_env_var, "\"");
-	free_array(split);
+	free_two_stars(split);
 	return (quoted_env_var);
 }
 

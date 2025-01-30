@@ -1,59 +1,52 @@
-#include"libft.h"
+#include "libft.h"
 
-
-
-
-
-char	*ft_line(char *str)
+char	*gnl_strchr(const char *str, char chr)
 {
+	char	*res;
 	int		i;
-	char	*line;
 
 	i = 0;
-	if (!str[i])
-		return (NULL);
-	while (str[i] && str[i] != '\n')
-		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
 	{
-		line[i] = str[i];
+		if (str[i] == chr)
+		{
+			res = (char *)&str[i];
+			return (res);
+		}
 		i++;
 	}
-	if (str[i] == '\n')
-	{
-		line[i] = str[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
+	if (chr != '\0')
+		return (NULL);
+	res = (char *)&str[i];
+	return (res);
 }
 
-char	*ft_next_line(char *str)
+char	*gnl_strjoin(char *s1, char *s2)
 {
-	int		i;
-	int		j;
-	char	*stash;
+	char	*str;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (NULL);
+	str = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	if (!str)
+		return (NULL);
+	i = -1;
 	j = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (!str[i])
-	{
-		free(str);
-		return (NULL);
-	}
-	stash = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!stash)
-		return (NULL);
-	i++;
-	while (str[i])
-		stash[j++] = str[i++];
-	stash[j] = '\0';
-	free(str);
-	return (stash);
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(s1);
+	return (str);
 }
+

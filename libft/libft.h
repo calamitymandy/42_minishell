@@ -33,7 +33,7 @@ typedef struct s_ratio
 	int	den;
 }	t_ratio;
 
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isalnum(int c);
@@ -93,13 +93,14 @@ void	ft_swap(int *a, int *b);
 int		ft_min(int a, int b);
 int		ft_abs(int n);
 void	free_string(char **s);
-int	ft_isblank(char c);
+int		ft_isblank(char c);
 char	*get_next_line(int fd);
 char	*ft_read(int fd, char *str);
 char	*ft_line(char *str);
 char	*ft_next_line(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 char	**ft_arrdup(char **arr);
-
+char	*gnl_strchr(const char *str, char chr);;
+char	*gnl_strjoin(char *s1, char *s2);
 
 #endif

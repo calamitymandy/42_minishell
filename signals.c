@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 void	ctrl_c_newline_hdoc(int signal)
 {
 	if (signal != SIGINT)
@@ -19,13 +18,9 @@ void	listening_hdoc_input_sig(void)
 	sigaction(SIGINT, &action, NULL);
 }
 
-
 void	sigquit_handler_no_interact(int signal)
 {
 	(void)signal;
 	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 	rl_on_new_line();
 }
-
-
-

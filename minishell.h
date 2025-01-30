@@ -55,7 +55,6 @@ typedef struct s_token
 	bool			has_quotes;
 	struct s_token	*prev;
 	struct s_token	*next;
-	//char 			*token_type;
 }	t_token;
 
 typedef struct s_fds
@@ -91,7 +90,7 @@ typedef struct	s_minishell
 	char		*old_pwd;
 	bool		ctrlcheredoc;
 	t_token		*token;
-	t_command	*command; //cmd??
+	t_command	*command;
 	pid_t		pid;
 	
 }	t_minishell;
@@ -136,7 +135,7 @@ bool	lexer_main(t_minishell *ms);
 void	close_fds(t_command *cmds, bool close_backups);
 void		clean_data(t_minishell *ms, bool clear_history);
 void	free_star(void *ptr);
-void	del_all_nodes_tkn(t_token **lst, void (*del)(void *));
+void	clean_tkn_nodes(t_token **lst, void (*del)(void *));
 void	del_one_node_tkn(t_token *lst, void (*del)(void *));
 void	rm_echo_empty_words(t_token **arg_list);
 t_command	*new_cmd_lst(void);
@@ -156,7 +155,7 @@ void	exit_and_msg(t_minishell *ms, char *msg, int exit_code);
 void	err_stx_out(char *message, char *quote, int in_quote);
 int	quote_stat(int quote_stat, char *line, int scan);
 int	var_name_len(char *content);
-bool	isalphanum_or_blank(char c);
+bool	isalphanum_or_underscore(char c);
 void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
@@ -196,7 +195,6 @@ char	**callocate_env_variables(t_minishell *mini, int size);
 bool		delete_env_var_pos(t_minishell *mini, int pos);
 
 //utils
-void	free_array(char **arr);
 char	*strjoin_n_free(char *s1, char const *s2);
 
 //utils_init_data
@@ -210,5 +208,16 @@ int	get_exit_code(char *arg, bool *error);
 // builtins_echo
 int	exec_echo(t_minishell *mini, char **args);
 void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini);
+
+
+int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms);
+void	word_n_var_parser(t_minishell *ms, t_token **aux);
+void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list);
+void	infile_parser(t_minishell *ms, t_token **aux);
+void	heredoc_main(t_minishell *ms, t_token **aux);
+void	skip_next_token(t_token **aux);
+bool	set_fd_struct(t_command *command);
+bool	fds_error(t_fds *fds);
+
 
 #endif
