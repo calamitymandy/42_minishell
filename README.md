@@ -63,5 +63,7 @@ Potential issues:
 
 -revisar cd  ~
 
+-Error de señal al introducir dos HEREDOCS consecutivos
+
 
 
