@@ -63,5 +63,5 @@ Potential issues:
 
 -revisar cd  ~
 
--HEREDOC da fallo de segmentación
+
 

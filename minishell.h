@@ -218,6 +218,10 @@ void	heredoc_main(t_minishell *ms, t_token **aux);
 void	skip_next_token(t_token **aux);
 bool	set_fd_struct(t_command *command);
 bool	fds_error(t_fds *fds);
+void	trunc_parser(t_minishell *ms, t_token **aux);
+void	append_parser(t_minishell *ms, t_token **aux);
+void	pipe_parser(t_minishell *ms, t_token **token_lst);
+bool	fds_error2(t_fds *fds);
 
 
 #endif
