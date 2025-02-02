@@ -197,7 +197,9 @@ bool	fds_error(t_fds *fds)
 	if (fds->infile)
 	{
 		if (fds->fd_infile == -1 || (fds->outfile && fds->fd_outfile == -1))
+		{
 			return (true);
+		}
 		if (fds->del_heredoc)
 		{
 			free_star(fds->del_heredoc);
@@ -231,9 +233,8 @@ void	heredoc_main(t_minishell *ms, t_token **aux)
 
 	if (fds_error(fds))
 	{
-		printf("this triggered\n");
 		skip_next_token(aux);
-		return ;
+		return;
 	}
 	fds->infile = put_name_tmp();
 	if (!fds->infile)

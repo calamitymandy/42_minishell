@@ -27,7 +27,7 @@ void	parser_main(t_minishell *ms)
 
 	aux = ms->token;
 	if (aux->type == END)
-		return ;
+		return;
 	i = 0;
 	while (aux->next && i < 20)
 	{
