@@ -63,7 +63,6 @@ Potential issues:
 
 -revisar cd  ~
 
--cd 123341324 da fallo de segmentación
 
 
 
