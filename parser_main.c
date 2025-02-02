@@ -23,11 +23,13 @@ void	cmd_no_arg_prccs(t_minishell *ms)
 void	parser_main(t_minishell *ms)
 {
 	t_token	*aux;
+	int i;
 
 	aux = ms->token;
 	if (aux->type == END)
 		return ;
-	while (aux->next)
+	i = 0;
+	while (aux->next && i < 20)
 	{
 		if (aux == ms->token)
 			addlst_cmd_container(ms, &ms->command);
@@ -36,7 +38,13 @@ void	parser_main(t_minishell *ms)
 		else if (aux->type == INPUT)
 			infile_parser(ms, &aux);
 		else if (aux->type == HEREDOC)
+		{	
 			heredoc_main(ms, &aux);
+		    /*if (aux && aux->type == PIPE) 
+			{
+                pipe_parser(ms, &aux);
+            }*/
+		}
 		else if (aux->type == TRUNC)
 			trunc_parser(ms, &aux);
 		else if (aux->type == APPEND)
@@ -45,6 +53,8 @@ void	parser_main(t_minishell *ms)
 			pipe_parser(ms, &aux);
 		else if (aux->type == END)
 			break ;
+		//printf("%i\n", i);
+		i++;
 	}
 	cmd_no_arg_prccs(ms);
 }

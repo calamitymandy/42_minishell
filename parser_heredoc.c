@@ -149,6 +149,10 @@ bool	heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 	char	*line;
 	bool	success;
 
+	if (tmp_fd == -1)//🚨 Added: HEREDOC should not run if fd_infile is invalid
+	{
+		return(false);
+	}
 	success = false;
 	line = NULL;
 	while (1)
@@ -163,6 +167,7 @@ bool	heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 			break ;
 		ft_putendl_fd(line, tmp_fd);
 		free_star(line);
+		sleep(2);
 	}
 	free_star(line);
 	return (success);
@@ -209,22 +214,36 @@ void	heredoc_main(t_minishell *ms, t_token **aux)
 {
 	t_token		*pre_delim;
 	t_command	*last_cmd;
-	t_fds		*fds;
+	t_fds		*fds;	
 
 	pre_delim = *aux;
 	last_cmd = scroll_lstcmd(ms->command);
 	if (!set_fd_struct(last_cmd))
 		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	fds = last_cmd->fds;
+	/*printf("del_heredoc: %s\n",fds->del_heredoc);
+	printf("fd infile %i\n",fds->fd_infile);
+	printf("fd_outfile %i\n",fds->fd_outfile);
+	printf("infile %s\n", fds->infile);
+	printf("outfile %s\n", fds->outfile);
+	printf("sdin_ori %i\n",fds->stdin_ori);
+	printf("stdout ori %i\n",fds->stdout_ori);*/
+
 	if (fds_error(fds))
+	{
+		printf("this triggered\n");
+		skip_next_token(aux);
 		return ;
+	}
 	fds->infile = put_name_tmp();
 	if (!fds->infile)
 		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	fds->del_heredoc = quit_heredoc_quot(pre_delim->next->content, \
 	& (fds->heredoc_quotes));
 	if (create_tmp(ms, fds))
+	{	
 		fds->fd_infile = open(fds->infile, O_RDONLY);
+	}
 	else
 	{
 		fds->fd_infile = -1;
