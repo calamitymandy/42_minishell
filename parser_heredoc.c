@@ -149,10 +149,10 @@ bool	heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 	char	*line;
 	bool	success;
 
-	if (tmp_fd == -1)//🚨 Added: HEREDOC should not run if fd_infile is invalid
+	/*if (tmp_fd == -1)//🚨 Added: HEREDOC should not run if fd_infile is invalid
 	{
 		return(false);
-	}
+	}*/
 	success = false;
 	line = NULL;
 	while (1)
@@ -167,7 +167,6 @@ bool	heredoc_loop(t_minishell *ms, t_fds *fds, int tmp_fd)
 			break ;
 		ft_putendl_fd(line, tmp_fd);
 		free_star(line);
-		sleep(2);
 	}
 	free_star(line);
 	return (success);
@@ -230,12 +229,11 @@ void	heredoc_main(t_minishell *ms, t_token **aux)
 	printf("outfile %s\n", fds->outfile);
 	printf("sdin_ori %i\n",fds->stdin_ori);
 	printf("stdout ori %i\n",fds->stdout_ori);*/
-
-	if (fds_error(fds))
+	/*if (fds_error(fds))
 	{
 		skip_next_token(aux);
 		return;
-	}
+	}*/
 	fds->infile = put_name_tmp();
 	if (!fds->infile)
 		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
