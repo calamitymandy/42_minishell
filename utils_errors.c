@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:33:31 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/30 19:15:59 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:33:14 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*str_append(char *base, const char *to_append)
 {
 	size_t	new_len;
 	char	*new_str;
-	static int	i;
 
 	new_len = ft_strlen(base) + ft_strlen(to_append) + 1;
 	new_str = malloc(new_len);
@@ -39,7 +38,6 @@ char	*str_append(char *base, const char *to_append)
 	ft_strlcat(new_str, to_append, ft_strlen(base) + ft_strlen(to_append) + 1);
 	if(base)
 		free(base);
-	i++;
 	return (new_str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/30 19:20:44 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/03 22:44:38 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,7 @@ enum e_quotes
 };
 
 void exit_mini(t_minishell *mini, int exit_code);
-bool init_main_struct(t_minishell *mini, char **env);
 void main_loop(t_minishell *mini);
-void	free_star(void *ptr);
-void	free_two_stars(char **arr);
 void		ctrl_backslash_ignore(void);
 void		ctrl_c_newline_hdoc(int signal);
 void		listening_hdoc_input_sig(void);
@@ -133,8 +130,6 @@ void		ctrl_c_newline_no_interact(int signal);
 void		listening_no_interact_sig(void);
 bool	lexer_main(t_minishell *ms);
 void	close_fds(t_command *cmds, bool close_backups);
-void		clean_data(t_minishell *ms, bool clear_history);
-void	free_star(void *ptr);
 void	clean_tkn_nodes(t_token **lst, void (*del)(void *));
 void	del_one_node_tkn(t_token *lst, void (*del)(void *));
 void	rm_echo_empty_words(t_token **arg_list);
@@ -159,10 +154,49 @@ bool	isalphanum_or_underscore(char c);
 void	expander_main(t_minishell *ms);
 char	*replace_for_xpanded(t_token **aux, char *content, char *value, int scan);
 char	*get_var_str(char *content, char *value, int trim_len, int scan);
-bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
+int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms);
+void	word_n_var_parser(t_minishell *ms, t_token **aux);
+void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list);
+void	infile_parser(t_minishell *ms, t_token **aux);
+void	heredoc_main(t_minishell *ms, t_token **aux);
+void	skip_next_token(t_token **aux);
+bool	set_fd_struct(t_command *command);
+bool	fds_error(t_fds *fds);
+void	trunc_parser(t_minishell *ms, t_token **aux);
+void	append_parser(t_minishell *ms, t_token **aux);
+void	pipe_parser(t_minishell *ms, t_token **token_lst);
+bool	fds_error2(t_fds *fds);
 
 int	exec_exit_builtin(t_minishell *mini, char **args);
 bool	valid_env_key(char *key);
+
+// redirec_io_controls
+bool	reset_fds_in_and_out(t_fds *fds_in_and_out);
+bool	config_in_and_out(t_fds	*in_n_out);
+bool	check_in_and_out(t_fds	*in_n_out);
+
+//redirec_pipe_controls
+bool	create_pipes(t_minishell *mini);
+bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd);
+
+// execute
+int	create_children(t_minishell *mini);
+int	exec_cmd(t_minishell *mini, t_command *command); //MOVE THE REST
+int	child_status(t_minishell *mini);
+int	prep_the_cmd(t_minishell *mini);
+
+//execute_cmd
+int	exec_local_binary(t_minishell *mini, t_command *command);
+int	exec_sys_binary(t_minishell *mini, t_command *command);
+int	exec_builtin(t_minishell *mini, t_command *command);
+int	exec_cmd(t_minishell *mini, t_command *command);
+
+// execute_parse_path
+char	*get_path_cmd(t_minishell *mini, char *str);
+char	*find_valid_cmd_path(char *cmd, char **all_paths);
+
+// execute_utils
+bool	is_directory(char *cmd);
 
 // builtins_export_unset
 int			exec_export_builtin(t_minishell *mini, char **args);
@@ -179,6 +213,7 @@ char	*get_env_value(char **env, char *key);
 int		srch_env_i(char **env, char *pwd_or_old);
 int	nb_env_variables(char **env);
 bool	valid_env_key(char *key);
+int	find_env_index_of_key(char **env, char *key);
 
 // utils_errors
 int	error_msg(char *cmd, char *info, char *msg, int err_nb);
@@ -194,11 +229,24 @@ bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value);
 char	**callocate_env_variables(t_minishell *mini, int size);
 bool		delete_env_var_pos(t_minishell *mini, int pos);
 
+// env_copy
+bool copy_environment(t_minishell *ms, char **envp);
+void	refresh_pwd_env(t_minishell *mini);
+
+// env_shlvl
+void	modify_shlvl(t_minishell *ms);
+char	*search_env(t_minishell *ms, char *env_key);
+char	**arr_append(char **arr, char *line);
+void	modify_or_add_env(t_minishell *ms, char *line);
+
 //utils
 char	*strjoin_n_free(char *s1, char const *s2);
 
 //utils_init_data
+bool init_main_struct(t_minishell *mini, char **env);
 bool    set_pwd_n_oldpwd(t_minishell *mini);
+bool set_env_var(t_minishell *ms, char **env);
+bool	create_env(t_minishell *mini);
 
 //builtins_env_exit
 int	exec_env_builtin(t_minishell *mini, char **args);
@@ -211,18 +259,11 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini);
 bool	is_var_no_quotes(t_token *tkns, int index);
 char	*remove_extra_spaces(const char *str);
 
-int	chunk_reader(int *scan, char *line, int start_word, t_minishell *ms);
-void	word_n_var_parser(t_minishell *ms, t_token **aux);
-void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list);
-void	infile_parser(t_minishell *ms, t_token **aux);
-void	heredoc_main(t_minishell *ms, t_token **aux);
-void	skip_next_token(t_token **aux);
-bool	set_fd_struct(t_command *command);
-bool	fds_error(t_fds *fds);
-void	trunc_parser(t_minishell *ms, t_token **aux);
-void	append_parser(t_minishell *ms, t_token **aux);
-void	pipe_parser(t_minishell *ms, t_token **token_lst);
-bool	fds_error2(t_fds *fds);
+// close_n_free
+void	free_star(void *ptr);
+void	free_two_stars(char **arr);
+void		clean_data(t_minishell *ms, bool clear_history);
+void	close_fds(t_command *command, bool close_or_not);
 
 
 #endif
