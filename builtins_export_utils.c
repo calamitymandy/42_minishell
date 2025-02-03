@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:26:40 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:27:28 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:21:06 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*add_env_quotes(char *env_var)
 	if (split[i])
 		quoted_env_var = strjoin_n_free(quoted_env_var, split[i]);
 	quoted_env_var = strjoin_n_free(quoted_env_var, "\"");
-	free_two_stars(split);
+	free_string(split);
 	return (quoted_env_var);
 }
 
