@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isblank.c                                       :+:      :+:    :+:   */
+/*   expander_mark.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 17:22:40 by algalian          #+#    #+#             */
-/*   Updated: 2025/02/04 17:22:43 by algalian         ###   ########.fr       */
+/*   Created: 2025/02/04 19:20:30 by algalian          #+#    #+#             */
+/*   Updated: 2025/02/04 19:20:32 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_isblank(char c)
+void	mark_variables(t_minishell *ms)
 {
-	if ((c >= 9 && c <= 13) || c == ' ')
+	t_token	*aux;
+	int		scan;
+
+	aux = ms->token;
+	while (aux)
 	{
-		return (1);
+		scan = -1;
+		while ((aux)->content[++scan])
+		{
+			if ((aux)->content[scan] == '$')
+			{
+				if ((aux)->prev && (aux)->prev->type == HEREDOC)
+					break ;
+				(aux)->type = VAR;
+			}
+		}
+		aux = aux->next;
 	}
-	return (0);
 }

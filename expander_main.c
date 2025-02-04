@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isblank.c                                       :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 17:22:40 by algalian          #+#    #+#             */
-/*   Updated: 2025/02/04 17:22:43 by algalian         ###   ########.fr       */
+/*   Created: 2025/02/04 18:03:55 by algalian          #+#    #+#             */
+/*   Updated: 2025/02/04 18:03:56 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_isblank(char c)
+void	val_cpy(char *new, char *value, int *j)
 {
-	if ((c >= 9 && c <= 13) || c == ' ')
+	int	i;
+
+	i = 0;
+	while (value[i])
 	{
-		return (1);
+		new[*j] = value[i];
+		i++;
+		(*j)++;
 	}
-	return (0);
+}
+
+void	expander_main(t_minishell *ms)
+{
+	mark_variables(ms);
+	scan_variables(ms);
+	process_quotes(ms);
 }

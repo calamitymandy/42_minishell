@@ -153,6 +153,7 @@ char		*get_var_str(char *content, char *value, int trim_len, int scan);
 int			chunk_reader(int *scan, char *line, int start_word,
 				t_minishell *ms);
 void		word_n_var_parser(t_minishell *ms, t_token **aux);
+void		split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms);
 void		addlst_cmd_container(t_minishell *ms, t_command **cmd_list);
 void		infile_parser(t_minishell *ms, t_token **aux);
 void		heredoc_main(t_minishell *ms, t_token **aux);
@@ -264,5 +265,21 @@ void		free_two_stars(char **arr);
 void		clean_data(t_minishell *ms, bool clear_history);
 void		close_fds(t_command *command, bool close_or_not);
 void		exit_mini(t_minishell *mini, int exit_code);
+
+void	split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms);
+bool	cmd_arg_filler(t_token **arg_list, t_command *command);
+int	word_n_var_counter(t_token *aux);
+char	**create_table(int args_amnt, char **args_table, t_command *command, t_token **arg_list);
+void	scan_variables(t_minishell *ms);
+int	process_quotes(t_minishell *ms);
+void	mark_variables(t_minishell *ms);
+void	process_variables(char *value, t_token **aux, int scan, t_minishell *ms);
+bool	is_env_var(t_minishell *ms, char *var_nme);
+char	*dup_env_var_value(t_minishell *ms, char *var_nme);
+void	val_cpy(char *new, char *value, int *j);
+bool	dollar_error(char *content, int scan);
+bool	is_between_d_quot(char *content, int scan);
+bool	is_bad_char_next(char next);
+
 
 #endif

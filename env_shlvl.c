@@ -33,7 +33,7 @@ void	modify_shlvl(t_minishell *mini)
 	modify_or_add_env(mini, new_shlvl);
 	free(shlvl);
 	free(new_shlvl);
-	free_string(split);
+	free_two_stars(split);
 }
 
 char	*search_env(t_minishell *ms, char *env_key)
@@ -47,12 +47,12 @@ char	*search_env(t_minishell *ms, char *env_key)
 		key_value = ft_split(ms->env[i], '=');
 		if (ft_strcmp(key_value[0], env_key) == 0)
 		{
-			free_string(key_value);
+			free_two_stars(key_value);
 			break ;
 		}
 		else
 			i++;
-		free_string(key_value);
+		free_two_stars(key_value);
 	}
 	if (!ms->env[i])
 		return (NULL);
@@ -78,7 +78,7 @@ char	**arr_append(char **arr, char *line)
 	}
 	new_arr[i++] = ft_strdup(line);
 	new_arr[i] = NULL;
-	free_string(arr);
+	free_two_stars(arr);
 	return (new_arr);
 }
 
@@ -95,15 +95,15 @@ void	modify_or_add_env(t_minishell *ms, char *line)
 		split_env = ft_split(ms->env[i], '=');
 		if (strcmp(split_line[0], split_env[0]) == 0)
 		{
-			free_string(split_env);
-			free_string(split_line);
+			free_two_stars(split_env);
+			free_two_stars(split_line);
 			free(ms->env[i]);
 			ms->env[i] = ft_strdup(line);
 			return ;
 		}
 		i++;
-		free_string(split_env);
+		free_two_stars(split_env);
 	}
-	free_string(split_line);
+	free_two_stars(split_line);
 	ms->env[i] = ft_strdup(line);
 }

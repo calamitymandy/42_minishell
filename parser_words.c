@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_words.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 17:25:18 by algalian          #+#    #+#             */
+/*   Updated: 2025/02/04 17:25:20 by algalian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 bool	is_there_space(char *str)
@@ -24,35 +36,6 @@ int	word_n_var_counter(t_token *aux)
 	return (i);
 }
 
-bool	cmd_arg_creat_n_fill(t_token **arg_list, \
-	t_command *command, bool is_echo)
-{
-	int		arg_amnt;
-	t_token	*aux;
-	int		i;
-
-	if (is_echo)
-		rm_echo_empty_words(arg_list);
-	aux = *arg_list;
-	arg_amnt = word_n_var_counter(aux);
-	command->args = malloc(sizeof(char *) * (arg_amnt + 2));
-	if (!command->args)
-		return (false);
-	i = 0;
-	command->args[i] = ft_strdup(command->cmd);
-	i++;
-	while (aux->type == WORD || aux->type == VAR)
-	{
-		command->args[i] = ft_strdup(aux->content);
-		//printf("arg is %s\n", command->args[i]); //debugging
-		i++;
-		aux = aux->next;
-	}
-	command->args[i] = NULL;
-	*arg_list = aux;
-	return (true);
-}
-
 void	rm_echo_empty_words(t_token **arg_list)
 {
 	t_token	*aux;
@@ -72,7 +55,6 @@ void	rm_echo_empty_words(t_token **arg_list)
 			aux = aux->next;
 	}
 }
-
 
 char	**create_table(
 	int args_amnt, char **args_table, t_command *command, t_token **arg_list)

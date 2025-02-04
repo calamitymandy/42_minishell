@@ -8,6 +8,7 @@ SRCS        = 	main.c signals.c lexer.c tokenizer.c expander.c \
 				parser_words.c parser_commands.c parser_infile.c chunk_reader.c parser_heredoc.c parser_trunc.c parser_append.c parser_pipe.c \
 				execute.c execute_cmd.c execute_utils.c execute_parse_path.c \
 				redirec_io_controls.c redirec_pipe_controls.c \
+				parser_args.c  expander_main.c expander_scan.c expander_quotes.c expander_mark.c expander_var.c expander_x_var.c expander_utils.c\
 
 OBJS        = $(SRCS:.c=.o)
 

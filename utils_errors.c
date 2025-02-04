@@ -54,6 +54,7 @@ char	*info_error(char *cmd, char *info, char *s)
 			|| ft_strncmp(cmd, "unset", 6) == 0))
 		output = str_append(output, "'");
 	output = str_append(output, ": ");
+	free(s);
 	return (output);
 }
 
