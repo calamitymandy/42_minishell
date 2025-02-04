@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:33:31 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/03 19:33:14 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:25:41 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	error_msg(char *cmd, char *info, char *msg, int err_nb)
 	{	
 		output = str_append(output, cmd);
 		output = str_append(output, ": ");
-
 	}
 	if (info)
 	{

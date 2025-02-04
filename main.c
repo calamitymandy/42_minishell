@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/03 22:43:46 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:01:31 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,6 @@
 /*compile with gcc main.c -lreadline*/
 
 int	g_status;
-
-
-/**
- * Restores the original stdin & stdout fds if they were saved:
- * Uses dup2 to restore the original stdin & stdout.
- * Closes the temporary file descriptor.
- * Resets stdin_ori to -1.
- * returns a boolean value indicating whether the fds have been successfully reset.
-
-bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
-{
-	int	res;
-
-	res = true;
-	if (!fds_in_and_out)
-		return (res);
-	if (fds_in_and_out->stdin_ori != -1)
-	{
-		if (dup2(fds_in_and_out->stdin_ori, STDIN_FILENO) == -1)
-			res = false;
-		close(fds_in_and_out->stdin_ori);
-		fds_in_and_out->stdin_ori = -1;
-	}
-	if (fds_in_and_out->stdout_ori != -1)
-	{
-		if (dup2(fds_in_and_out->stdout_ori, STDOUT_FILENO) == -1)
-			res = false;
-		close(fds_in_and_out->stdout_ori);
-		fds_in_and_out->stdout_ori = -1;
-	}
-	return (res);
-}
- */
-
 
 /* This function executes the processed command and returns a status code 
  * that updates g_status. 
@@ -84,103 +50,6 @@ int	 exec_main(t_minishell *mini)
 		return (result);
 	return (create_children(mini));
 }
-
-/* mix of 2: delete all token node && delete one token node
- * ADDED: delete_all, flag to delete one or all nodes in the list, 
- * depending on the flag being on 1 or 0.
-*/
-void	clean_token_nodes(t_token **lst, void (*del)(void *), int delete_all)
-{
-	t_token	*temp;
-
-	while (*lst != NULL)
-	{
-		temp = (*lst)->next;
-		if (del && (*lst))
-		{
-			if ((*lst)->content)
-				(*del)((*lst)->content);
-			if ((*lst)->cc) //or token_type
-				(*del)((*lst)->cc); //or token_type
-		}
-		if ((*lst)->prev)
-			(*lst)->prev->next = (*lst)->next;
-		if ((*lst)->next)
-			(*lst)->next->prev = (*lst)->prev;
-		free_star(*lst);
-		if (!delete_all)
-			break ;
-		*lst = temp;
-	}
-	if (delete_all)
-		*lst = NULL;
-}
-/*
-void	free_in_and_out_fds(t_fds *in_and_out)
-{
-	if (!in_and_out)
-		return ;
-	reset_fds_in_and_out(in_and_out);
-	if (in_and_out->del_heredoc)
-	{
-		unlink(in_and_out->del_heredoc);
-		free_star(in_and_out->del_heredoc);
-	}
-	if (in_and_out->infile)
-		free_star(in_and_out->infile);
-	if (in_and_out->outfile)
-		free_star(in_and_out->outfile);
-	if (in_and_out)
-		free_star(in_and_out);
-}
-*/
-
-/*mix of 2 clean all nodes and clean one node
-void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
-{
-	t_command	*temp;
-	
-	while (*lst != NULL)
-	{
-		temp = (*lst)->next;
-		if ((*lst)->cmd)
-			(*del)((*lst)->cmd);
-		if ((*lst)->args)
-			(*del)((*lst)->args);
-		if ((*lst)->pipe_fd)
-			(*del)((*lst)->pipe_fd);
-		if ((*lst)->fds)
-			free_in_and_out_fds((*lst)->fds);
-		(*del)(*lst);
-		*lst = temp;
-	}
-	*lst = NULL;
-}
-*/
-
-/*void	clean_data(t_minishell *mini, bool clear_hist_or_not)
-{
-	if (mini && mini->line)
-	{
-		free_star(mini->line);
-		mini->line = NULL;
-	}
-	if (mini && mini->token)
-		clean_token_nodes(&mini->token, &free_star, 1);
-	if (mini && mini->command)
-		clean_cmd_nodes(&mini->command, &free_star);
-	if (clear_hist_or_not == true)
-	{
-		if (mini && mini->pwd)
-			free_star(mini->pwd);
-		if (mini && mini->old_pwd)
-			free_star(mini->old_pwd);
-		if (mini && mini->env)
-			free_two_stars(mini->env);
-		clear_history();
-	}
-}
-*/
 
 void	main_loop(t_minishell *mini)
 {

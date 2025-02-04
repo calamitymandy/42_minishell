@@ -168,7 +168,7 @@ void	split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms)
 	}
 	add_tkn_lst(&args_list, tkn_create(NULL, NULL, END, OK_Q));
 	if (!cmd_arg_filler(&args_list, new_cmd))
-		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	free_tkn_ptr = args_list;
 	clean_tkn_nodes(&free_tkn_ptr, &free_star);
 	free_two_stars(splited_cntn);
@@ -194,7 +194,7 @@ void	word_n_var_parser(t_minishell *ms, t_token **aux)
 			token = token->next;
 		}
 		else if (!cmd_arg_filler(&token, new_cmd))
-			exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+			exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	}
 	*aux = token;
 }

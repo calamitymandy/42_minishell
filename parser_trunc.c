@@ -20,14 +20,14 @@ void	create_trunc(t_fds *fds, char *file_name, char *cc)
 	fds->outfile = ft_strdup(file_name);
 	if (fds->outfile && fds->outfile[0] == '\0' && fds->error_msg == false)
 	{
-		msg_err(cc, NULL, "ambiguous redirect", false);
+		error_msg(cc, NULL, "ambiguous redirect", false);
 		fds->error_msg = true;
 		return ;
 	}
 	fds->fd_outfile = open(fds->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fds->fd_outfile == -1 && fds->error_msg == false)
 	{
-		msg_err(fds->outfile, NULL, strerror(errno), false);
+		error_msg(fds->outfile, NULL, strerror(errno), false);
 		fds->error_msg = true;
 	}
 }
@@ -45,7 +45,7 @@ void	trunc_parser(t_minishell *ms, t_token **aux)
 		return ;
 	}
 	if (!set_fd_struct(last_cmd))
-		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE); //error_msg??
+		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE); //error_msg??
 	if (!ms->ctrlcheredoc) 
 		create_trunc(last_cmd->fds, tkn_process->next->content, \
 	tkn_process->next->cc);
