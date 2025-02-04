@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_built.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:29:24 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/03 21:43:51 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:23:53 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ bool	valid_env_key(char *key)
 int	find_env_index_of_key(char **env, char *key)
 {
 	int		i;
-	char *aux;
+	char	*aux;
 
 	aux = ft_strjoin(key, "=");
 	if (!aux)

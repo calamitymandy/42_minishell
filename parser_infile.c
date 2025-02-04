@@ -47,14 +47,14 @@ void	infile_open(t_fds *fds, char *infile_name, char *cc)
 	fds->infile = ft_strdup(infile_name);
 	if (fds->infile && fds->infile[0] == '\0')
 	{
-		msg_err(cc, NULL, "ambiguous redirect", false);
+		error_msg(cc, NULL, "ambiguous redirect", false);
 		fds->error_msg = true;
 		return ;
 	}
 	fds->fd_infile = open(fds->infile, O_RDONLY);
 	if (fds->fd_infile == -1 && fds->error_msg == false)
 	{
-		msg_err(fds->infile, NULL, strerror(errno), false);
+		error_msg(fds->infile, NULL, strerror(errno), false);
 		fds->error_msg = true;
 	}
 }
@@ -73,7 +73,7 @@ void	infile_parser(t_minishell *ms, t_token **aux)
 		return ;
 	}
 	if (!set_fd_struct(last_cmd))
-		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	infile_open(last_cmd->fds, aux_aux->next->content, aux_aux->next->cc);
 	skip_next_token(aux);
 }

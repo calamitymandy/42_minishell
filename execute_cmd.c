@@ -1,4 +1,14 @@
-//ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 18:42:15 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/02/04 19:26:42 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -80,13 +90,14 @@ int	exec_builtin(t_minishell *mini, t_command *command)
 	return (cmd_res);
 }
 
+/* set_n_close_pipes_fds is a Mix of two*/
 int	exec_cmd(t_minishell *mini, t_command *command)
 {
 	int	res;
 
 	if (!check_in_and_out(command->fds))
 		exit_mini(mini, EXIT_FAILURE);
-	set_n_close_pipes_fds(mini->command, command); //Mix of two
+	set_n_close_pipes_fds(mini->command, command);
 	config_in_and_out(command->fds);
 	close_fds(mini->command, false);
 	if (ft_strchr(command->cmd, '/') == NULL)

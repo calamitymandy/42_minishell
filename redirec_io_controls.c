@@ -1,4 +1,14 @@
-//ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirec_io_controls.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 18:45:20 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/02/04 19:28:33 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -7,7 +17,8 @@
  * Uses dup2 to restore the original stdin & stdout.
  * Closes the temporary file descriptor.
  * Resets stdin_ori to -1.
- * returns a boolean value indicating whether the fds have been successfully reset.
+ * returns a boolean value indicating whether the fds have been successfully 
+ * reset.
  */
 bool	reset_fds_in_and_out(t_fds *fds_in_and_out)
 {

@@ -1,11 +1,14 @@
 NAME        = minishell
 
-SRCS        = 	main.c close_n_free.c signals.c lexer.c errors.c tokenizer.c utils.c \
-				builtins_export_unset.c env_built.c utils_errors.c builtins_cd_pwd.c env_handlers.c builtins_export_utils.c \
-				utils_init_data.c builtins_env_exit.c builtins_echo.c signals_listener.c signals_triggers.c parser_main.c \
+SRCS        = 	main.c signals.c lexer.c tokenizer.c expander.c \
+				utils_close_n_free.c utils.c utils_init_data.c \
+				builtins_export_unset.c env_built.c utils_errors.c builtins_cd_pwd.c builtins_export_utils.c builtins_env_exit.c builtins_echo.c \
+				env_handlers.c env_copy.c env_shlvl.c \
+				signals_listener.c signals_triggers.c parser_main.c \
 				parser_words.c parser_commands.c parser_infile.c chunk_reader.c parser_heredoc.c parser_trunc.c parser_append.c parser_pipe.c \
-				env_copy.c env_shlvl.c execute.c execute_cmd.c execute_utils.c execute_parse_path.c \
-				redirec_io_controls.c redirec_pipe_controls.c parser_args.c  expander_main.c expander_scan.c expander_quotes.c expander_mark.c expander_var.c expander_x_var.c expander_utils.c\
+				execute.c execute_cmd.c execute_utils.c execute_parse_path.c \
+				redirec_io_controls.c redirec_pipe_controls.c \
+				parser_args.c  expander_main.c expander_scan.c expander_quotes.c expander_mark.c expander_var.c expander_x_var.c expander_utils.c\
 
 OBJS        = $(SRCS:.c=.o)
 
