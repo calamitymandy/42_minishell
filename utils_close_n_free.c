@@ -6,12 +6,11 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 18:31:21 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:19:28 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	free_star(void *ptr)
 {
@@ -43,7 +42,6 @@ void	free_two_stars(char **arr)
 	}
 }
 
-
 void	free_in_and_out_fds(t_fds *in_and_out)
 {
 	if (!in_and_out)
@@ -61,7 +59,8 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 	if (in_and_out)
 		free_star(in_and_out);
 }
-/* mix of 2 with: ms_del_one_node_cmd*/ 
+
+/* mix of 2 with: ms_del_one_node_cmd*/
 void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 {
 	t_command	*temp;
@@ -82,7 +81,6 @@ void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
 	}
 	*lst = NULL;
 }
-
 
 void	del_one_node_tkn(t_token *lst, void (*del)(void *))
 {
@@ -152,9 +150,9 @@ void	close_fds(t_command *command, bool close_or_not)
 	if (command->fds)
 	{
 		if (command->fds->fd_infile != -1)
-				close (command->fds->fd_infile);
+			close (command->fds->fd_infile);
 		if (command->fds->fd_outfile != -1)
-				close (command->fds->fd_outfile);
+			close (command->fds->fd_outfile);
 		if (close_or_not)
 			reset_fds_in_and_out(command->fds);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_init_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:34:24 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/03 20:46:20 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:31:16 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	init_main_struct(t_minishell *mini, char **env)
 {
-
 	if (!set_env_var(mini, env))
 	{
 		error_msg("Error", NULL, \
@@ -98,6 +97,3 @@ bool	set_pwd_n_oldpwd(t_minishell *mini)
 	}
 	return (true);
 }
-
-
-

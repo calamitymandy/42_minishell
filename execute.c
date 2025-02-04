@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:44:33 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 18:44:41 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:25:52 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	child_status(t_minishell *mini)
 		status = WEXITSTATUS(save_status);
 	else
 		status = save_status;
-	return (status);	
+	return (status);
 }
 
 int	prep_the_cmd(t_minishell *mini)

@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:42:36 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 18:43:37 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:27:24 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ char	*find_valid_cmd_path(char *cmd, char **all_paths)
 		cmd_path = ft_strjoin(all_paths[i], cmd);
 		if (!cmd_path)
 		{
-			error_msg("malloc", NULL, "an unexpected error occured", EXIT_FAILURE);
+			error_msg("malloc", NULL, "an unexpected error occured",
+				EXIT_FAILURE);
 			return (NULL);
 		}
 		if (access(cmd_path, F_OK | X_OK) == 0)
