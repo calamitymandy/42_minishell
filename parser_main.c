@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_main.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 17:20:47 by algalian          #+#    #+#             */
+/*   Updated: 2025/02/04 17:20:50 by algalian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	cmd_no_arg_prccs(t_minishell *ms)
@@ -23,13 +35,11 @@ void	cmd_no_arg_prccs(t_minishell *ms)
 void	parser_main(t_minishell *ms)
 {
 	t_token	*aux;
-	int i;
 
 	aux = ms->token;
 	if (aux->type == END)
 		return;
-	i = 0;
-	while (aux->next && i < 20)
+	while (aux->next)
 	{
 		if (aux == ms->token)
 			addlst_cmd_container(ms, &ms->command);
@@ -38,13 +48,7 @@ void	parser_main(t_minishell *ms)
 		else if (aux->type == INPUT)
 			infile_parser(ms, &aux);
 		else if (aux->type == HEREDOC)
-		{	
 			heredoc_main(ms, &aux);
-		    /*if (aux && aux->type == PIPE) 
-			{
-                pipe_parser(ms, &aux);
-            }*/
-		}
 		else if (aux->type == TRUNC)
 			trunc_parser(ms, &aux);
 		else if (aux->type == APPEND)
@@ -53,8 +57,6 @@ void	parser_main(t_minishell *ms)
 			pipe_parser(ms, &aux);
 		else if (aux->type == END)
 			break ;
-		//printf("%i\n", i);
-		i++;
 	}
 	cmd_no_arg_prccs(ms);
 }

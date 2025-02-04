@@ -151,7 +151,7 @@ void	clean_data(t_minishell *ms, bool clearhistory)
 		ms->line = NULL;
 	}
 	if (ms && ms->token)
-		clean_tkn_nodes(&ms->token, &free_star);
+		clean_tkn_nodes(&ms->token, &free_star); 
 	if (ms && ms->command)
 		clean_cmd_nodes(&ms->command, &free_star);
 	if (clearhistory == true)

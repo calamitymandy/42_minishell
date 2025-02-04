@@ -63,6 +63,8 @@ Potential issues:
 
 -revisar cd  ~
 
+-posible función duplicada clean_token_nodes
+
 
 
 

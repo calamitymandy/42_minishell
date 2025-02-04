@@ -1,5 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_trunc.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 19:43:08 by algalian          #+#    #+#             */
+/*   Updated: 2025/02/04 19:43:16 by algalian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 bool	fds_error2(t_fds *fds)
 {
@@ -41,12 +52,12 @@ void	trunc_parser(t_minishell *ms, t_token **aux)
 	last_cmd = scroll_lstcmd(ms->command);
 	if (last_cmd->fds && last_cmd->fds->error_msg)
 	{
-		skip_next_token(aux); 
+		skip_next_token(aux);
 		return ;
 	}
 	if (!set_fd_struct(last_cmd))
-		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE); //error_msg??
-	if (!ms->ctrlcheredoc) 
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+	if (!ms->ctrlcheredoc)
 		create_trunc(last_cmd->fds, tkn_process->next->content, \
 	tkn_process->next->cc);
 	skip_next_token(aux);
