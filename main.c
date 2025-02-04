@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:50 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 18:01:31 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:44:11 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	g_status;
  * 2 - Ensures that command is not part of a pipeline or a sequence of commands.
  * 3 - checks if fds input & output are valid, meaning no pb with redirections.
  * 
- * config_in_and_out and reset_fds_in_and_out are necessary to handle input/output 
- * redirections (ex: echo "Hello" > output.txt) they save & restore the 
- * original fds (STDIN & STDOUT) when needed, and so ensure each command starts
- * with a clean input/output state.
+ * config_in_and_out and reset_fds_in_and_out are necessary to handle 
+ * input/output redirections (ex: echo "Hello" > output.txt) they save & 
+ * restore the original fds (STDIN & STDOUT) when needed, and so ensure each 
+ * command starts with a clean input/output state.
  * 
  * 127 = command unknown
  */
-int	 exec_main(t_minishell *mini)
+int	exec_main(t_minishell *mini)
 {
 	int	result;
 
@@ -58,7 +58,7 @@ void	main_loop(t_minishell *mini)
 		listening_interact_sig();
 		mini->line = readline("$-> ");
 		listening_no_interact_sig();
-		if(lexer_main(mini))
+		if (lexer_main(mini))
 			g_status = exec_main(mini);
 		clean_data(mini, false);
 	}

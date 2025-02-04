@@ -1,4 +1,14 @@
-//ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirec_pipe_controls.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 18:45:52 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/02/04 19:28:54 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -41,7 +51,7 @@ bool	create_pipes(t_minishell *mini)
 bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd)
 {
 	if (!current_cmd)
-		return(false);
+		return (false);
 	if (current_cmd->prev && current_cmd->prev->pipe_output)
 		dup2(current_cmd->prev->pipe_fd[0], STDIN_FILENO);
 	if (current_cmd->pipe_output)

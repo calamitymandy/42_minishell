@@ -1,8 +1,18 @@
-//ADD HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_copy.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 18:40:11 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/02/04 19:24:46 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-bool copy_environment(t_minishell *ms, char **envp)
+bool	copy_environment(t_minishell *ms, char **envp)
 {
 	int		i;
 

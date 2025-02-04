@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:45:22 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/30 19:29:59 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:16:26 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Handle the special -n flag, which suppress the newline at the end of the output.
+/* Handle the special -n flag, which suppress the newline at the end of the 
+ * output.
  * Ensures that a string like -n, -nn, -nnn, etc., is valid but not something 
  * like -nX or -nx
  * Mix of 2 with n_flag
@@ -74,7 +75,7 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 bool	is_var_no_quotes(t_token *tkns, int index)
 {
 	t_token	*lst;
-	int i;
+	int		i;
 
 	i = 0;
 	lst = tkns;
