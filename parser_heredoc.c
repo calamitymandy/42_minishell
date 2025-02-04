@@ -232,7 +232,7 @@ void	heredoc_main(t_minishell *ms, t_token **aux)
 	pre_delim = *aux;
 	last_cmd = scroll_lstcmd(ms->command);
 	if (!set_fd_struct(last_cmd))
-		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	fds = last_cmd->fds;
 	/*printf("del_heredoc: %s\n",fds->del_heredoc);
 	printf("fd infile %i\n",fds->fd_infile);
@@ -248,7 +248,7 @@ void	heredoc_main(t_minishell *ms, t_token **aux)
 	}*/
 	fds->infile = put_name_tmp();
 	if (!fds->infile)
-		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	fds->del_heredoc = quit_heredoc_quot(pre_delim->next->content, \
 	& (fds->heredoc_quotes));
 	if (create_tmp(ms, fds))

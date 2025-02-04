@@ -56,7 +56,7 @@ void	trunc_parser(t_minishell *ms, t_token **aux)
 		return ;
 	}
 	if (!set_fd_struct(last_cmd))
-		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE); //error_msg??
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	if (!ms->ctrlcheredoc) 
 		create_trunc(last_cmd->fds, tkn_process->next->content, \
 	tkn_process->next->cc);

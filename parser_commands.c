@@ -37,7 +37,6 @@ t_command	*scroll_lstcmd(t_command *aux)
 	return (aux);
 }
 
-
 void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list)
 {
 	t_command	*new_node;
@@ -45,7 +44,7 @@ void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list)
 
 	new_node = new_cmd_lst();
 	if (!new_node)
-		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	aux = *cmd_list;
 	if (!aux)
 	{

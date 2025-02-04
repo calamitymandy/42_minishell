@@ -1,7 +1,7 @@
 NAME        = minishell
 
-SRCS        = 	main.c signals.c lexer.c tokenizer.c expander.c \
-				utils_close_n_free.c utils.c utils_init_data.c \
+SRCS        = 	main.c signals.c lexer.c tokenizer.c \
+				utils_close_n_free.c utils.c utils_init_data.c utils_lexer.c\
 				builtins_export_unset.c env_built.c utils_errors.c builtins_cd_pwd.c builtins_export_utils.c builtins_env_exit.c builtins_echo.c \
 				env_handlers.c env_copy.c env_shlvl.c \
 				signals_listener.c signals_triggers.c parser_main.c \

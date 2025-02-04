@@ -139,9 +139,9 @@ bool		dollar_error(char *content, int scan);
 int			ft_atoi_long(const char *str, bool *error);
 char		*replace_str_heredoc(char *str, char *var_value, int index);
 char		*xtract_var_value(t_token *token, char *content, t_minishell *ms);
-char		*strjoin(char *str1, char *str2);
+char		*mini_strjoin(char *str1, char *str2);
 bool		quotes_err_n_read(t_minishell *ms, char *line);
-void		exit_and_msg(t_minishell *ms, char *msg, int exit_code);
+void		exit_msg(t_minishell *ms, char *msg, int exit_code);
 void		err_stx_out(char *message, char *quote, int in_quote);
 int			quote_stat(int quote_stat, char *line, int scan);
 int			var_name_len(char *content);
@@ -280,6 +280,10 @@ void	val_cpy(char *new, char *value, int *j);
 bool	dollar_error(char *content, int scan);
 bool	is_between_d_quot(char *content, int scan);
 bool	is_bad_char_next(char next);
+bool	quote_detector(char *str);
+bool	is_quote_here(t_token **aux, int pos);
+bool	is_line_empty(char *line);
+bool	stx_err(t_token **token_list);
 
 
 #endif

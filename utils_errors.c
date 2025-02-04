@@ -25,6 +25,12 @@
  * 6. Returns the provided error number.
  */
 
+void	exit_msg(t_minishell *ms, char *msg, int exit_code)
+{
+	ft_putendl_fd(msg, 2);
+	exit_mini(ms, exit_code);
+}
+
 char	*str_append(char *base, const char *to_append)
 {
 	size_t	new_len;
