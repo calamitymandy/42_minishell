@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/03 22:44:38 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:33:58 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ enum e_quotes
 	OK_Q
 };
 
-void exit_mini(t_minishell *mini, int exit_code);
-void main_loop(t_minishell *mini);
 void		ctrl_backslash_ignore(void);
 void		ctrl_c_newline_hdoc(int signal);
 void		listening_hdoc_input_sig(void);
@@ -134,12 +132,11 @@ void	clean_tkn_nodes(t_token **lst, void (*del)(void *));
 void	del_one_node_tkn(t_token *lst, void (*del)(void *));
 void	rm_echo_empty_words(t_token **arg_list);
 t_command	*new_cmd_lst(void);
-void	exit_msg(t_minishell *ms, char *msg, int exit_code);
 t_command	*scroll_lstcmd(t_command *aux);
 void	parser_main(t_minishell *ms);
 void	add_tkn_lst(t_token **lst, t_token *new_node);
 t_token	*tkn_create(char *content, char *cntnt_cpy, int type, int qs);
-int	msg_err(char *cc, char *info, char *msg, int error_code);
+int	error_msg(char *cc, char *info, char *msg, int error_code);
 bool	dollar_error(char *content, int scan);
 int ft_atoi_long(const char *str, bool *error);
 char	*replace_str_heredoc(char *str, char *var_value, int index);
@@ -181,7 +178,7 @@ bool	set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd);
 
 // execute
 int	create_children(t_minishell *mini);
-int	exec_cmd(t_minishell *mini, t_command *command); //MOVE THE REST
+int	exec_cmd(t_minishell *mini, t_command *command);
 int	child_status(t_minishell *mini);
 int	prep_the_cmd(t_minishell *mini);
 
@@ -208,6 +205,12 @@ char		**key_value_arr(char *key);
 void	qsort_env_vars(char **env, int nb_env_var);
 char	*add_env_quotes(char *env_var);
 
+// builtins_cd_pwd
+int	exec_cd(t_minishell *mini, char **args);
+bool	cd(t_minishell *mini, char *path);
+void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path);
+int	exec_pwd_builtin(t_minishell *mini, char **args);
+
 // env_built
 char	*get_env_value(char **env, char *key);
 int		srch_env_i(char **env, char *pwd_or_old);
@@ -217,12 +220,6 @@ int	find_env_index_of_key(char **env, char *key);
 
 // utils_errors
 int	error_msg(char *cmd, char *info, char *msg, int err_nb);
-
-// builtins_cd_pwd
-int	exec_cd(t_minishell *mini, char **args);
-bool	cd(t_minishell *mini, char *path);
-void	update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path);
-int	exec_pwd_builtin(t_minishell *mini, char **args);
 
 // env_handlers
 bool	add_or_update_env_var(t_minishell *mini, char *pwd_or_old, char *value);
@@ -264,6 +261,7 @@ void	free_star(void *ptr);
 void	free_two_stars(char **arr);
 void		clean_data(t_minishell *ms, bool clear_history);
 void	close_fds(t_command *command, bool close_or_not);
+void exit_mini(t_minishell *mini, int exit_code);
 
 
 #endif

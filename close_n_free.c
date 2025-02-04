@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_n_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/03 22:35:32 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:31:21 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,68 +116,26 @@ void	clean_tkn_nodes(t_token **lst, void (*del)(void *))
 	}
 }
 
-void	del_one_node_cmd(t_command *lst, void (*del)(void *))
+void	clean_data(t_minishell *mini, bool clear_hist_or_not)
 {
-	if (lst->cmd)
-		(*del)(lst->cmd);
-	if (lst->args)
-		free_two_stars(lst->args);
-	if (lst->pipe_fd)
-		(*del)(lst->pipe_fd);
-	if (lst->fds)
-		free_in_and_out_fds(lst->fds);
-	(*del)(lst);
-}
-
-void	del_all_nodes_cmd(t_command **lst, void (*del)(void *))
-{
-	t_command	*temp;
-
-	temp = NULL;
-	while (*lst != NULL)
+	if (mini && mini->line)
 	{
-		temp = (*lst)->next;
-		del_one_node_cmd(*lst, del);
-		*lst = temp;
+		free_star(mini->line);
+		mini->line = NULL;
 	}
-}
-
-
-void	clean_data(t_minishell *ms, bool clearhistory)
-{
-	if (ms && ms->line)
+	if (mini && mini->token)
+		clean_tkn_nodes(&mini->token, &free_star);
+	if (mini && mini->command)
+		clean_cmd_nodes(&mini->command, &free_star);
+	if (clear_hist_or_not == true)
 	{
-		free_star(ms->line);
-		ms->line = NULL;
-	}
-	if (ms && ms->token)
-		clean_tkn_nodes(&ms->token, &free_star);
-	if (ms && ms->command)
-		clean_cmd_nodes(&ms->command, &free_star);
-	if (clearhistory == true)
-	{
-		if (ms && ms->pwd)
-			free_star(ms->pwd);
-		if (ms && ms->old_pwd)
-			free_star(ms->old_pwd);
-		if (ms && ms->env)
-			free_two_stars(ms->env);
+		if (mini && mini->pwd)
+			free_star(mini->pwd);
+		if (mini && mini->old_pwd)
+			free_star(mini->old_pwd);
+		if (mini && mini->env)
+			free_two_stars(mini->env);
 		clear_history();
-	}
-}
-
-
-
-void	close_un_pipes_fd(t_command *cmds, t_command *omit_cmd)
-{
-	while (cmds)
-	{
-		if (cmds != omit_cmd && cmds->pipe_fd)
-		{
-			close(cmds->pipe_fd[0]);
-			close(cmds->pipe_fd[1]);
-		}
-		cmds = cmds->next;
 	}
 }
 
@@ -209,4 +167,15 @@ void	close_fds(t_command *command, bool close_or_not)
 		}
 		command = command->next;
 	}
+}
+
+void	exit_mini(t_minishell *mini, int exit_code)
+{
+	if (mini)
+	{
+		if (mini->command && mini->command->fds)
+			close_fds(mini->command, true);
+		clean_data(mini, true);
+	}
+	exit(exit_code);
 }

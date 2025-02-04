@@ -33,7 +33,7 @@ void	addlst_cmd_container(t_minishell *ms, t_command **cmd_list)
 
 	new_node = new_cmd_lst();
 	if (!new_node)
-		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	aux = *cmd_list;
 	if (!aux)
 	{
