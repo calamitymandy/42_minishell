@@ -190,7 +190,6 @@ bool		stx_error_cases(t_token *token);
 bool		create_tmp(t_minishell *ms, t_fds *fds);
 char		*heredoc_xpndr_main(t_minishell *ms, char *line);
 
-
 // redirec_io_controls
 bool		reset_fds_in_and_out(t_fds *fds_in_and_out);
 bool		config_in_and_out(t_fds	*in_n_out);
