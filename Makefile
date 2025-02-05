@@ -9,7 +9,8 @@ SRCS        = 	main.c signals.c lexer.c tokenizer.c \
 				execute.c execute_cmd.c execute_utils.c execute_parse_path.c \
 				redirec_io_controls.c redirec_pipe_controls.c \
 				parser_args.c  expander_main.c expander_scan.c expander_quotes.c expander_mark.c expander_var.c expander_x_var.c expander_utils.c\
-
+				lexer_syntax.c heredoc_loop.c  heredoc_xpander.c \
+				
 OBJS        = $(SRCS:.c=.o)
 
 LIBFT_DIR   = libft

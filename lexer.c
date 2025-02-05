@@ -35,23 +35,6 @@ bool	stx_error_cases(t_token *token)
 	return (false);
 }
 
-char	*replace_str_heredoc(char *str, char *var_value, int index)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (var_value == NULL)
-		*str = '\0';
-	else
-	{
-		tmp = str;
-		str = replace_for_xpanded(NULL, str, var_value, index);
-		free_star(tmp);
-	}
-	free_star(var_value);
-	return (str);
-}
-
 void	token_indx(t_minishell *ms)
 {
 	t_token			*aux;

@@ -266,24 +266,28 @@ void		clean_data(t_minishell *ms, bool clear_history);
 void		close_fds(t_command *command, bool close_or_not);
 void		exit_mini(t_minishell *mini, int exit_code);
 
-void	split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms);
-bool	cmd_arg_filler(t_token **arg_list, t_command *command);
-int	word_n_var_counter(t_token *aux);
-char	**create_table(int args_amnt, char **args_table, t_command *command, t_token **arg_list);
-void	scan_variables(t_minishell *ms);
-int	process_quotes(t_minishell *ms);
-void	mark_variables(t_minishell *ms);
-void	process_variables(char *value, t_token **aux, int scan, t_minishell *ms);
-bool	is_env_var(t_minishell *ms, char *var_nme);
-char	*dup_env_var_value(t_minishell *ms, char *var_nme);
-void	val_cpy(char *new, char *value, int *j);
-bool	dollar_error(char *content, int scan);
-bool	is_between_d_quot(char *content, int scan);
-bool	is_bad_char_next(char next);
-bool	quote_detector(char *str);
-bool	is_quote_here(t_token **aux, int pos);
-bool	is_line_empty(char *line);
-bool	stx_err(t_token **token_list);
-
+void		split_in_args(t_command *new_cmd, char *tkn_cntnt, t_minishell *ms);
+bool		cmd_arg_filler(t_token **arg_list, t_command *command);
+int			word_n_var_counter(t_token *aux);
+char		**create_table(int args_amnt, char **args_table, \
+				t_command *command,	t_token **arg_list);
+void		scan_variables(t_minishell *ms);
+int			process_quotes(t_minishell *ms);
+void		mark_variables(t_minishell *ms);
+void		process_variables(char *value, t_token **aux, \
+			int scan, t_minishell *ms);
+bool		is_env_var(t_minishell *ms, char *var_nme);
+char		*dup_env_var_value(t_minishell *ms, char *var_nme);
+void		val_cpy(char *new, char *value, int *j);
+bool		dollar_error(char *content, int scan);
+bool		is_between_d_quot(char *content, int scan);
+bool		is_bad_char_next(char next);
+bool		quote_detector(char *str);
+bool		is_quote_here(t_token **aux, int pos);
+bool		is_line_empty(char *line);
+bool		stx_err(t_token **token_list);
+bool		stx_error_cases(t_token *token);
+bool		create_tmp(t_minishell *ms, t_fds *fds);
+char		*heredoc_xpndr_main(t_minishell *ms, char *line);
 
 #endif
