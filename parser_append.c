@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_append.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 20:38:29 by algalian          #+#    #+#             */
+/*   Updated: 2025/02/04 20:38:31 by algalian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	append_file(t_fds *fds, char *file_name, char *cc)
@@ -23,7 +35,7 @@ void	append_parser(t_minishell *ms, t_token **aux)
 	tkn_process = *aux;
 	last_cmd = scroll_lstcmd(ms->command);
 	if (!set_fd_struct(last_cmd))
-		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	if (!ms->ctrlcheredoc)
 		append_file(last_cmd->fds, tkn_process->next->content, \
 	tkn_process->next->cc);

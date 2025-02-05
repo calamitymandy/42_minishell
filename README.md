@@ -63,9 +63,4 @@ Potential issues:
 
 -revisar cd  ~
 
--posible función duplicada clean_token_nodes
-
-
-
-
-
+-código de salida erróneo para exit con argumentos (opcional)

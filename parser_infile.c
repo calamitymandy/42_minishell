@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "minishell.h"
 
 void	skip_next_token(t_token **aux)
 {
@@ -59,7 +59,6 @@ void	infile_open(t_fds *fds, char *infile_name, char *cc)
 	}
 }
 
-
 void	infile_parser(t_minishell *ms, t_token **aux)
 {
 	t_token		*aux_aux;
@@ -73,7 +72,7 @@ void	infile_parser(t_minishell *ms, t_token **aux)
 		return ;
 	}
 	if (!set_fd_struct(last_cmd))
-		exit_and_msg(ms, ERR_ALLOC, EXIT_FAILURE);
+		exit_msg(ms, ERR_ALLOC, EXIT_FAILURE);
 	infile_open(last_cmd->fds, aux_aux->next->content, aux_aux->next->cc);
 	skip_next_token(aux);
 }
