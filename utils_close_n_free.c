@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_n_free.c                                     :+:      :+:    :+:   */
+/*   utils_close_n_free.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 19:19:28 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:42:35 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,60 +58,6 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 		free_star(in_and_out->outfile);
 	if (in_and_out)
 		free_star(in_and_out);
-}
-
-/* mix of 2 with: ms_del_one_node_cmd*/
-void	clean_cmd_nodes(t_command **lst, void (*del)(void *))
-{
-	t_command	*temp;
-
-	while (*lst != NULL)
-	{
-		temp = (*lst)->next;
-		if ((*lst)->cmd)
-			(*del)((*lst)->cmd);
-		if ((*lst)->args)
-			free_two_stars((*lst)->args);
-		if ((*lst)->pipe_fd)
-			(*del)((*lst)->pipe_fd);
-		if ((*lst)->fds)
-			free_in_and_out_fds((*lst)->fds);
-		(*del)(*lst);
-		*lst = temp;
-	}
-	*lst = NULL;
-}
-
-void	del_one_node_tkn(t_token *lst, void (*del)(void *))
-{
-	if (del && lst && lst->content)
-	{
-		(*del)(lst->content);
-		lst->content = NULL;
-	}
-	if (del && lst && lst->cc)
-	{
-		(*del)(lst->cc);
-		lst->cc = NULL;
-	}
-	if (lst->prev)
-		lst->prev->next = lst->next;
-	if (lst->next)
-		lst->next->prev = lst->prev;
-	free_star(lst);
-}
-
-void	clean_tkn_nodes(t_token **lst, void (*del)(void *))
-{
-	t_token	*tmp;
-
-	tmp = NULL;
-	while (*lst != NULL)
-	{
-		tmp = (*lst)->next;
-		del_one_node_tkn(*lst, del);
-		*lst = tmp;
-	}
 }
 
 void	clean_data(t_minishell *mini, bool clear_hist_or_not)

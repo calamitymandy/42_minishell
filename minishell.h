@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 19:41:19 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:44:31 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,6 @@ void		ctrl_backslash_ignore_no_interact(void);
 void		ctrl_c_newline_no_interact(int signal);
 void		listening_no_interact_sig(void);
 bool		lexer_main(t_minishell *ms);
-void		close_fds(t_command *cmds, bool close_backups);
-void		clean_tkn_nodes(t_token **lst, void (*del)(void *));
-void		del_one_node_tkn(t_token *lst, void (*del)(void *));
 void		rm_echo_empty_words(t_token **arg_list);
 t_command	*new_cmd_lst(void);
 t_command	*scroll_lstcmd(t_command *aux);
@@ -287,5 +284,13 @@ void		free_two_stars(char **arr);
 void		clean_data(t_minishell *ms, bool clear_history);
 void		close_fds(t_command *command, bool close_or_not);
 void		exit_mini(t_minishell *mini, int exit_code);
+void		free_in_and_out_fds(t_fds *in_and_out);
+
+// utils_parser
+void		clean_cmd_nodes(t_command **lst, void (*del)(void *));
+
+// utils_lexer
+void		del_one_node_tkn(t_token *lst, void (*del)(void *));
+void		clean_tkn_nodes(t_token **lst, void (*del)(void *));
 
 #endif
