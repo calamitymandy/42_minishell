@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:02:14 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/09 12:44:31 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:40:41 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,10 @@ void		add_tkn_lst(t_token **lst, t_token *new_node);
 t_token		*tkn_create(char *content, char *cntnt_cpy, int type, int qs);
 int			error_msg(char *cc, char *info, char *msg, int error_code);
 bool		dollar_error(char *content, int scan);
-int			ft_atoi_long(const char *str, bool *error);
 char		*replace_str_heredoc(char *str, char *var_value, int index);
 char		*xtract_var_value(t_token *token, char *content, t_minishell *ms);
 char		*mini_strjoin(char *str1, char *str2);
 bool		quotes_err_n_read(t_minishell *ms, char *line);
-void		exit_msg(t_minishell *ms, char *msg, int exit_code);
 void		err_stx_out(char *message, char *quote, int in_quote);
 int			quote_stat(int quote_stat, char *line, int scan);
 int			var_name_len(char *content);
@@ -181,18 +179,15 @@ bool		is_between_d_quot(char *content, int scan);
 bool		is_bad_char_next(char next);
 bool		quote_detector(char *str);
 bool		is_quote_here(t_token **aux, int pos);
-bool		is_line_empty(char *line);
 bool		stx_err(t_token **token_list);
 bool		stx_error_cases(t_token *token);
 bool		create_tmp(t_minishell *ms, t_fds *fds);
 char		*heredoc_xpndr_main(t_minishell *ms, char *line);
 
-// redirec_io_controls
+// redirec_io_n_pipes_controls
 bool		reset_fds_in_and_out(t_fds *fds_in_and_out);
 bool		config_in_and_out(t_fds	*in_n_out);
 bool		check_in_and_out(t_fds	*in_n_out);
-
-//redirec_pipe_controls
 bool		create_pipes(t_minishell *mini);
 bool		set_n_close_pipes_fds(t_command *cmd_list, t_command *current_cmd);
 
@@ -203,6 +198,7 @@ int			child_status(t_minishell *mini);
 int			prep_the_cmd(t_minishell *mini);
 
 //execute_cmd
+bool		is_directory(char *cmd);
 int			exec_local_binary(t_minishell *mini, t_command *command);
 int			exec_sys_binary(t_minishell *mini, t_command *command);
 int			exec_builtin(t_minishell *mini, t_command *command);
@@ -211,9 +207,6 @@ int			exec_cmd(t_minishell *mini, t_command *command);
 // execute_parse_path
 char		*get_path_cmd(t_minishell *mini, char *str);
 char		*find_valid_cmd_path(char *cmd, char **all_paths);
-
-// execute_utils
-bool		is_directory(char *cmd);
 
 // builtins_export_unset
 int			exec_export_builtin(t_minishell *mini, char **args);
@@ -231,42 +224,7 @@ bool		cd(t_minishell *mini, char *path);
 void		update_pwd_n_old(t_minishell *mini, char *buf_of_work_dir_path);
 int			exec_pwd_builtin(t_minishell *mini, char **args);
 
-// env_built
-char		*get_env_value(char **env, char *key);
-int			srch_env_i(char **env, char *pwd_or_old);
-int			nb_env_variables(char **env);
-bool		valid_env_key(char *key);
-int			find_env_index_of_key(char **env, char *key);
-
-// utils_errors
-int			error_msg(char *cmd, char *info, char *msg, int err_nb);
-
-// env_handlers
-bool		add_or_update_env_var(t_minishell *mini, char *pwd_or_old,
-				char *value);
-char		**callocate_env_variables(t_minishell *mini, int size);
-bool		delete_env_var_pos(t_minishell *mini, int pos);
-
-// env_copy
-bool		copy_environment(t_minishell *ms, char **envp);
-void		refresh_pwd_env(t_minishell *mini);
-
-// env_shlvl
-void		modify_shlvl(t_minishell *ms);
-char		*search_env(t_minishell *ms, char *env_key);
-char		**arr_append(char **arr, char *line);
-void		modify_or_add_env(t_minishell *ms, char *line);
-
-//utils
-char		*strjoin_n_free(char *s1, char const *s2);
-
-//utils_init_data
-bool		init_main_struct(t_minishell *mini, char **env);
-bool		set_pwd_n_oldpwd(t_minishell *mini);
-bool		set_env_var(t_minishell *ms, char **env);
-bool		create_env(t_minishell *mini);
-
-//builtins_env_exit
+// builtins_env_exit
 int			exec_env_builtin(t_minishell *mini, char **args);
 int			exec_exit_builtin(t_minishell *mini, char **args);
 int			get_exit_code(char *arg, bool *error);
@@ -278,19 +236,56 @@ void		print_echo(char **args, bool minus_n_flag, int i,
 bool		is_var_no_quotes(t_token *tkns, int index);
 char		*remove_extra_spaces(const char *str);
 
-// utils_close_n_free
-void		free_star(void *ptr);
-void		free_two_stars(char **arr);
+// env_built
+char		*get_env_value(char **env, char *key);
+int			srch_env_i(char **env, char *pwd_or_old);
+int			nb_env_variables(char **env);
+bool		valid_env_key(char *key);
+int			find_env_index_of_key(char **env, char *key);
+
+// env_handlers
+bool		add_or_update_env_var(t_minishell *mini, char *pwd_or_old,
+				char *value);
+char		**callocate_env_variables(t_minishell *mini, int size);
+bool		delete_env_var_pos(t_minishell *mini, int pos);
+bool		copy_environment(t_minishell *ms, char **envp);
+void		refresh_pwd_env(t_minishell *mini);
+
+// env_shlvl
+void		modify_shlvl(t_minishell *ms);
+char		*search_env(t_minishell *ms, char *env_key);
+char		**arr_append(char **arr, char *line);
+void		modify_or_add_env(t_minishell *ms, char *line);
+
+//utils_init_data
+bool		init_main_struct(t_minishell *mini, char **env);
+bool		set_pwd_n_oldpwd(t_minishell *mini);
+bool		set_env_var(t_minishell *ms, char **env);
+bool		create_env(t_minishell *mini);
+
+// utils_clean_data
 void		clean_data(t_minishell *ms, bool clear_history);
-void		close_fds(t_command *command, bool close_or_not);
-void		exit_mini(t_minishell *mini, int exit_code);
-void		free_in_and_out_fds(t_fds *in_and_out);
-
-// utils_parser
-void		clean_cmd_nodes(t_command **lst, void (*del)(void *));
-
-// utils_lexer
 void		del_one_node_tkn(t_token *lst, void (*del)(void *));
 void		clean_tkn_nodes(t_token **lst, void (*del)(void *));
+bool		is_line_empty(char *line);
+void		clean_cmd_nodes(t_command **lst, void (*del)(void *));
+
+// utils_errors
+int			error_msg(char *cmd, char *info, char *msg, int err_nb);
+char		*info_error(char *cmd, char *info, char *s);
+char		*str_append(char *base, const char *to_append);
+void		exit_msg(t_minishell *ms, char *msg, int exit_code);
+
+// utils_free_n_exit
+void		free_star(void *ptr);
+void		free_two_stars(char **arr);
+void		exit_mini(t_minishell *mini, int exit_code);
+void		free_in_and_out_fds(t_fds *in_and_out);
+void		close_fds(t_command *command, bool close_or_not);
+
+// utils
+char		*strjoin_n_free(char *s1, char const *s2);
+int			ft_atoi_long(const char *str, bool *error);
+bool		check_long_range(int neg, unsigned long long num, bool *error);
 
 #endif

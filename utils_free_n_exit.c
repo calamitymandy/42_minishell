@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_close_n_free.c                               :+:      :+:    :+:   */
+/*   utils_free_n_exit.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:56:56 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/09 12:42:35 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:45:28 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,6 @@ void	free_in_and_out_fds(t_fds *in_and_out)
 		free_star(in_and_out->outfile);
 	if (in_and_out)
 		free_star(in_and_out);
-}
-
-void	clean_data(t_minishell *mini, bool clear_hist_or_not)
-{
-	if (mini && mini->line)
-	{
-		free_star(mini->line);
-		mini->line = NULL;
-	}
-	if (mini && mini->token)
-		clean_tkn_nodes(&mini->token, &free_star);
-	if (mini && mini->command)
-		clean_cmd_nodes(&mini->command, &free_star);
-	if (clear_hist_or_not == true)
-	{
-		if (mini && mini->pwd)
-			free_star(mini->pwd);
-		if (mini && mini->old_pwd)
-			free_star(mini->old_pwd);
-		if (mini && mini->env)
-			free_two_stars(mini->env);
-		clear_history();
-	}
 }
 
 /**

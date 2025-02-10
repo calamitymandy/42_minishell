@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:42:15 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 19:26:42 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:05:30 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * The function `is_directory` checks if a given path is a directory or not.
+ * returns a boolean value indicating whether the given `command` path
+ * is a directory or not. It uses the `stat` function to retrieve information 
+ * about the file specified by `command` and then checks if it is a directory 
+ * using the `S_ISDIR` macro.
+ */
+bool	is_directory(char *cmd)
+{
+	struct stat	cmd_stat;
+
+	ft_memset(&cmd_stat, 0, sizeof(cmd_stat));
+	stat(cmd, &cmd_stat);
+	return (S_ISDIR(cmd_stat.st_mode));
+}
+
 
 /*Mix of exec_local_binary & check_cmd_validity
  * Function designed to execute a command that is specified as a local binary. 
