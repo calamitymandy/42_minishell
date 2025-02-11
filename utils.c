@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 18:48:43 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/22 21:51:52 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:13:30 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_atoi_long(const char *str, bool *error)
 	num = 0;
 	neg = 1;
 	i = 0;
-	*error = false;
 	while (str[i] && ft_isblank(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
