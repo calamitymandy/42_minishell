@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:23:10 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:27:15 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:51:06 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	exec_exit_builtin(t_minishell *mini, char **args)
 		exit_code = get_exit_code(args[1], &error);
 		if (error)
 			exit_code = error_msg("exit", args[1],
-					"numeric argument required", 255);
+					"numeric argument required", 2);
 		else if (args[2])
 			return (error_msg("exit", NULL, "too many arguments", 1));
 	}
