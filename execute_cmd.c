@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:42:15 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/11 18:29:03 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:17:58 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	is_directory(char *cmd)
 	stat(cmd, &cmd_stat);
 	return (S_ISDIR(cmd_stat.st_mode));
 }
-
 
 /*Mix of exec_local_binary & check_cmd_validity
  * Function designed to execute a command that is specified as a local binary. 

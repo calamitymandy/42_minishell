@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:45:22 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/02/04 19:16:26 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:16:05 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ void	print_echo(char **args, bool minus_n_flag, int i, t_minishell *mini)
 	}
 }
 
-/*Mix of 2 with quotes checker*/
+/*Mix of 2 with quotes checker
+ * cc or token_type
+*/
 bool	is_var_no_quotes(t_token *tkns, int index)
 {
 	t_token	*lst;
@@ -83,9 +85,9 @@ bool	is_var_no_quotes(t_token *tkns, int index)
 	{
 		if (lst->index == index && lst->type == VAR)
 		{
-			while (lst->cc[i]) //or token_type
+			while (lst->cc[i])
 			{
-				if (lst->cc[i] == '"' || lst->cc[i] == '\'') //or token_type
+				if (lst->cc[i] == '"' || lst->cc[i] == '\'')
 					return (false);
 				i++;
 			}
