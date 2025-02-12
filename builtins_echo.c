@@ -83,9 +83,9 @@ bool	is_var_no_quotes(t_token *tkns, int index)
 	{
 		if (lst->index == index && lst->type == VAR)
 		{
-			while (lst->cc[i]) //or token_type
+			while (lst->cc[i])
 			{
-				if (lst->cc[i] == '"' || lst->cc[i] == '\'') //or token_type
+				if (lst->cc[i] == '"' || lst->cc[i] == '\'')
 					return (false);
 				i++;
 			}
