@@ -50,6 +50,5 @@ void	ctrl_c_newline_no_interact(int signal)
 	rl_on_new_line();
 	rl_replace_line("", STDIN_FILENO);
 	rl_on_new_line();
-	rl_redisplay();
 	rl_on_new_line();
 }
