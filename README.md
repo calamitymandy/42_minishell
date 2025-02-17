@@ -201,8 +201,6 @@ ls > output.txt > output2.txt  # Should write in output2.txt
 << (here-document) should take input until EOF is found.
 Multiple > should fail.
 
-##### TODO
-
 🟢 Pipes (|)
 
 cat file.txt | grep bla | more
