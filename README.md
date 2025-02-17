@@ -28,6 +28,8 @@ VSCode will highlight the files with conflicts in red and will show an exclamati
 
 # Schema:
 
+![Schema-min](https://github.com/user-attachments/assets/9d002b85-0e2e-44e4-80a1-eb102696b29f)
+
 
 ## TESTING ##
 
