@@ -1,31 +1,32 @@
 # 42_minishell
 
 # Work with GIT:
-1- Siempre antes de empezar a trabajar, es importante verificar que estés en tu rama o branch.
+1- Before you start working, it is important to check that you are on your branch.
 
-2- Para actualizar la rama en la que estas trabajando para que incluya los cambios que hay en la rama main:
+2- To update the branch you are working on to include the changes from the main branch:
 
 ```
-- git checkout main -> para volver a la rama main *
-- git pull -> para traer los últimos cambios de main
-- git checkout nombredenuestrabranch -> para volver a nuestra rama
-- git merge main -> para traer los cambios de main a nuestra rama
+git checkout main -> to switch back to the main branch *
+git pull -> to fetch the latest changes from main
+git checkout your_branch_name -> to switch back to your branch
+git merge main -> to bring changes from main to your branch
 ```
 
-3- Para subir cambios a `main` con PULL REQUEST:
+3- To push changes to `main` with PULL REQUEST:
 
-- Desde GitHub, hacer un `pull request` a `main` para incluir los cambios de nuestra rama en main.
+- From GitHub, create a `pull request` to `main` to include the changes from your branch into main.
 
-Comparing changes: `base: main <- compare: nuestra_rama`
+Comparing changes: `base: main <- compare: your_branch`
 
-Dependiendo de los archivos que hayamos editado, es posible que haya conflictos al hacer el `merge`. Se puede solucionar en github o en VScode.
+Depending on the files you have edited, conflicts may occur during the `merge`. These can be resolved in GitHub or in VSCode.
 
-VSCode nos va a señalar los archivos con conflictos en color rojo y con un signo de excamación(!) a la derecha del nombre del archivo. Para solucionar los conflictos, podemos clicar en cada archivo y usar el botón de Resolve in Merge Editor. Le mostrará una interfaz de usuario adonde podrá seleccionar qué versión del código se quiere conservar o descartar para cada conflicto, y una vez resueltos pueds completar el merge dándole al botón `Complete Merge`.
+VSCode will highlight the files with conflicts in red and will show an exclamation mark (!) on the right side of the file name. To resolve the conflicts, you can click on each file and use the "Resolve in Merge Editor" button. It will show a user interface where you can select which version of the code you want to keep or discard for each conflict, and once resolved, you can complete the merge by clicking the `Complete Merge` button.
 
-- Una vez solucionados los conflictos, podrás hacer un commit para subir los cambios de tu rama actualizada a GitHub.
+- Once the conflicts are resolved, you can make a commit to push the changes of your updated branch to GitHub.
 
-*Nota: Este comando dará un error si tienes cambios en tu rama que no hayas agregado a git todavía.
+*Note: This command will give an error if you have changes in your branch that have not been added to git yet.*
 
+# Schema:
 
 
 ## TESTING ##
